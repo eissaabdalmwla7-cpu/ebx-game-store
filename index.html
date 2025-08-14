@@ -138,93 +138,4 @@
     }
   </script> 
  </body>
-</html>            background: rgba(0,229,255,0.1);
-        }
-        .price-card h2 {
-            margin: 0;
-            color: #00e5ff;
-        }
-        input {
-            width: 90%;
-            padding: 12px;
-            border-radius: 8px;
-            border: none;
-            margin-top: 15px;
-            font-size: 16px;
-        }
-        button {
-            background: #00e5ff;
-            color: black;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 10px;
-            margin-top: 15px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        button:hover {
-            background: #00bcd4;
-        }
-    </style> 
- </head> 
- <body> 
-  <header>
-    ERX GAME STORE 
-  </header> 
-  <div class="container"> 
-   <h3>اختر الباقة المناسبة</h3> 
-   <div class="price-card" onclick="selectUC('60', 55)"> 
-    <h2>60 شدة</h2> 
-    <p>55 EGP</p> 
-   </div> 
-   <div class="price-card" onclick="selectUC('300', 220)"> 
-    <h2>300 شدة</h2> 
-    <p>220 EGP</p> 
-   </div> 
-   <div class="price-card" onclick="selectUC('600', 650)"> 
-    <h2>600 شدة</h2> 
-    <p>650 EGP</p> 
-   </div> 
-   <div class="price-card" onclick="selectUC('1500', 1250)"> 
-    <h2>1500 شدة</h2> 
-    <p>1250 EGP</p> 
-   </div> 
-   <div class="price-card" onclick="selectUC('3000', 2820)"> 
-    <h2>3000 شدة</h2> 
-    <p>2820 EGP</p> 
-   </div> 
-   <div class="price-card" onclick="selectUC('6000', 5600)"> 
-    <h2>6000 شدة</h2> 
-    <p>5600 EGP</p> 
-   </div> 
-   <input type="text" id="playerID" placeholder="اكتب الـ ID الخاص بك هنا"> <button onclick="sendOrder()">إرسال الطلب على واتساب</button> 
-  </div> 
-  <script>
-    let selectedUC = '';
-    let selectedPrice = '';
-
-    function selectUC(uc, price) {
-        selectedUC = uc;
-        selectedPrice = price;
-        alert(`✅ تم اختيار ${uc} شدة بسعر ${price} EGP`);
-    }
-
-    function sendOrder() {
-        const playerID = document.getElementById('playerID').value.trim();
-        if (!selectedUC || !selectedPrice) {
-            alert("⚠ يرجى اختيار الباقة أولاً");
-            return;
-        }
-        if (!playerID) {
-            alert("⚠ يرجى إدخال الـ ID او اسمك في ببجي الخاص بك");
-            return;
-        }
-
-        let message = `طلب شحن UC PUBG\n🎮 ID اللاعب: ${playerID}\n💰 السعر: ${selectedPrice} EGP\n🔢 عدد الشدات: ${selectedUC}`;
-        let phoneNumber = "+201004167961"; // رقم عيسى عبد المولى صالح
-        window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
-    }
-</script> 
- </body>
 </html>
