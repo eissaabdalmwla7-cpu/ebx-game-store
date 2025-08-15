@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ar" dir="rtl"> 
-<head> 
-<meta charset="UTF-8"> 
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-<title>EBX GAME STORE - Advanced</title> 
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EBX GAME STORE - Super Advanced</title>
 <style>
 /* ---------- GENERAL ---------- */
 body{
@@ -17,9 +17,35 @@ body{
 header{
     font-size:32px; font-weight:bold;
     color:#00e5ff;
-    text-shadow:0 0 15px #00e5ff,0 0 25px #00bcd4;
+    text-shadow:0 0 20px #00e5ff,0 0 35px #00bcd4;
     padding:20px;
 }
+/* ---------- LOADING SCREEN ---------- */
+#loadingScreen{
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:#0a1f3b;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+#loadingCircle{
+    width:80px; height:80px;
+    border:8px solid rgba(0,229,255,0.2);
+    border-top:8px solid #00e5ff;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+}
+#loadingText{
+    margin-top:15px;
+    font-size:20px;
+    color:#00e5ff;
+    text-shadow:0 0 10px #00e5ff,0 0 20px #00bcd4;
+}
+
 /* ---------- PARTICLE BACKGROUND ---------- */
 #particles{
     position:fixed;
@@ -28,24 +54,19 @@ header{
     z-index:-1;
     overflow:hidden;
 }
+
 /* ---------- PRICE CARDS ---------- */
 .price-card{
     background: rgba(255,255,255,0.05);
     backdrop-filter: blur(8px);
-    border-radius:14px; padding:20px; margin:12px auto;
-    max-width:320px; cursor:pointer;
+    border-radius:12px; padding:15px; margin:10px auto;
+    max-width:280px; cursor:pointer;
     transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-    box-shadow:0 0 12px rgba(0,229,255,0.25);
+    box-shadow:0 0 8px rgba(0,229,255,0.25);
     position:relative;
     color:#00e5ff;
     opacity:0; animation:fadeIn 0.6s forwards;
 }
-.price-card:nth-child(1){animation-delay:0.1s;}
-.price-card:nth-child(2){animation-delay:0.2s;}
-.price-card:nth-child(3){animation-delay:0.3s;}
-.price-card:nth-child(4){animation-delay:0.4s;}
-.price-card:nth-child(5){animation-delay:0.5s;}
-.price-card:nth-child(6){animation-delay:0.6s;}
 .price-card:hover{
     transform:scale(1.08);
     background: rgba(0,229,255,0.15);
@@ -57,88 +78,98 @@ header{
     background: rgba(0,229,255,0.12);
 }
 .check-badge{
-    position:absolute; left:14px; top:14px;
+    position:absolute; left:10px; top:10px;
     background: rgba(0,229,255,0.12);
     color:#00e5ff;
     border-radius:6px; padding:4px 8px;
     font-size:12px; display:none; align-items:center;
 }
 .price-card.selected .check-badge{display:flex;}
+
 /* ---------- INPUT ---------- */
 input#playerID{
-    width:90%; padding:14px; border-radius:12px;
-    border:2px solid #00e5ff; margin-top:15px; font-size:16px;
+    width:85%; padding:12px; border-radius:10px;
+    border:2px solid #00e5ff; margin-top:12px; font-size:15px;
     background: rgba(0,0,0,0.3); color:#00e5ff; text-align:center;
     backdrop-filter: blur(4px);
 }
 input#playerID::placeholder{color:rgba(0,229,255,0.5);}
 input#playerID:focus{
-    box-shadow:0 0 25px #00e5ff; background:rgba(0,0,0,0.5); outline:none;
+    box-shadow:0 0 20px #00e5ff; background:rgba(0,0,0,0.5); outline:none;
 }
+
 /* ---------- BUTTON ---------- */
 button{
     background:#00e5ff; color:black; border:none;
-    padding:15px 30px; font-size:18px; border-radius:12px;
-    margin-top:15px; cursor:pointer; transition:0.25s;
+    padding:12px 25px; font-size:16px; border-radius:12px;
+    margin-top:12px; cursor:pointer; transition:0.25s;
     box-shadow:0 0 12px #00e5ff;
 }
 button:hover{
     background:#00bcd4;
     box-shadow:0 0 30px #00e5ff,0 0 45px #00bcd4;
 }
+
 /* ---------- CHECKING WRAP ---------- */
 #checkingWrap{
-    display:none; flex-direction:column; align-items:center; gap:12px; margin-top:20px;
+    display:none; flex-direction:column; align-items:center; gap:12px; margin-top:15px;
 }
 .checking-circle{
-    width:70px; height:70px;
-    border:7px solid rgba(0,229,255,0.2);
-    border-top:7px solid #00e5ff;
+    width:60px; height:60px;
+    border:6px solid rgba(0,229,255,0.2);
+    border-top:6px solid #00e5ff;
     border-radius:50%;
     animation:spin 1s linear infinite;
 }
 #checkingText{color:#00e5ff; font-weight:bold; margin-top:8px;}
+
 /* ---------- WHATSAPP CONTACTS ---------- */
-#whatsappNumbers{display:none; margin-top:20px;}
+#whatsappNumbers{display:none; margin-top:15px;}
 .contact-box{
     background: rgba(0,229,255,0.1);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(6px);
     border:2px solid #00e5ff;
-    border-radius:14px; padding:20px; margin:15px auto;
-    max-width:300px; cursor:pointer; transition:0.3s;
-    box-shadow:0 0 20px rgba(0,229,255,0.35);
+    border-radius:12px; padding:15px; margin:10px auto;
+    max-width:260px; cursor:pointer; transition:0.3s;
+    box-shadow:0 0 15px rgba(0,229,255,0.35);
     opacity:0; animation:fadeInScale 0.6s forwards;
 }
-.contact-box:nth-child(1){animation-delay:0.1s;}
-.contact-box:nth-child(2){animation-delay:0.2s;}
 .contact-box:hover{
-    transform:scale(1.08);
-    box-shadow:0 0 50px #00e5ff,0 0 60px #00bcd4;
+    transform:scale(1.06);
+    box-shadow:0 0 40px #00e5ff,0 0 50px #00bcd4;
 }
-.contact-title{color:#00e5ff; font-size:18px; font-weight:bold; margin-bottom:8px;}
-.contact-number{color:white; font-size:16px;}
+.contact-title{color:#00e5ff; font-size:16px; font-weight:bold; margin-bottom:6px;}
+.contact-number{color:white; font-size:14px;}
+
 /* ---------- TOAST ---------- */
 #tinyToast{
-    position:fixed; bottom:20px; left:50%;
+    position:fixed; bottom:15px; left:50%;
     transform:translateX(-50%);
     background:rgba(0,229,255,0.15); color:#00e5ff;
-    padding:12px 18px; border-radius:10px; display:none;
-    box-shadow:0 6px 30px rgba(0,229,255,0.1); font-weight:700;
+    padding:10px 16px; border-radius:10px; display:none;
+    box-shadow:0 5px 20px rgba(0,229,255,0.1); font-weight:700;
 }
+
 /* ---------- ANIMATIONS ---------- */
 @keyframes fadeIn{from{opacity:0;} to{opacity:1;}}
 @keyframes fadeInScale{from{opacity:0; transform:scale(0.8);}to{opacity:1; transform:scale(1);}}
 @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 @keyframes particleMove{0%{transform:translateY(0);}100%{transform:translateY(-1200px);}}
-</style> 
-</head> 
-<body> 
-<div id="particles"></div> 
-<header>EBX GAME STORE</header> 
+</style>
+</head>
+<body>
+<!-- Loading Screen -->
+<div id="loadingScreen">
+    <div id="loadingCircle"></div>
+    <div id="loadingText">EBX GAME STORE</div>
+</div>
 
-<div class="container"> 
-<h3>اختر الباقة المناسبة</h3> 
+<div id="particles"></div>
+<header>EBX GAME STORE</header>
+<div class="container">
+<h3>اختر الباقة المناسبة</h3>
 
+<!-- PRICE CARDS -->
 <div class="price-card" onclick="selectUCCard(this,'60',55)">
     <div class="check-badge">✓ مختارة</div>
     <h2>60 شدة</h2>
@@ -171,28 +202,33 @@ button:hover{
 </div>
 
 <input type="text" id="playerID" placeholder="اكتب الـ ID الخاص بك فقط" maxlength="10"> 
-<button onclick="prepareOrder()">تأكيد الطلب</button> 
+<button onclick="prepareOrder()">تأكيد الطلب</button>
 
-<div id="checkingWrap"> 
-    <div class="checking-circle"></div> 
-    <div id="checkingText">يتم التحقق من الـID</div> 
-</div> 
+<div id="checkingWrap">
+    <div class="checking-circle"></div>
+    <div id="checkingText">يتم التحقق من الـID</div>
+</div>
 
-<div id="whatsappNumbers"> 
-    <div class="contact-box" onclick="sendToWhatsApp('+201206442534')"> 
-        <div class="contact-title">التواصل مع عيسى</div> 
-        <div class="contact-number">+201206442534</div> 
-    </div> 
-    <div class="contact-box" onclick="sendToWhatsApp('+201010840319')"> 
-        <div class="contact-title">التواصل مع عبدالحميد</div> 
-        <div class="contact-number">+201010840319</div> 
-    </div> 
-</div> 
+<div id="whatsappNumbers">
+    <div class="contact-box" onclick="sendToWhatsApp('+201206442534')">
+        <div class="contact-title">التواصل مع عيسى</div>
+        <div class="contact-number">+201206442534</div>
+    </div>
+    <div class="contact-box" onclick="sendToWhatsApp('+201010840319')">
+        <div class="contact-title">التواصل مع عبدالحميد</div>
+        <div class="contact-number">+201010840319</div>
+    </div>
+</div>
 
-<div id="tinyToast">تم فتح واتساب</div> 
-</div> 
+<div id="tinyToast">تم فتح واتساب</div>
+</div>
 
 <script>
+// ---------- LOADING SCREEN ----------
+window.addEventListener('load', ()=>{
+    setTimeout(()=>{document.getElementById('loadingScreen').style.display='none';}, 2000);
+});
+
 // ---------- PARTICLE BACKGROUND ----------
 const particlesEl=document.getElementById('particles');
 for(let i=0;i<120;i++){
@@ -211,7 +247,6 @@ for(let i=0;i<120;i++){
 
 // ---------- LOGIC ----------
 let selectedUC='', selectedPrice='', message='';
-
 function selectUCCard(el,uc,price){
     document.querySelectorAll('.price-card').forEach(c=>c.classList.remove('selected'));
     el.classList.add('selected');
@@ -257,6 +292,6 @@ function sendToWhatsApp(phone){
     clearTimeout(toast._timeout);
     toast._timeout=setTimeout(()=>{toast.style.display='none';},2000);
 }
-</script> 
+</script>
 </body>
 </html>
