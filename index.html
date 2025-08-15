@@ -1,114 +1,262 @@
- <h3>اختر الباقة المناسبة</h3>
- <div class="price-card" onclick="selectUCCard(this,'60',55)"><div class="check-badge">✓ مختارة</div><h2>60 شدة</h2><p>55 EGP</p></div>
- <div class="price-card" onclick="selectUCCard(this,'300',220)"><div class="check-badge">✓ مختارة</div><h2>300 شدة</h2><p>220 EGP</p></div>
- <div class="price-card" onclick="selectUCCard(this,'600',650)"><div class="check-badge">✓ مختارة</div><h2>600 شدة</h2><p>650 EGP</p></div>
- <div class="price-card" onclick="selectUCCard(this,'1500',1250)"><div class="check-badge">✓ مختارة</div><h2>1500 شدة</h2><p>1250 EGP</p></div>
- <div class="price-card" onclick="selectUCCard(this,'3000',2820)"><div class="check-badge">✓ مختارة</div><h2>3000 شدة</h2><p>2820 EGP</p></div>
- <div class="price-card" onclick="selectUCCard(this,'6000',5600)"><div class="check-badge">✓ مختارة</div><h2>6000 شدة</h2><p>5600 EGP</p></div>
+<!doctype html>
+<html lang="ar" dir="rtl"> 
+<head> 
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>EBX GAME STORE - Advanced</title> 
+<style>
+/* ---------- GENERAL ---------- */
+body{
+    margin:0; padding:0;
+    font-family:'Tajawal',sans-serif;
+    background: linear-gradient(135deg,#000,#0d47a1);
+    color:white;
+    overflow-x:hidden;
+    text-align:center;
+}
+header{
+    font-size:32px; font-weight:bold;
+    color:#00e5ff;
+    text-shadow:0 0 15px #00e5ff,0 0 25px #00bcd4;
+    padding:20px;
+}
+/* ---------- PARTICLE BACKGROUND ---------- */
+#particles{
+    position:fixed;
+    width:100%; height:100%;
+    top:0; left:0;
+    z-index:-1;
+    overflow:hidden;
+}
+/* ---------- PRICE CARDS ---------- */
+.price-card{
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(8px);
+    border-radius:14px; padding:20px; margin:12px auto;
+    max-width:320px; cursor:pointer;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    box-shadow:0 0 12px rgba(0,229,255,0.25);
+    position:relative;
+    color:#00e5ff;
+    opacity:0; animation:fadeIn 0.6s forwards;
+}
+.price-card:nth-child(1){animation-delay:0.1s;}
+.price-card:nth-child(2){animation-delay:0.2s;}
+.price-card:nth-child(3){animation-delay:0.3s;}
+.price-card:nth-child(4){animation-delay:0.4s;}
+.price-card:nth-child(5){animation-delay:0.5s;}
+.price-card:nth-child(6){animation-delay:0.6s;}
+.price-card:hover{
+    transform:scale(1.08);
+    background: rgba(0,229,255,0.15);
+    box-shadow:0 0 35px #00e5ff,0 0 50px #00bcd4;
+}
+.price-card.selected{
+    outline:2px solid rgba(0,229,255,0.5);
+    box-shadow:0 6px 45px rgba(0,229,255,0.35);
+    background: rgba(0,229,255,0.12);
+}
+.check-badge{
+    position:absolute; left:14px; top:14px;
+    background: rgba(0,229,255,0.12);
+    color:#00e5ff;
+    border-radius:6px; padding:4px 8px;
+    font-size:12px; display:none; align-items:center;
+}
+.price-card.selected .check-badge{display:flex;}
+/* ---------- INPUT ---------- */
+input#playerID{
+    width:90%; padding:14px; border-radius:12px;
+    border:2px solid #00e5ff; margin-top:15px; font-size:16px;
+    background: rgba(0,0,0,0.3); color:#00e5ff; text-align:center;
+    backdrop-filter: blur(4px);
+}
+input#playerID::placeholder{color:rgba(0,229,255,0.5);}
+input#playerID:focus{
+    box-shadow:0 0 25px #00e5ff; background:rgba(0,0,0,0.5); outline:none;
+}
+/* ---------- BUTTON ---------- */
+button{
+    background:#00e5ff; color:black; border:none;
+    padding:15px 30px; font-size:18px; border-radius:12px;
+    margin-top:15px; cursor:pointer; transition:0.25s;
+    box-shadow:0 0 12px #00e5ff;
+}
+button:hover{
+    background:#00bcd4;
+    box-shadow:0 0 30px #00e5ff,0 0 45px #00bcd4;
+}
+/* ---------- CHECKING WRAP ---------- */
+#checkingWrap{
+    display:none; flex-direction:column; align-items:center; gap:12px; margin-top:20px;
+}
+.checking-circle{
+    width:70px; height:70px;
+    border:7px solid rgba(0,229,255,0.2);
+    border-top:7px solid #00e5ff;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+}
+#checkingText{color:#00e5ff; font-weight:bold; margin-top:8px;}
+/* ---------- WHATSAPP CONTACTS ---------- */
+#whatsappNumbers{display:none; margin-top:20px;}
+.contact-box{
+    background: rgba(0,229,255,0.1);
+    backdrop-filter: blur(8px);
+    border:2px solid #00e5ff;
+    border-radius:14px; padding:20px; margin:15px auto;
+    max-width:300px; cursor:pointer; transition:0.3s;
+    box-shadow:0 0 20px rgba(0,229,255,0.35);
+    opacity:0; animation:fadeInScale 0.6s forwards;
+}
+.contact-box:nth-child(1){animation-delay:0.1s;}
+.contact-box:nth-child(2){animation-delay:0.2s;}
+.contact-box:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 50px #00e5ff,0 0 60px #00bcd4;
+}
+.contact-title{color:#00e5ff; font-size:18px; font-weight:bold; margin-bottom:8px;}
+.contact-number{color:white; font-size:16px;}
+/* ---------- TOAST ---------- */
+#tinyToast{
+    position:fixed; bottom:20px; left:50%;
+    transform:translateX(-50%);
+    background:rgba(0,229,255,0.15); color:#00e5ff;
+    padding:12px 18px; border-radius:10px; display:none;
+    box-shadow:0 6px 30px rgba(0,229,255,0.1); font-weight:700;
+}
+/* ---------- ANIMATIONS ---------- */
+@keyframes fadeIn{from{opacity:0;} to{opacity:1;}}
+@keyframes fadeInScale{from{opacity:0; transform:scale(0.8);}to{opacity:1; transform:scale(1);}}
+@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+@keyframes particleMove{0%{transform:translateY(0);}100%{transform:translateY(-1200px);}}
+</style> 
+</head> 
+<body> 
+<div id="particles"></div> 
+<header>EBX GAME STORE</header> 
 
- <input type="text" id="playerID" placeholder="اكتب الـ ID الخاص بك فقط" maxlength="10">
- <button onclick="prepareOrder()">تأكيد الطلب</button>
+<div class="container"> 
+<h3>اختر الباقة المناسبة</h3> 
 
- <div id="checkingWrap">
-  <div class="checking-circle"></div>
-  <div id="checkingText">يتم التحقق من الـID</div>
- </div>
-
- <div id="whatsappNumbers">
-  <div class="contact-box" onclick="sendToWhatsApp('+201206442534')">
-   <div class="contact-title">التواصل مع عيسى</div>
-   <div class="contact-number">+201206442534</div>
-  </div>
-  <div class="contact-box" onclick="sendToWhatsApp('+201010840319')">
-   <div class="contact-title">التواصل مع عبدالحميد</div>
-   <div class="contact-number">+201010840319</div>
-  </div>
- </div>
- <div id="tinyToast">تم فتح واتساب</div>
-
- <audio id="bgMusic" loop autoplay>
-  <source src="ps4_theme.mp3" type="audio/mpeg">
- </audio>
+<div class="price-card" onclick="selectUCCard(this,'60',55)">
+    <div class="check-badge">✓ مختارة</div>
+    <h2>60 شدة</h2>
+    <p>55 EGP</p>
+</div>
+<div class="price-card" onclick="selectUCCard(this,'300',220)">
+    <div class="check-badge">✓ مختارة</div>
+    <h2>300 شدة</h2>
+    <p>220 EGP</p>
+</div>
+<div class="price-card" onclick="selectUCCard(this,'600',650)">
+    <div class="check-badge">✓ مختارة</div>
+    <h2>600 شدة</h2>
+    <p>650 EGP</p>
+</div>
+<div class="price-card" onclick="selectUCCard(this,'1500',1250)">
+    <div class="check-badge">✓ مختارة</div>
+    <h2>1500 شدة</h2>
+    <p>1250 EGP</p>
+</div>
+<div class="price-card" onclick="selectUCCard(this,'3000',2820)">
+    <div class="check-badge">✓ مختارة</div>
+    <h2>3000 شدة</h2>
+    <p>2820 EGP</p>
+</div>
+<div class="price-card" onclick="selectUCCard(this,'6000',5600)">
+    <div class="check-badge">✓ مختارة</div>
+    <h2>6000 شدة</h2>
+    <p>5600 EGP</p>
 </div>
 
+<input type="text" id="playerID" placeholder="اكتب الـ ID الخاص بك فقط" maxlength="10"> 
+<button onclick="prepareOrder()">تأكيد الطلب</button> 
+
+<div id="checkingWrap"> 
+    <div class="checking-circle"></div> 
+    <div id="checkingText">يتم التحقق من الـID</div> 
+</div> 
+
+<div id="whatsappNumbers"> 
+    <div class="contact-box" onclick="sendToWhatsApp('+201206442534')"> 
+        <div class="contact-title">التواصل مع عيسى</div> 
+        <div class="contact-number">+201206442534</div> 
+    </div> 
+    <div class="contact-box" onclick="sendToWhatsApp('+201010840319')"> 
+        <div class="contact-title">التواصل مع عبدالحميد</div> 
+        <div class="contact-number">+201010840319</div> 
+    </div> 
+</div> 
+
+<div id="tinyToast">تم فتح واتساب</div> 
+</div> 
+
 <script>
-// --- BACKGROUND PARTICLES ---
-const canvas=document.getElementById('bgCanvas'),ctx=canvas.getContext('2d');
-canvas.width=window.innerWidth; canvas.height=window.innerHeight;
-window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
-let particles=[];
-for(let i=0;i<250;i++){particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,dx:(Math.random()-0.5)*0.6,dy:(Math.random()-0.5)*0.6});}
-let mouse={x:0,y:0};
-window.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
-function drawBG(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  particles.forEach(p=>{
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fillStyle='rgba(0,229,255,0.05)';
-    ctx.fill();
-    let distX=mouse.x-p.x,distY=mouse.y-p.y,dist=Math.sqrt(distX*distX+distY*distY);
-    if(dist<100){p.x-=distX*0.001;p.y-=distY*0.001;}
-    p.x+=p.dx;p.y+=p.dy;
-    if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;
-    if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;
-  });
-  requestAnimationFrame(drawBG);
+// ---------- PARTICLE BACKGROUND ----------
+const particlesEl=document.getElementById('particles');
+for(let i=0;i<120;i++){
+    let p=document.createElement('div');
+    p.style.position='absolute';
+    p.style.width=Math.random()*3+'px';
+    p.style.height=Math.random()*3+'px';
+    p.style.background='white';
+    p.style.top=Math.random()*100+'%';
+    p.style.left=Math.random()*100+'%';
+    p.style.opacity=Math.random();
+    p.style.borderRadius='50%';
+    p.style.animation=`particleMove ${5+Math.random()*5}s linear infinite`;
+    particlesEl.appendChild(p);
 }
-drawBG();
 
-// --- LOADING SCREEN ---
-window.addEventListener('load',()=>{
-  setTimeout(()=>{
-    document.getElementById('loadingScreen').style.display='none';
-    document.querySelector('.container').style.display='block';
-  },2500); // simulate PS5 loading
-});
+// ---------- LOGIC ----------
+let selectedUC='', selectedPrice='', message='';
 
-// --- LOGIC ---
-let selectedUC='',selectedPrice='',message='';
 function selectUCCard(el,uc,price){
-  document.querySelectorAll('.price-card').forEach(c=>c.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedUC=uc;
-  selectedPrice=price;
+    document.querySelectorAll('.price-card').forEach(c=>c.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedUC=uc; selectedPrice=price;
 }
 
+// ID validation
 const playerIDInput=document.getElementById('playerID');
 playerIDInput.addEventListener('input',function(){
-  this.value=this.value.replace(/[^0-9]/g,'');
-  if(this.value.length>10)this.value=this.value.slice(0,10);
+    this.value=this.value.replace(/[^0-9]/g,'');
+    if(this.value.length>10)this.value=this.value.slice(0,10);
 });
 
 function prepareOrder(){
-  const playerID=playerIDInput.value.trim();
-  if(!selectedUC||!selectedPrice){alert('اختر الباقة أولاً');return;}
-  if(playerID.length!==10){alert('أدخل ID صحيح من 10 أرقام');return;}
-  
-  message=`أهلاً بك في EBX GAME STORE
+    const playerID=playerIDInput.value.trim();
+    if(!selectedUC || !selectedPrice){alert('اختر الباقة أولاً'); return;}
+    if(playerID.length!==10){alert('أدخل ID صحيح من 10 أرقام'); return;}
+
+    message=`أهلاً بك في EBX GAME STORE
 طلب شحن UC PUBG
 🎮 ID اللاعب: ${playerID}
 💰 السعر: ${selectedPrice} EGP
 🔢 عدد الشدات: ${selectedUC}`;
 
-  document.getElementById('checkingWrap').style.display='flex';
-  document.getElementById('whatsappNumbers').style.display='none';
-  document.getElementById('checkingText').innerText='يتم التحقق من الـID';
-  
-  // fake verification animation
-  setTimeout(()=>{
-    document.getElementById('checkingText').innerText='تم تأكيد الـID ✅';
+    document.getElementById('checkingWrap').style.display='flex';
+    document.getElementById('whatsappNumbers').style.display='none';
+    document.getElementById('checkingText').innerText='يتم التحقق من الـID';
+
     setTimeout(()=>{
-      document.getElementById('checkingWrap').style.display='none';
-      document.getElementById('whatsappNumbers').style.display='block';
+        document.getElementById('checkingText').innerText='تم تأكيد الـID ✅';
+        setTimeout(()=>{
+            document.getElementById('checkingWrap').style.display='none';
+            document.getElementById('whatsappNumbers').style.display='block';
+        },1500);
     },2000);
-  },3000);
 }
 
 function sendToWhatsApp(phone){
-  if(!message){alert('الرجاء تأكيد الطلب أولاً');return;}
-  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`,'_blank');
+    if(!message){alert('الرجاء تأكيد الطلب أولاً'); return;}
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`,'_blank');
+    const toast=document.getElementById('tinyToast');
+    toast.style.display='block';
+    clearTimeout(toast._timeout);
+    toast._timeout=setTimeout(()=>{toast.style.display='none';},2000);
 }
-</script>
+</script> 
 </body>
 </html>
