@@ -3,226 +3,178 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EBX GAME STORE - Super Advanced</title>
+<title>EBX GAME STORE - Ultra Advanced</title>
+<link href="https://fonts.cdnfonts.com/css/burbank-big-condensed-black" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
 <style>
-/* ---------- GENERAL ---------- */
-body{
+:root { --neon-color: #00cfff; }
+
+/* ---------- BACKGROUND ---------- */
+body {
     margin:0; padding:0;
-    font-family:'Tajawal',sans-serif;
-    background: linear-gradient(135deg,#000,#0d47a1);
-    color:white;
-    overflow-x:hidden;
+    font-family:'Burbank Big Condensed Black', sans-serif;
+    color:#00cfff;
     text-align:center;
+    overflow-x:hidden;
+    background: #001022;
+    position: relative;
 }
+#stars, #stars2 {position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;}
+#stars{background-image: radial-gradient(white, rgba(255,255,255,0) 1px); animation:moveStars 100s linear infinite;}
+#stars2{background-image: radial-gradient(white, rgba(255,255,255,0) 2px); animation:moveStars 200s linear infinite;}
+@keyframes moveStars{0%{background-position:0 0;}100%{background-position:-3000px 1500px;}}
+
+/* ---------- HEADER ---------- */
 header{
     font-size:32px; font-weight:bold;
-    color:#00e5ff;
-    text-shadow:0 0 20px #00e5ff,0 0 35px #00bcd4;
+    color:var(--neon-color);
+    text-shadow:0 0 20px var(--neon-color), 0 0 40px rgba(0,207,255,0.5);
     padding:20px;
 }
 
-/* ---------- LOADING SCREEN ---------- */
-#loadingScreen{
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:#0a1f3b;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
+/* ---------- GAME SELECTION ---------- */
+#gameSelect{
+    display:flex; justify-content:center; gap:15px; margin:20px 0; flex-wrap:wrap;
 }
-#loadingCircle{
-    width:80px; height:80px;
-    border:8px solid rgba(0,229,255,0.2);
-    border-top:8px solid #00e5ff;
-    border-radius:50%;
-    animation:spin 1s linear infinite;
+.game-box{
+    background: rgba(0,207,255,0.1);
+    backdrop-filter: blur(6px);
+    border-radius:16px; padding:12px 20px;
+    font-size:16px; font-weight:bold; cursor:pointer;
+    color:var(--neon-color); transition:0.3s, box-shadow 0.5s;
 }
-#loadingText{
-    margin-top:15px;
-    font-size:20px;
-    color:#00e5ff;
-    text-shadow:0 0 10px #00e5ff,0 0 20px #00bcd4;
+.game-box:hover{ 
+    transform:scale(1.1); 
+    background: rgba(0,207,255,0.25);
+    box-shadow:0 0 25px rgba(0,207,255,0.7);
 }
-
-/* ---------- PARTICLE BACKGROUND ---------- */
-#particles{
-    position:fixed;
-    width:100%; height:100%;
-    top:0; left:0;
-    z-index:-1;
-    overflow:hidden;
+.game-box.selected{ 
+    background: rgba(0,207,255,0.3); 
+    box-shadow:0 0 50px rgba(0,207,255,0.9), 0 0 80px rgba(0,207,255,0.5);
+}
+.game-box.selected-glow {animation:glowPulse 1.5s infinite alternate;}
+@keyframes glowPulse{
+    from{ box-shadow:0 0 30px rgba(0,207,255,0.7),0 0 60px rgba(0,207,255,0.3);}
+    to{ box-shadow:0 0 60px rgba(0,207,255,0.9),0 0 120px rgba(0,207,255,0.5);}
 }
 
 /* ---------- PRICE CARDS ---------- */
 .price-card{
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(8px);
-    border-radius:12px; padding:15px; margin:10px auto;
-    max-width:280px; cursor:pointer;
-    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-    box-shadow:0 0 8px rgba(0,229,255,0.25);
+    background: rgba(0,207,255,0.05);
+    backdrop-filter: blur(10px);
+    border-radius:16px; padding:15px; margin:10px auto;
+    max-width:260px; cursor:pointer;
+    transition: transform 0.3s, box-shadow 0.5s, background 0.3s;
+    box-shadow:0 0 10px rgba(0,207,255,0.3);
     position:relative;
-    color:#00e5ff;
-    opacity:0; animation:fadeIn 0.6s forwards;
+    color:var(--neon-color);
+    opacity:0; animation:fadeIn 0.8s forwards;
 }
 .price-card:hover{
     transform:scale(1.08);
-    background: rgba(0,229,255,0.15);
-    box-shadow:0 0 35px #00e5ff,0 0 50px #00bcd4;
+    background: rgba(0,207,255,0.15);
+    box-shadow:0 0 40px rgba(0,207,255,0.8);
 }
 .price-card.selected{
-    outline:2px solid rgba(0,229,255,0.5);
-    box-shadow:0 6px 45px rgba(0,229,255,0.35);
-    background: rgba(0,229,255,0.12);
+    outline:3px solid rgba(0,207,255,0.7);
+    box-shadow:0 0 60px rgba(0,207,255,0.9);
+    background: rgba(0,207,255,0.15);
 }
 .check-badge{
-    position:absolute; left:10px; top:10px;
-    background: rgba(0,229,255,0.12);
-    color:#00e5ff;
-    border-radius:6px; padding:4px 8px;
-    font-size:12px; display:none; align-items:center;
+    position:absolute; left:12px; top:12px;
+    background: rgba(0,207,255,0.15);
+    color:var(--neon-color);
+    border-radius:8px; padding:5px 10px;
+    font-size:14px; display:none; align-items:center;
 }
 .price-card.selected .check-badge{display:flex;}
 
 /* ---------- INPUT ---------- */
 input#playerID{
-    width:85%; padding:12px; border-radius:10px;
-    border:2px solid #00e5ff; margin-top:12px; font-size:15px;
-    background: rgba(0,0,0,0.3); color:#00e5ff; text-align:center;
-    backdrop-filter: blur(4px);
+    width:90%; padding:12px; border-radius:12px;
+    border:2px solid var(--neon-color); margin-top:15px; font-size:16px;
+    background: rgba(0,0,0,0.3); color:#00cfff; text-align:center;
+    backdrop-filter: blur(5px);
+    transition:0.3s;
 }
-input#playerID::placeholder{color:rgba(0,229,255,0.5);}
+input#playerID::placeholder{color:rgba(0,207,255,0.5);}
 input#playerID:focus{
-    box-shadow:0 0 20px #00e5ff; background:rgba(0,0,0,0.5); outline:none;
+    box-shadow:0 0 20px var(--neon-color),0 0 40px rgba(0,207,255,0.5);
+    background:rgba(0,0,0,0.5); outline:none;
 }
 
 /* ---------- BUTTON ---------- */
 button{
-    background:#00e5ff; color:black; border:none;
-    padding:12px 25px; font-size:16px; border-radius:12px;
-    margin-top:12px; cursor:pointer; transition:0.25s;
-    box-shadow:0 0 12px #00e5ff;
+    background:var(--neon-color); color:#001022; border:none;
+    padding:10px 20px; font-size:16px; border-radius:12px;
+    margin-top:15px; cursor:pointer; transition:0.3s, box-shadow 0.5s;
+    box-shadow:0 0 12px rgba(0,207,255,0.6),0 4px 15px rgba(0,207,255,0.3);
 }
 button:hover{
     background:#00bcd4;
-    box-shadow:0 0 30px #00e5ff,0 0 45px #00bcd4;
+    box-shadow:0 0 40px rgba(0,207,255,0.9),0 4px 20px rgba(0,207,255,0.5);
 }
 
-/* ---------- CHECKING WRAP ---------- */
-#checkingWrap{
-    display:none; flex-direction:column; align-items:center; gap:12px; margin-top:15px;
-}
-.checking-circle{
-    width:60px; height:60px;
-    border:6px solid rgba(0,229,255,0.2);
-    border-top:6px solid #00e5ff;
-    border-radius:50%;
-    animation:spin 1s linear infinite;
-}
-#checkingText{color:#00e5ff; font-weight:bold; margin-top:8px;}
+/* ---------- LUDO OPTIONS ---------- */
+#ludoOptions {display:none; flex-direction:row; gap:25px; margin-top:25px; justify-content:center; opacity:0; animation:fadeIn 1s forwards;}
+#ludoOptions .game-box{padding:20px 40px; font-size:18px; max-width:180px; box-shadow:0 0 20px rgba(0,207,255,0.5); transition:0.3s, transform 0.5s, box-shadow 0.5s;}
+#ludoOptions .game-box:hover{transform:scale(1.12); box-shadow:0 0 60px rgba(0,207,255,0.9);}
 
-/* ---------- WHATSAPP CONTACTS ---------- */
-#whatsappNumbers{display:none; margin-top:15px;}
+/* ---------- CONTACT BOX ---------- */
 .contact-box{
-    background: rgba(0,229,255,0.1);
-    backdrop-filter: blur(6px);
-    border:2px solid #00e5ff;
-    border-radius:12px; padding:15px; margin:10px auto;
-    max-width:260px; cursor:pointer; transition:0.3s;
-    box-shadow:0 0 15px rgba(0,229,255,0.35);
-    opacity:0; animation:fadeInScale 0.6s forwards;
+    background: rgba(0,207,255,0.1);
+    backdrop-filter: blur(8px);
+    border:2px solid var(--neon-color);
+    border-radius:16px; padding:12px; margin:10px auto;
+    max-width:260px; cursor:pointer; transition:0.3s, box-shadow 0.5s;
+    box-shadow:0 0 20px rgba(0,207,255,0.5);
 }
-.contact-box:hover{
-    transform:scale(1.06);
-    box-shadow:0 0 40px #00e5ff,0 0 50px #00bcd4;
-}
-.contact-title{color:#00e5ff; font-size:16px; font-weight:bold; margin-bottom:6px;}
+.contact-box:hover{transform:scale(1.05); box-shadow:0 0 50px rgba(0,207,255,0.9);}
+.contact-title{color:var(--neon-color); font-size:16px; font-weight:bold; margin-bottom:6px;}
 .contact-number{color:white; font-size:14px;}
 
-/* ---------- TOAST ---------- */
-#tinyToast{
-    position:fixed; bottom:15px; left:50%;
-    transform:translateX(-50%);
-    background:rgba(0,229,255,0.15); color:#00e5ff;
-    padding:10px 16px; border-radius:10px; display:none;
-    box-shadow:0 5px 20px rgba(0,229,255,0.1); font-weight:700;
-}
-
 /* ---------- FOOTER ---------- */
-footer{
-    margin-top:50px; padding:15px;
-    font-size:12px; font-weight:bold; 
-    text-align:center;
-    line-height:1.4;
-    color: white;
-    background: rgba(0,0,0,0.2);
-    backdrop-filter: blur(6px);
-    text-shadow:0 0 5px #cce7ff,0 0 10px #ffffff;
-}
+footer{margin-top:30px; padding:15px; font-size:14px; text-align:center; color:white; background:rgba(0,0,0,0.25); backdrop-filter:blur(6px);}
 
 /* ---------- ANIMATIONS ---------- */
 @keyframes fadeIn{from{opacity:0;} to{opacity:1;}}
-@keyframes fadeInScale{from{opacity:0; transform:scale(0.8);}to{opacity:1; transform:scale(1);}}
 @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-@keyframes particleMove{0%{transform:translateY(0);}100%{transform:translateY(-1200px);}}
 </style>
 </head>
 <body>
-<!-- Loading Screen -->
-<div id="loadingScreen">
-    <div id="loadingCircle"></div>
-    <div id="loadingText">EBX GAME STORE</div>
-</div>
+<div id="stars"></div>
+<div id="stars2"></div>
 
-<div id="particles"></div>
 <header>EBX GAME STORE</header>
-<div class="container">
-<h3>اختر الباقة المناسبة</h3>
 
-<!-- PRICE CARDS -->
-<div class="price-card" onclick="selectUCCard(this,'60',55)">
-    <div class="check-badge">✓ مختارة</div>
-    <h2>60 شدة</h2>
-    <p>55 EGP</p>
-</div>
-<div class="price-card" onclick="selectUCCard(this,'300',220)">
-    <div class="check-badge">✓ مختارة</div>
-    <h2>300 شدة</h2>
-    <p>220 EGP</p>
-</div>
-<div class="price-card" onclick="selectUCCard(this,'600',650)">
-    <div class="check-badge">✓ مختارة</div>
-    <h2>600 شدة</h2>
-    <p>650 EGP</p>
-</div>
-<div class="price-card" onclick="selectUCCard(this,'1500',1250)">
-    <div class="check-badge">✓ مختارة</div>
-    <h2>1500 شدة</h2>
-    <p>1250 EGP</p>
-</div>
-<div class="price-card" onclick="selectUCCard(this,'3000',2820)">
-    <div class="check-badge">✓ مختارة</div>
-    <h2>3000 شدة</h2>
-    <p>2820 EGP</p>
-</div>
-<div class="price-card" onclick="selectUCCard(this,'6000',5600)">
-    <div class="check-badge">✓ مختارة</div>
-    <h2>6000 شدة</h2>
-    <p>5600 EGP</p>
-</div>
+<!-- GAME SELECTION --> 
+<div id="gameSelect"> 
+  <div class="game-box" id="PUBGBox" onclick="selectGame('PUBG')">PUBG</div> 
+  <div class="game-box" id="FFBox" onclick="selectGame('Free Fire')">Free Fire</div> 
+  <div class="game-box" id="CODBox" onclick="selectGame('COD')">Call of Duty</div> 
+  <div class="game-box" id="ArenaBox" onclick="selectGame('Arena Breakout')">Arena Breakout</div> 
+  <div class="game-box" id="LudoBox" onclick="showLudoOptions()">Ludo</div> 
+</div> 
 
-<input type="text" id="playerID" placeholder="اكتب الـ ID الخاص بك فقط" maxlength="10"> 
-<button onclick="prepareOrder()">تأكيد الطلب</button>
+<!-- Ludo Options --> 
+<div id="ludoOptions"> 
+  <div class="game-box" onclick="selectLudoType('Gold')">Gold</div> 
+  <div class="game-box" onclick="selectLudoType('Diamonds')">Diamonds</div> 
+</div> 
 
-<div id="checkingWrap">
-    <div class="checking-circle"></div>
-    <div id="checkingText">يتم التحقق من الـID</div>
-</div>
+<!-- PRICE CONTAINER --> 
+<div class="container" id="priceContainer"> 
+  <h3>Select your package</h3> 
+  <div id="priceCards"></div> 
+  <input type="text" id="playerID" placeholder="Enter your ID here"> 
+  <button onclick="prepareOrder()">Confirm Order</button>
 
-<div id="whatsappNumbers">
+  <div id="checkingWrap" style="display:none; flex-direction:column; align-items:center; margin-top:10px;">
+    <div class="checking-circle" style="width:50px; height:50px; border:5px solid rgba(0,207,255,0.2); border-top:5px solid var(--neon-color); border-radius:50%; animation:spin 1s linear infinite;"></div>
+    <div id="checkingText" style="color:var(--neon-color); font-weight:bold; margin-top:5px; font-size:14px;">Checking ID</div>
+  </div>
+
+  <div id="whatsappNumbers" style="display:none; margin-top:10px;">
     <div class="contact-box" onclick="sendToWhatsApp('+201004167961')">
         <div class="contact-title">التواصل مع عيسى</div>
         <div class="contact-number">+201004167961</div>
@@ -231,86 +183,117 @@ footer{
         <div class="contact-title">التواصل مع عبدالحميد</div>
         <div class="contact-number">+201029909720</div>
     </div>
-</div>
+  </div>
+</div> 
 
-<div id="tinyToast">تم فتح واتساب</div>
-</div>
-
-<!-- FOOTER -->
 <footer>
-    <small>تم صنع الموقع بواسطة EISSA ABDALMW</small><br>
-    <small>تم اختيار الأسعار بواسطة ABD ALHAMED MOHAMED</small>
+    <small>تم صنع الموقع بواسطة عيسى عبد المولى</small><br>
+    <small>تم اختيار الأسعار بواسطة عبد الحميد محمد</small>
 </footer>
 
 <script>
-// ---------- LOADING SCREEN ----------
-window.addEventListener('load', ()=>{
-    setTimeout(()=>{document.getElementById('loadingScreen').style.display='none';}, 2000);
-});
+// Global
+let selectedGame='Free Fire', selectedUC='', selectedPrice='';
 
-// ---------- PARTICLE BACKGROUND ----------
-const particlesEl=document.getElementById('particles');
-for(let i=0;i<120;i++){
-    let p=document.createElement('div');
-    p.style.position='absolute';
-    p.style.width=Math.random()*3+'px';
-    p.style.height=Math.random()*3+'px';
-    p.style.background='white';
-    p.style.top=Math.random()*100+'%';
-    p.style.left=Math.random()*100+'%';
-    p.style.opacity=Math.random();
-    p.style.borderRadius='50%';
-    p.style.animation=`particleMove ${5+Math.random()*5}s linear infinite`;
-    particlesEl.appendChild(p);
+// Prices
+const freeFirePrices=[{uc:100,price:52.92},{uc:210,price:105.84},{uc:530,price:264.60},{uc:1080,price:529.20},{uc:2200,price:1058.40}];
+const pubgPrices=[{uc:60,price:55},{uc:300,price:220},{uc:600,price:650},{uc:1500,price:1250},{uc:3000,price:2820},{uc:6000,price:5600}];
+const codPrices=[{uc:30,price:20},{uc:80,price:50},{uc:420,price:250},{uc:880,price:500},{uc:2400,price:1250},{uc:5000,price:2500},{uc:10800,price:5000},{uc:21600,price:9700},{uc:32400,price:14500},{uc:43200,price:19000},{uc:54000,price:23000}];
+const arenaPrices=[{amount:10000,price:4968.45},{amount:5000,price:2483.98},{amount:2500,price:1241.74},{amount:1000,price:496.4},{amount:500,price:247.95},{amount:100,price:49.19}];
+const ludoGoldPrices=[{amount:'68,500',price:113.47},{amount:'223,700',price:284.94},{amount:'1,463,320',price:569.75},{amount:'3,666,470',price:1424.97},{amount:'9,973,990',price:2849.95},{amount:'25,236,460',price:5699.97},{amount:'76,000,860',price:17099.94},{amount:'126,910,990',price:28499.85}];
+const ludoDiamondPrices=[{amount:'83',price:113.47},{amount:'2,320',price:284.94},{amount:'5,150',price:569.78},{amount:'13,580',price:1424.97},{amount:'27,640',price:2849.95},{amount:'55,800',price:5699.97},{amount:'168,860',price:17099.94},{amount:'283,460',price:28499.85}];
+
+// ID Lengths
+const gameIDLengths = {
+  'Free Fire': 10,
+  'PUBG': 10,
+  'COD': 8,
+  'Arena Breakout': 17,
+  'Ludo': 6
+};
+
+// Functions
+function renderPrices(arr,type){
+  const container=document.getElementById('priceCards'); container.innerHTML='';
+  arr.forEach(p=>{
+    const card=document.createElement('div'); card.className='price-card';
+    card.onclick=()=>selectUCCard(card,p.uc||p.amount,p.price);
+    card.innerHTML=`<div class="check-badge">✓ Selected</div><h2>${p.uc||p.amount} ${type}</h2><p>${p.price} EGP</p>`;
+    container.appendChild(card);
+  });
 }
-
-// ---------- LOGIC ----------
-let selectedUC='', selectedPrice='', message='';
 function selectUCCard(el,uc,price){
-    document.querySelectorAll('.price-card').forEach(c=>c.classList.remove('selected'));
-    el.classList.add('selected');
-    selectedUC=uc; selectedPrice=price;
+  document.querySelectorAll('.price-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected'); 
+  selectedUC = uc; 
+  selectedPrice = price;
 }
 
-// ID validation
-const playerIDInput=document.getElementById('playerID');
-playerIDInput.addEventListener('input',function(){
-    this.value=this.value.replace(/[^0-9]/g,'');
-    if(this.value.length>10)this.value=this.value.slice(0,10);
-});
+// اختيار اللعبة
+function selectGame(game){
+  selectedGame = game; 
+  selectedUC = ''; 
+  selectedPrice = '';
+  document.getElementById('playerID').value = '';
+  document.getElementById('playerID').setAttribute('maxlength', gameIDLengths[game]);
+  document.getElementById('playerID').setAttribute('placeholder', `أدخل ID ${game} هنا`);
+  document.querySelectorAll('.game-box').forEach(box=>box.classList.remove('selected','selected-glow'));
+  document.getElementById(game+'Box')?.classList.add('selected','selected-glow');
+  document.getElementById('priceCards').innerHTML = '';
+  document.getElementById('ludoOptions').style.display='none';
+  document.getElementById('whatsappNumbers').style.display='none';
 
+  if(game==='PUBG') renderPrices(pubgPrices,'UC');
+  else if(game==='Free Fire') renderPrices(freeFirePrices,'Diamonds');
+  else if(game==='COD') renderPrices(codPrices,'CP');
+  else if(game==='Arena Breakout') renderPrices(arenaPrices,'Bonds');
+  else if(game==='Ludo') showLudoOptions();
+}
+
+// خيارات Ludo
+function showLudoOptions(){
+  document.getElementById('ludoOptions').style.display='flex';
+  document.getElementById('priceCards').innerHTML='';
+}
+function selectLudoType(type){
+  renderPrices(type==='Gold'? ludoGoldPrices : ludoDiamondPrices,type);
+}
+
+// تأكيد الطلب
 function prepareOrder(){
-    const playerID=playerIDInput.value.trim();
-    if(!selectedUC || !selectedPrice){alert('اختر الباقة أولاً'); return;}
-    if(playerID.length!==10){alert('أدخل ID صحيح من 10 أرقام'); return;}
+  const playerID = document.getElementById('playerID').value.trim();
+  if(!selectedUC || !selectedPrice){
+    alert('يرجى اختيار اللعبة والحزمة أولاً!');
+    return;
+  }
+  if(playerID===''){
+    alert('يرجى إدخال ID الخاص بك.');
+    return;
+  }
+  const requiredLength = gameIDLengths[selectedGame];
+  if(playerID.length != requiredLength){
+    alert(`الـID للعبة ${selectedGame} يجب أن يكون ${requiredLength} رقم.`);
+    return;
+  }
 
-    message=`أهلاً بك في EBX GAME STORE
-طلب شحن UC PUBG
-🎮 ID اللاعب: ${playerID}
-💰 السعر: ${selectedPrice} EGP
-🔢 عدد الشدات: ${selectedUC}`;
-
-    document.getElementById('checkingWrap').style.display='flex';
-    document.getElementById('whatsappNumbers').style.display='none';
-    document.getElementById('checkingText').innerText='يتم التحقق من الـID';
-
-    setTimeout(()=>{
-        document.getElementById('checkingText').innerText='تم تأكيد الـID ✅';
-        setTimeout(()=>{
-            document.getElementById('checkingWrap').style.display='none';
-            document.getElementById('whatsappNumbers').style.display='block';
-        },1500);
-    },2000);
+  // عرض التحقق
+  const checkWrap = document.getElementById('checkingWrap');
+  checkWrap.style.display='flex';
+  setTimeout(()=>{
+    checkWrap.style.display='none';
+    alert(`تم تأكيد الطلب للعبة ${selectedGame}\nالحزمة: ${selectedUC}\nالسعر: ${selectedPrice} EGP`);
+    document.getElementById('whatsappNumbers').style.display='block';
+  },1500);
 }
 
-function sendToWhatsApp(phone){
-    if(!message){alert('الرجاء تأكيد الطلب أولاً'); return;}
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`,'_blank');
-    const toast=document.getElementById('tinyToast');
-    toast.style.display='block';
-    clearTimeout(toast._timeout);
-    toast._timeout=setTimeout(()=>{toast.style.display='none';},2000);
+// إرسال الطلب عبر WhatsApp
+function sendToWhatsApp(number){
+  const text = encodeURIComponent(`مرحباً، أريد إتمام طلبي من EBX GAME STORE:\nاللعبة: ${selectedGame}\nالحزمة: ${selectedUC}\nالسعر: ${selectedPrice} EGP\nID: ${document.getElementById('playerID').value}`);
+  window.open(`https://wa.me/${number.replace(/\+/g,'')}?text=${text}`,'_blank');
 }
+
+// تهيئة اللعبة الافتراضية
+selectGame('Free Fire');
 </script>
 </body>
 </html>
