@@ -4,8 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EBX GAME STORE - Ultra Advanced</title>
+
+<!-- خطوط -->
 <link href="https://fonts.cdnfonts.com/css/burbank-big-condensed-black" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
 <style>
 :root { --neon-color: #00cfff; }
 
@@ -164,14 +167,14 @@ footer{margin-top:30px; padding:15px; font-size:14px; text-align:center; color:w
 
 <!-- PRICE CONTAINER --> 
 <div class="container" id="priceContainer"> 
-  <h3>Select your package</h3> 
+  <h3>اختر الباقة المناسبة</h3> 
   <div id="priceCards"></div> 
-  <input type="text" id="playerID" placeholder="Enter your ID here"> 
-  <button onclick="prepareOrder()">Confirm Order</button>
+  <input type="text" id="playerID" placeholder="ادخل الـ ID هنا"> 
+  <button onclick="prepareOrder()">تأكيد الطلب</button>
 
   <div id="checkingWrap" style="display:none; flex-direction:column; align-items:center; margin-top:10px;">
     <div class="checking-circle" style="width:50px; height:50px; border:5px solid rgba(0,207,255,0.2); border-top:5px solid var(--neon-color); border-radius:50%; animation:spin 1s linear infinite;"></div>
-    <div id="checkingText" style="color:var(--neon-color); font-weight:bold; margin-top:5px; font-size:14px;">Checking ID</div>
+    <div id="checkingText" style="color:var(--neon-color); font-weight:bold; margin-top:5px; font-size:14px;">جاري التحقق من ID</div>
   </div>
 
   <div id="whatsappNumbers" style="display:none; margin-top:10px;">
@@ -180,7 +183,7 @@ footer{margin-top:30px; padding:15px; font-size:14px; text-align:center; color:w
         <div class="contact-number">+201004167961</div>
     </div>
     <div class="contact-box" onclick="sendToWhatsApp('+201029909720')">
-        <div class="contact-title">التواصل مع عبدالحميد</div>
+        <div class="contact-title">التواصل مع عبد الحميد</div>
         <div class="contact-number">+201029909720</div>
     </div>
   </div>
@@ -197,7 +200,7 @@ let selectedGame='Free Fire', selectedUC='', selectedPrice='';
 
 // Prices
 const freeFirePrices=[{uc:100,price:52.92},{uc:210,price:105.84},{uc:530,price:264.60},{uc:1080,price:529.20},{uc:2200,price:1058.40}];
-const pubgPrices=[{uc:60,price:55},{uc:300,price:220},{uc:600,price:650},{uc:1500,price:1250},{uc:3000,price:2820},{uc:6000,price:5600}];
+const pubgPrices = [{ uc: 60, price: 47 },{ uc: 334, price: 220 },{ uc: 678, price: 650 },{ uc: 1845, price: 1250 },{ uc: 3940, price: 2820 },{ uc: 8280, price: 4800 }];
 const codPrices=[{uc:30,price:20},{uc:80,price:50},{uc:420,price:250},{uc:880,price:500},{uc:2400,price:1250},{uc:5000,price:2500},{uc:10800,price:5000},{uc:21600,price:9700},{uc:32400,price:14500},{uc:43200,price:19000},{uc:54000,price:23000}];
 const arenaPrices=[{amount:10000,price:4968.45},{amount:5000,price:2483.98},{amount:2500,price:1241.74},{amount:1000,price:496.4},{amount:500,price:247.95},{amount:100,price:49.19}];
 const ludoGoldPrices=[{amount:'68,500',price:113.47},{amount:'223,700',price:284.94},{amount:'1,463,320',price:569.75},{amount:'3,666,470',price:1424.97},{amount:'9,973,990',price:2849.95},{amount:'25,236,460',price:5699.97},{amount:'76,000,860',price:17099.94},{amount:'126,910,990',price:28499.85}];
@@ -272,27 +275,26 @@ function prepareOrder(){
   }
   const requiredLength = gameIDLengths[selectedGame];
   if(playerID.length != requiredLength){
-    alert(`الـID للعبة ${selectedGame} يجب أن يكون ${requiredLength} رقم.`);
+    alert(`الـ ID للعبة ${selectedGame} يجب أن يكون ${requiredLength} رقم.`);
     return;
   }
 
-  // عرض التحقق
   const checkWrap = document.getElementById('checkingWrap');
   checkWrap.style.display='flex';
   setTimeout(()=>{
     checkWrap.style.display='none';
-    alert(`تم تأكيد الطلب للعبة ${selectedGame}\nالحزمة: ${selectedUC}\nالسعر: ${selectedPrice} EGP`);
+    alert(`تم تأكيد الطلب للعبة ${selectedGame}\nالباقة: ${selectedUC}\nالسعر: ${selectedPrice} EGP`);
     document.getElementById('whatsappNumbers').style.display='block';
   },1500);
 }
 
 // إرسال الطلب عبر WhatsApp
 function sendToWhatsApp(number){
-  const text = encodeURIComponent(`مرحباً، أريد إتمام طلبي من EBX GAME STORE:\nاللعبة: ${selectedGame}\nالحزمة: ${selectedUC}\nالسعر: ${selectedPrice} EGP\nID: ${document.getElementById('playerID').value}`);
+  const text = encodeURIComponent(`مرحبا، أريد إتمام طلبي من EBX GAME STORE:\nاللعبة: ${selectedGame}\nالباقة: ${selectedUC}\nالسعر: ${selectedPrice} EGP\nID: ${document.getElementById('playerID').value}`);
   window.open(`https://wa.me/${number.replace(/\+/g,'')}?text=${text}`,'_blank');
 }
 
-// تهيئة اللعبة الافتراضية
+// افتراضي
 selectGame('Free Fire');
 </script>
 </body>
