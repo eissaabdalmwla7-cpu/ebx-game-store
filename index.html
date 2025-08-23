@@ -2,178 +2,217 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>EBX GAME STORE — المتجر المتكامل</title>
   <meta name="description" content="متجر شحن ألعاب سريع وآمن: PUBG, Free Fire, CODM, Arena Breakout, Ludo, MLBB, Fortnite. أسعار محدثة وخدمة واتساب فورية." />
   <meta name="theme-color" content="#00cfff" />
+
+  <!-- خطوط -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- ===========================
+       CSS كامل ومفصّل — الخلفية مستخدمة من الصورة المضافة:
+       IMG_20250823_082124_542.jpg
+       الملف يجب أن يكون في نفس مجلد index.html
+       =========================== -->
   <style>
-  /* =========================
-     Variables & base styles
-     ========================= */
-  :root{
-    --bg: #07121c;
-    --card: #0b1b29;
-    --neon: #00cfff;
-    --text: #e8f6ff;
-    --muted: #9bc7d6;
-    --danger: #ff4d6d;
-    --success: #1ee5a1;
-    --shadow: 0 12px 40px rgba(0,207,255,.06);
-    --glow: 0 0 14px rgba(0,207,255,.30), 0 0 28px rgba(0,207,255,.12);
-  }
+    /* ========== متغيرات ========== */
+    :root{
+      --bg:#07121c;
+      --card:#0c1824;
+      --neon:#00cfff;
+      --text:#e8f6ff;
+      --muted:#9bc7d6;
+      --danger:#ff4d6d;
+      --success:#1ee5a1;
+      --shadow: 0 12px 40px rgba(0,207,255,.06);
+      --glow: 0 0 14px rgba(0,207,255,.30), 0 0 28px rgba(0,207,255,.12);
+    }
 
-  * { box-sizing: border-box; }
-  html,body { height: 100%; }
-  body {
-    margin: 0;
-    font-family: 'Cairo', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    background:
-      radial-gradient(1200px 600px at 80% -10%, rgba(0,207,255,.08), transparent 60%),
-      radial-gradient(900px 500px at -10% 90%, rgba(0,207,255,.10), transparent 60%),
-      var(--bg);
-    color: var(--text);
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    line-height: 1.4;
-  }
+    /* ========== Reset & Base ========== */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Cairo', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      color:var(--text);
+      background-color:var(--bg);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+      /* الخلفية: صورة المستخدم */
+      background-image: url("IMG_20250823_082124_542.jpg");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
+      background-size: cover;
+    }
 
-  /* focus */
-  :focus { outline: 3px solid rgba(0,207,255,.18); outline-offset: 3px; }
+    /* طبقة تغميق فوق الصورة لضمان تباين النص */
+    body::before{
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.65));
+      z-index: 0;
+      pointer-events: none;
+    }
 
-  /* = Header = */
-  .header {
-    position: sticky;
-    top: 0;
-    z-index: 120;
-    background: rgba(7,18,28,.78);
-    border-bottom: 1px solid rgba(255,255,255,.04);
-    backdrop-filter: saturate(140%) blur(6px);
-  }
-  .nav {
-    max-width: 1200px;
-    margin: auto;
-    padding: 12px 18px;
-    display:flex;
-    align-items:center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-  .brand {
-    display:flex;
-    align-items:center;
-    gap: 10px;
-    color: var(--neon);
-    font-weight: 800;
-    letter-spacing: .6px;
-    font-size: 18px;
-  }
-  .brand .dot {
-    width: 12px; height: 12px; border-radius: 50%;
-    background: var(--neon);
-    box-shadow: 0 0 18px var(--neon);
-  }
-  .menu-btn{ width:46px; height:46px; border-radius:12px; display:grid; place-items:center; background: transparent; color:var(--text); border:1px solid rgba(255,255,255,.06); cursor:pointer; }
-  .header-actions { display:flex; gap:8px; align-items:center; }
-  .btn {
-    border:0; cursor:pointer; font-weight:800; border-radius:12px; padding:10px 14px;
-    background: var(--neon); color: #01222e; box-shadow: var(--shadow); transition: transform .16s ease, box-shadow .24s ease;
-  }
-  .btn.secondary { background:#0e2232; color:var(--text); border:1px solid rgba(255,255,255,.06); }
+    /* محتوى الصفحة فوق الـ overlay */
+    header, main, footer, .wrap { position: relative; z-index: 2; }
 
-  /* = Layout = */
-  .wrap { max-width:1200px; margin: 18px auto; padding: 0 18px 80px; }
+    :focus{ outline: 3px solid rgba(0,207,255,.18); outline-offset: 3px; }
 
-  /* = Home big game cards = */
-  .games-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 18px;
-    margin-top: 18px;
-  }
-  .game-card {
-    background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
-    border: 1px solid rgba(255,255,255,.04);
-    border-radius: 16px;
-    padding: 28px 18px;
-    text-align:center;
-    cursor: pointer;
-    transition: transform .22s ease, box-shadow .22s ease, background .22s ease;
-    box-shadow: var(--shadow);
-    display:flex; flex-direction:column; gap:10px; justify-content:center; min-height:140px;
-  }
-  .game-card:hover { transform: translateY(-8px); box-shadow: var(--glow); }
-  .game-logo { height:44px; width:44px; border-radius:10px; margin-inline:auto; background: linear-gradient(135deg,#ffffff10,#00cfff20); display:grid; place-items:center; color:var(--neon); font-weight:900; }
-  .game-name { font-weight:900; font-size:20px; color:var(--text); }
-  .game-desc { font-size:13px; color:var(--muted); }
+    /* ========== Header ========== */
+    .header{
+      position: sticky;
+      top:0;
+      z-index: 120;
+      background: rgba(7,18,28,.72);
+      border-bottom: 1px solid rgba(255,255,255,.04);
+      backdrop-filter: saturate(140%) blur(6px);
+    }
+    .nav{
+      max-width:1200px; margin:auto; padding:12px 18px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; color:var(--neon); font-weight:800; letter-spacing:.5px;
+      text-shadow:0 0 12px rgba(0,207,255,.12);
+    }
+    .brand .dot{width:12px;height:12px;border-radius:50%;background:var(--neon);box-shadow:0 0 18px var(--neon)}
+    .menu-btn{
+      width:46px;height:46px;border-radius:12px;display:grid;place-items:center;
+      background:transparent;color:var(--text);border:1px solid rgba(255,255,255,.06);cursor:pointer;
+    }
+    .header-actions{display:flex;align-items:center;gap:8px}
+    .btn{
+      border:0; cursor:pointer; font-weight:800; border-radius:12px; padding:10px 14px;
+      background:var(--neon); color:#01222e; box-shadow: var(--shadow);
+      transition:.16s transform, .24s box-shadow;
+    }
+    .btn.secondary{ background:#0e2232; color:var(--text); border:1px solid rgba(255,255,255,.06); }
+    .btn:active{ transform:translateY(1px); }
 
-  /* = Detail = */
-  .detail-screen { display:none; }
-  .detail-card {
-    background: var(--card); border-radius:16px; padding:18px; border:1px solid rgba(255,255,255,.04); box-shadow: var(--shadow);
-  }
-  .detail-header { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:14px; }
-  .detail-title { font-size:20px; font-weight:900; color:var(--neon); }
-  .detail-sub { font-size:13px; color:var(--muted); }
+    /* ========== Layout ========== */
+    .wrap{ max-width:1200px; margin:20px auto; padding:0 18px 120px; }
 
-  .pkg-grid { display:grid; grid-template-columns: repeat(4,1fr); gap:12px; margin-top:6px; }
-  @media (max-width:1100px){ .pkg-grid{ grid-template-columns: repeat(3,1fr); } }
-  @media (max-width:820px){ .pkg-grid{ grid-template-columns: repeat(2,1fr); } }
-  @media (max-width:520px){ .pkg-grid{ grid-template-columns: 1fr; } }
+    /* ========== Home: كروت الألعاب الكبيرة ========== */
+    .home-screen h1{ margin:6px 0 4px; text-align:center; font-size:20px; color:var(--neon) }
+    .home-screen p.lead{ text-align:center; color:var(--muted); margin:0 0 14px; }
 
-  .pkg { padding:14px; border-radius:12px; background:#071926; border:1px solid rgba(255,255,255,.03); cursor:pointer; transition: transform .18s, box-shadow .18s, background .18s; display:flex;flex-direction:column; gap:8px; }
-  .pkg:hover { transform: translateY(-6px); box-shadow: var(--glow); }
-  .pkg h3{ margin:0; font-size:15px; color:#fff; }
-  .pkg .amount { font-weight:900; font-size:16px; color:#fff; } /* important: amounts white */
-  .pkg .price { font-weight:900; color:var(--neon); font-size:14px; }
-  .pkg .meta { font-size:12px; color:var(--muted); margin-top:6px; }
-  .pkg.selected { outline: 2px solid rgba(0,207,255,.45); background: linear-gradient(180deg, rgba(0,207,255,.03), rgba(255,255,255,.01)); }
+    .games-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap:18px;
+      margin-top:8px;
+    }
+    .game-card{
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      border:1px solid rgba(255,255,255,.04);
+      border-radius:16px; padding:28px 18px; cursor:pointer;
+      display:flex; flex-direction:column; gap:10px; align-items:center; justify-content:center;
+      min-height:150px; transition:transform .22s, box-shadow .22s;
+      box-shadow: var(--shadow);
+    }
+    .game-card:hover{ transform:translateY(-8px); box-shadow: var(--glow); }
+    .game-logo{ width:54px;height:54px;border-radius:12px; display:grid;place-items:center; font-weight:900; color:var(--neon); background:linear-gradient(135deg,#ffffff10,#00cfff20) }
+    .game-title{ font-weight:900; font-size:18px; color:var(--text) }
+    .game-sub{ font-size:13px; color:var(--muted) }
 
-  .form { margin-top:14px; display:grid; gap:10px; }
-  .input { width:100%; padding:12px; border-radius:12px; border:1px solid rgba(255,255,255,.04); background:#06151a; color:var(--text); font-size:15px; outline:none; }
+    /* ========== Detail screen ========== */
+    .detail-screen{ display:none }
+    .detail-card{
+      background: rgba(6,21,26,.85);
+      border-radius:16px; padding:18px; border:1px solid rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+    }
+    .detail-header{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px; }
+    .detail-title{ font-size:20px; font-weight:900; color:var(--neon) }
+    .detail-sub{ font-size:13px; color:var(--muted) }
 
-  .actions { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:6px; }
-  .small { font-size:13px; color:var(--muted); }
+    /* شبكة الباقات */
+    .pkg-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:12px; margin-top:8px; }
+    @media (max-width:1100px){ .pkg-grid{ grid-template-columns: repeat(3,1fr) } }
+    @media (max-width:820px){ .pkg-grid{ grid-template-columns: repeat(2,1fr) } }
+    @media (max-width:520px){ .pkg-grid{ grid-template-columns: 1fr } }
 
-  /* modal */
-  .modal { position:fixed; inset:0; display:none; place-items:center; z-index:300; background:rgba(0,0,0,.56); }
-  .modal.show { display:grid; }
-  .modal-card { width: min(720px, 96vw); background: var(--card); padding:16px; border-radius:14px; border:1px solid rgba(255,255,255,.04); box-shadow: var(--glow); }
-  .modal-head { display:flex; justify-content:space-between; align-items:center; }
-  .summary { background:#071926; padding:12px; border-radius:10px; margin-top:12px; white-space:pre-wrap; color:var(--text); }
+    .pkg{
+      padding:14px; border-radius:12px; background:#071926; border:1px solid rgba(255,255,255,.03);
+      cursor:pointer; transition:transform .16s, box-shadow .16s;
+      display:flex; flex-direction:column; gap:8px;
+    }
+    .pkg:hover{ transform:translateY(-6px); box-shadow: var(--glow); }
+    .pkg h3{ margin:0; font-size:15px; color:#fff; }
+    .pkg .amount{ font-weight:900; font-size:16px; color:#fff } /* الأعداد بيضاء كما طلبت */
+    .pkg .price{ font-weight:900; color:var(--neon); font-size:14px; }
+    .pkg .meta{ font-size:12px; color:var(--muted); margin-top:6px }
+    .pkg.selected{ outline:2px solid rgba(0,207,255,.45); background: linear-gradient(180deg, rgba(0,207,255,.03), rgba(255,255,255,.01)); }
 
-  /* fab & support */
-  .fab { position:fixed; bottom:18px; left:18px; z-index:260; width:56px; height:56px; border-radius:50%; display:grid; place-items:center; background:var(--neon); color:#01222e; font-size:22px; box-shadow: 0 16px 40px rgba(0,207,255,.18); cursor:pointer; }
-  .support { position:fixed; bottom:86px; left:18px; width:320px; background:var(--card); border-radius:12px; padding:12px; box-shadow: var(--glow); display:none; z-index:260; }
-  .support.show { display:block; }
-  .contact-row { display:flex; gap:8px; margin-top:10px; }
-  .contact { flex:1; padding:10px; border-radius:10px; background:#06151a; border:1px solid rgba(255,255,255,.03); text-align:center; cursor:pointer; }
+    /* ========== Form ========== */
+    .form{ margin-top:12px; display:grid; gap:10px; }
+    .input{
+      width:100%; padding:12px; border-radius:12px; background:#06151a; color:var(--text);
+      border:1px solid rgba(255,255,255,.04); font-size:15px; outline:none;
+    }
+    .help{ color:var(--muted); font-size:13px; }
 
-  /* toast */
-  .toast { position:fixed; bottom:20px; right:20px; z-index:400; padding:12px 14px; border-radius:12px; min-width:220px; background: rgba(1,32,44,.92); color:var(--text); display:none; border:1px solid rgba(255,255,255,.04); box-shadow:var(--glow); }
-  .toast.show { display:block; animation: toastIn .18s ease; }
-  @keyframes toastIn { from{opacity:.3; transform:translateY(8px)} to{opacity:1; transform:none} }
+    .actions{ display:flex; gap:8px; align-items:center; margin-top:6px; flex-wrap:wrap; }
 
+    /* ========== Modal ========== */
+    .modal{ position:fixed; inset:0; display:none; place-items:center; z-index:400; background:rgba(0,0,0,.56) }
+    .modal.show{ display:grid }
+    .modal-card{ width:min(720px,95vw); background:var(--card); padding:16px; border-radius:14px; border:1px solid rgba(255,255,255,.04); box-shadow:var(--glow) }
+    .modal-head{ display:flex; justify-content:space-between; align-items:center }
+    .summary{ background:#071926; padding:12px; border-radius:10px; margin-top:12px; white-space:pre-wrap; color:var(--text) }
+
+    /* ========== Floating support & FAB ========== */
+    .fab{ position:fixed; bottom:18px; left:18px; z-index:380; width:56px; height:56px; border-radius:50%; display:grid; place-items:center; background:var(--neon); color:#01222e; font-size:22px; box-shadow:0 16px 40px rgba(0,207,255,.18); cursor:pointer; }
+    .support{ position:fixed; bottom:86px; left:18px; width:320px; background:var(--card); border-radius:12px; padding:12px; box-shadow:var(--glow); display:none; z-index:379 }
+    .support.show{ display:block }
+    .contact-row{ display:flex; gap:8px; margin-top:10px }
+    .contact{ flex:1; padding:10px; border-radius:10px; background:#06151a; border:1px solid rgba(255,255,255,.03); text-align:center; cursor:pointer; }
+
+    /* ========== Sidebar ========== */
+    #sidebar{ pointer-events:none; position:fixed; inset:0; z-index:370 }
+    #sbBackdrop{ position:absolute; inset:0; background:rgba(0,0,0,.36); opacity:0; transition:opacity .25s }
+    #sbPanel{ position:absolute; top:0; right:-320px; width:300px; height:100%; background:var(--card); padding:16px; box-shadow:-14px 0 40px rgba(0,0,0,.6); border-left:1px solid rgba(255,255,255,.03); transition:right .28s }
+
+    /* ========== Toast ========== */
+    .toast{ position:fixed; bottom:20px; right:20px; z-index:420; padding:12px 14px; border-radius:12px; min-width:220px; background:rgba(1,32,44,.92); color:var(--text); display:none; border:1px solid rgba(255,255,255,.04); box-shadow:var(--glow) }
+    .toast.show{ display:block; animation: toastIn .18s ease }
+    @keyframes toastIn{ from{opacity:.3; transform:translateY(8px)}to{opacity:1; transform:none} }
+
+    /* ========== Footer ========== */
+    footer{ opacity:.9; text-align:center; padding:24px 12px; color:var(--muted); font-size:13px; z-index:2 }
+
+    /* ========== Responsive tweaks ========== */
+    @media (max-width:520px){
+      .game-logo{ width:44px;height:44px }
+      .game-card{ padding:18px; min-height:120px }
+      .pkg-grid{ gap:10px }
+      .btn{ padding:8px 10px; font-size:14px }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Sidebar -->
-  <aside id="sidebar" style="pointer-events:none; position:fixed; inset:0; z-index:240;">
-    <div id="sbBackdrop" style="position:absolute; inset:0; background:rgba(0,0,0,.36); opacity:0; transition:opacity .25s;"></div>
-    <div id="sbPanel" style="position:absolute; top:0; right:-320px; width:300px; height:100%; background:var(--card); padding:16px; box-shadow:-14px 0 40px rgba(0,0,0,.6); border-left:1px solid rgba(255,255,255,.03); transition:right .28s;">
+  <!-- Sidebar (ثلاث شرط) -->
+  <aside id="sidebar" aria-hidden="true">
+    <div id="sbBackdrop"></div>
+    <nav id="sbPanel" role="dialog" aria-label="القائمة الجانبية">
       <h3 style="color:var(--neon); margin:6px 0 12px;">القائمة</h3>
-      <a class="menu-link" href="#" data-close-sidebar style="display:block;padding:10px;border-radius:8px;background:#06151a;margin-bottom:8px;color:var(--text);text-decoration:none">🏠 الرئيسية</a>
-      <a class="menu-link" href="#gameGrid" data-close-sidebar style="display:block;padding:10px;border-radius:8px;background:#06151a;margin-bottom:8px;color:var(--text);text-decoration:none">🎮 الألعاب</a>
-      <a class="menu-link" href="#contactSection" data-close-sidebar style="display:block;padding:10px;border-radius:8px;background:#06151a;margin-bottom:8px;color:var(--text);text-decoration:none">📞 تواصل</a>
-    </div>
+      <a href="#" data-close-sidebar style="display:block;padding:10px;border-radius:8px;background:#06151a;margin-bottom:8px;color:var(--text);text-decoration:none">🏠 الرئيسية</a>
+      <a href="#gameGrid" data-close-sidebar style="display:block;padding:10px;border-radius:8px;background:#06151a;margin-bottom:8px;color:var(--text);text-decoration:none">🎮 الألعاب</a>
+      <a href="#contactSection" data-close-sidebar style="display:block;padding:10px;border-radius:8px;background:#06151a;margin-bottom:8px;color:var(--text);text-decoration:none">📞 تواصل</a>
+    </nav>
   </aside>
 
   <!-- Header -->
   <header class="header" role="banner">
     <div class="nav">
-      <div style="display:flex; align-items:center; gap:10px;">
+      <div style="display:flex;align-items:center;gap:10px">
         <button id="openMenu" class="menu-btn" aria-label="فتح القائمة">☰</button>
         <div class="brand" aria-hidden="false"><span class="dot" aria-hidden="true"></span> EBX GAME STORE</div>
       </div>
@@ -184,16 +223,15 @@
     </div>
   </header>
 
-  <!-- Main -->
+  <!-- Main content -->
   <main class="wrap" role="main">
-
     <!-- Home Screen -->
     <section id="homeScreen" class="home-screen" aria-label="الشاشة الرئيسية">
-      <h2 style="text-align:center; margin: 8px 0 6px;">اختر لعبتك</h2>
-      <p class="small" style="text-align:center; margin-bottom:12px;">اضغط على أي خانة لعرض الباقات والأيدي وتأكيد الطلب</p>
+      <h1>اختر لعبتك</h1>
+      <p class="lead small">اضغط على أي بطاقة لعرض الباقات والأيدي وتأكيد الطلب</p>
 
       <div id="gameGrid" class="games-grid" aria-live="polite" aria-label="قائمة الألعاب">
-        <!-- تولد ديناميكيًا بواسطة JS -->
+        <!-- كروت الألعاب تُملأ ديناميكياً -->
       </div>
     </section>
 
@@ -205,7 +243,7 @@
             <div id="gameName" class="detail-title">اسم اللعبة</div>
             <div id="gameNote" class="detail-sub small">اختَر الباقة ثم أدخل الـ ID للتأكيد</div>
           </div>
-          <div style="display:flex;gap:8px;align-items:center;">
+          <div style="display:flex;gap:8px;align-items:center">
             <button id="backBtn" class="btn secondary" title="العودة">◀ رجوع</button>
             <button id="manageBtn" class="btn secondary" title="إضافة/تعديل الباقات">📦 إضافة/تعديل الباقات</button>
             <button id="resetPrices" class="btn secondary" title="إعادة الضبط">↺ إعادة الضبط</button>
@@ -213,16 +251,16 @@
         </div>
 
         <div id="pkgGrid" class="pkg-grid" role="list" aria-live="polite">
-          <!-- تولد ديناميكيًا -->
+          <!-- باقات ستُولّد هنا -->
         </div>
 
         <div class="form">
-          <input id="playerId" class="input" type="text" inputmode="numeric" placeholder="أدخل الـ ID (على سبيل المثال: 123456789)" aria-label="معرف اللاعب">
-          <input id="server" class="input" type="text" placeholder="السيرفر / المنطقة (اختياري)" aria-label="السيرفر أو المنطقة">
-          <input id="whats" class="input" type="tel" placeholder="رقم واتساب للمتابعة (اختياري)" aria-label="رقم واتساب">
+          <input id="playerId" class="input" inputmode="numeric" placeholder="أدخل الـ ID (مثال: 1234567890)" aria-label="معرف اللاعب">
+          <input id="server" class="input" placeholder="السيرفر / المنطقة (اختياري)" aria-label="السيرفر">
+          <input id="whats" class="input" inputmode="tel" placeholder="رقم واتساب للمتابعة (اختياري)" aria-label="واتساب">
           <div class="actions">
-            <button id="checkBtn" class="btn secondary" title="تحقق من الـ ID">🔎 تحقق من الـ ID</button>
-            <button id="confirmBtn" class="btn" title="تأكيد الطلب">✅ تأكيد الطلب</button>
+            <button id="checkBtn" class="btn secondary">🔎 تحقق من الـ ID</button>
+            <button id="confirmBtn" class="btn">✅ تأكيد الطلب</button>
             <div style="flex:1"></div>
             <div id="status" class="small" aria-live="polite"></div>
           </div>
@@ -230,9 +268,9 @@
       </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact -->
     <section id="contactSection" style="margin-top:18px;">
-      <div id="contactCard" class="detail-card">
+      <div class="detail-card" id="contactCard">
         <h3 style="margin:0 0 8px; color:var(--neon)">التواصل المباشر</h3>
         <div class="contact-row">
           <div class="contact" data-wa="+201004167961" role="button" tabindex="0">واتساب 1: 01004167961</div>
@@ -241,7 +279,6 @@
         <p class="small" style="margin-top:10px;color:var(--muted)">اضغط لفتح المحادثة في واتساب مباشرة.</p>
       </div>
     </section>
-
   </main>
 
   <!-- Floating support -->
@@ -258,7 +295,7 @@
     </div>
   </div>
 
-  <!-- Confirmation modal -->
+  <!-- Confirm modal -->
   <div id="confirmModal" class="modal" role="dialog" aria-modal="true" aria-label="تأكيد الطلب">
     <div class="modal-card">
       <div class="modal-head">
@@ -276,400 +313,378 @@
   <!-- Toast -->
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <!-- Audio -->
+  <!-- Audio (تشغيل عند طلب المستخدم) -->
   <audio id="bgMusic" preload="none" loop>
     <source src="PS5 Startup.mp3" type="audio/mpeg">
   </audio>
 
+  <!-- ===========================
+       JavaScript كامل ومقفل
+       لا تعريف $ مكرر، مساعدات واضحة، حفظ محلي للأسعار
+       =========================== -->
   <script>
-  /*************************************************************************
-   * Clean single-file implementation.
-   * Fixes: removed duplicate '$' declaration, consistent helpers, added games.
-   *************************************************************************/
+    "use strict";
 
-  // ---- Helpers (defined ONCE) ----
-  const $ = selector => document.querySelector(selector);
-  const $$ = selector => Array.from(document.querySelectorAll(selector));
-  const toastBox = $('#toast');
+    /* ---------- مساعدات DOM (تعريف واحد فقط) ---------- */
+    const qs = selector => document.querySelector(selector);
+    const qsa = selector => Array.from(document.querySelectorAll(selector));
 
-  function toast(message, ms = 2200) {
-    toastBox.textContent = message;
-    toastBox.classList.add('show');
-    setTimeout(() => toastBox.classList.remove('show'), ms);
-  }
+    /* ---------- عناصر مهمة ---------- */
+    const gameGridEl = qs('#gameGrid');
+    const homeScreenEl = qs('#homeScreen');
+    const detailScreenEl = qs('#detailScreen');
+    const gameNameEl = qs('#gameName');
+    const gameNoteEl = qs('#gameNote');
+    const pkgGridEl = qs('#pkgGrid');
+    const playerIdInput = qs('#playerId');
+    const serverInput = qs('#server');
+    const whatsInput = qs('#whats');
+    const statusEl = qs('#status');
+    const checkBtn = qs('#checkBtn');
+    const confirmBtn = qs('#confirmBtn');
+    const manageBtn = qs('#manageBtn');
+    const resetBtn = qs('#resetPrices');
+    const backBtn = qs('#backBtn');
+    const openMenuBtn = qs('#openMenu');
+    const sbBackdrop = qs('#sbBackdrop');
+    const sbPanel = qs('#sbPanel');
+    const sidebarContainer = qs('#sidebar');
+    const fabBtn = qs('#fab');
+    const supportBox = qs('#supportBox');
+    const toggleAudioBtn = qs('#toggleAudio');
+    const audioEl = qs('#bgMusic');
+    const toastEl = qs('#toast');
+    const confirmModal = qs('#confirmModal');
+    const orderSummaryEl = qs('#orderSummary');
+    const sendWa1Btn = qs('#sendWa1');
+    const sendWa2Btn = qs('#sendWa2');
+    const closeModalBtn = qs('#closeModal');
 
-  function formatEGP(value) {
-    if (typeof value === 'number') {
-      return `${Number(value).toLocaleString('ar-EG')} EGP`;
+    /* ---------- أرقام واتساب (تعديل سهل هنا) ---------- */
+    const WA_NUMBER_1 = '+201004167961';
+    const WA_NUMBER_2 = '+201029909720';
+
+    /* ---------- بيانات افتراضية (الأسعار المحدثة التي طلبتها) ---------- */
+    const DEFAULT_PRICES = {
+      "PUBG": [
+        { label:"60 UC", amount:60, price:47 },
+        { label:"334 UC", amount:334, price:220 },
+        { label:"678 UC", amount:678, price:650 },
+        { label:"1845 UC", amount:1845, price:1250 },
+        { label:"3940 UC", amount:3940, price:2820 },
+        { label:"8280 UC", amount:8280, price:4800 }
+      ],
+      "Free Fire": [
+        { label:"100 Diamonds", amount:100, price:52.92 },
+        { label:"210 Diamonds", amount:210, price:105.84 },
+        { label:"530 Diamonds", amount:530, price:264.60 },
+        { label:"1080 Diamonds", amount:1080, price:529.20 },
+        { label:"2200 Diamonds", amount:2200, price:1058.40 }
+      ],
+      "COD": [
+        { label:"30 CP", amount:30, price:20 },
+        { label:"80 CP", amount:80, price:50 },
+        { label:"420 CP", amount:420, price:250 },
+        { label:"880 CP", amount:880, price:500 },
+        { label:"2400 CP", amount:2400, price:1250 },
+        { label:"5000 CP", amount:5000, price:2500 }
+      ],
+      "Arena Breakout": [
+        { label:"100 Bonds", amount:100, price:49.19 },
+        { label:"500 Bonds", amount:500, price:247.95 },
+        { label:"1000 Bonds", amount:1000, price:496.40 },
+        { label:"2500 Bonds", amount:2500, price:1241.74 },
+        { label:"5000 Bonds", amount:5000, price:2483.98 },
+        { label:"10000 Bonds", amount:10000, price:4968.45 }
+      ],
+      "Ludo Gold": [
+        { label:"68,500 Gold", amount:68500, price:113.47 },
+        { label:"223,700 Gold", amount:223700, price:284.94 },
+        { label:"1,463,320 Gold", amount:1463320, price:569.75 },
+        { label:"3,666,470 Gold", amount:3666470, price:1424.97 },
+        { label:"9,973,990 Gold", amount:9973990, price:2849.95 }
+      ],
+      "Ludo Diamonds": [
+        { label:"83 Diamonds", amount:83, price:113.47 },
+        { label:"2,320 Diamonds", amount:2320, price:284.94 },
+        { label:"5,150 Diamonds", amount:5150, price:569.78 },
+        { label:"13,580 Diamonds", amount:13580, price:1424.97 },
+        { label:"27,640 Diamonds", amount:27640, price:2849.95 }
+      ],
+      "MLBB": [
+        { label:"86 Diamonds", amount:86, price:65 },
+        { label:"172 Diamonds", amount:172, price:120 },
+        { label:"257 Diamonds", amount:257, price:175 }
+      ],
+      "Fortnite": [
+        { label:"1000 V-Bucks", amount:1000, price:350 },
+        { label:"2800 V-Bucks", amount:2800, price:900 },
+        { label:"5000 V-Bucks", amount:5000, price:1500 }
+      ]
+    };
+
+    /* ---------- طول الـ ID لكل لعبة ---------- */
+    const ID_LENGTHS = {
+      "PUBG": 10,
+      "Free Fire": 10,
+      "COD": 8,
+      "Arena Breakout": 17,
+      "Ludo Gold": 6,
+      "Ludo Diamonds": 6,
+      "MLBB": 9,
+      "Fortnite": 12
+    };
+
+    /* ---------- تخزين محلي ---------- */
+    const STORE_KEY = 'EBX_STORE_PRICES_V3';
+    function loadPricesFromStorage(){
+      const raw = localStorage.getItem(STORE_KEY);
+      if(!raw) return JSON.parse(JSON.stringify(DEFAULT_PRICES));
+      try { return JSON.parse(raw); }
+      catch(e){ return JSON.parse(JSON.stringify(DEFAULT_PRICES)); }
     }
-    return `${value} EGP`;
-  }
-
-  // ---- WhatsApp numbers (تعديل هنا إذا أردت رقمك) ----
-  const OPEN_WHATS_NUMBER_1 = '+201004167961';
-  const OPEN_WHATS_NUMBER_2 = '+201029909720';
-
-  // ---- Default prices (محدثة حسب طلبك) ----
-  const DEFAULT_PRICES = {
-    "PUBG": [
-      { label:"60 UC", amount:60, price:47 },
-      { label:"334 UC", amount:334, price:220 },
-      { label:"678 UC", amount:678, price:650 },
-      { label:"1845 UC", amount:1845, price:1250 },
-      { label:"3940 UC", amount:3940, price:2820 },
-      { label:"8280 UC", amount:8280, price:4800 }
-    ],
-    "Free Fire": [
-      { label:"100 Diamonds", amount:100, price:52.92 },
-      { label:"210 Diamonds", amount:210, price:105.84 },
-      { label:"530 Diamonds", amount:530, price:264.60 },
-      { label:"1080 Diamonds", amount:1080, price:529.20 },
-      { label:"2200 Diamonds", amount:2200, price:1058.40 }
-    ],
-    "COD": [
-      { label:"30 CP", amount:30, price:20 },
-      { label:"80 CP", amount:80, price:50 },
-      { label:"420 CP", amount:420, price:250 },
-      { label:"880 CP", amount:880, price:500 },
-      { label:"2400 CP", amount:2400, price:1250 },
-      { label:"5000 CP", amount:5000, price:2500 }
-    ],
-    "Arena Breakout": [
-      { label:"100 Bonds", amount:100, price:49.19 },
-      { label:"500 Bonds", amount:500, price:247.95 },
-      { label:"1000 Bonds", amount:1000, price:496.40 },
-      { label:"2500 Bonds", amount:2500, price:1241.74 },
-      { label:"5000 Bonds", amount:5000, price:2483.98 },
-      { label:"10000 Bonds", amount:10000, price:4968.45 }
-    ],
-    "Ludo Gold": [
-      { label:"68,500 Gold", amount:68500, price:113.47 },
-      { label:"223,700 Gold", amount:223700, price:284.94 },
-      { label:"1,463,320 Gold", amount:1463320, price:569.75 },
-      { label:"3,666,470 Gold", amount:3666470, price:1424.97 },
-      { label:"9,973,990 Gold", amount:9973990, price:2849.95 }
-    ],
-    "Ludo Diamonds": [
-      { label:"83 Diamonds", amount:83, price:113.47 },
-      { label:"2,320 Diamonds", amount:2320, price:284.94 },
-      { label:"5,150 Diamonds", amount:5150, price:569.78 },
-      { label:"13,580 Diamonds", amount:13580, price:1424.97 },
-      { label:"27,640 Diamonds", amount:27640, price:2849.95 }
-    ],
-    "MLBB": [
-      { label:"86 Diamonds", amount:86, price:65 },
-      { label:"172 Diamonds", amount:172, price:120 },
-      { label:"257 Diamonds", amount:257, price:175 }
-    ],
-    "Fortnite": [
-      { label:"1000 V-Bucks", amount:1000, price:350 },
-      { label:"2800 V-Bucks", amount:2800, price:900 },
-      { label:"5000 V-Bucks", amount:5000, price:1500 }
-    ]
-  };
-
-  // ---- ID lengths map ----
-  const ID_LENGTHS = {
-    "PUBG": 10,
-    "Free Fire": 10,
-    "COD": 8,
-    "Arena Breakout": 17,
-    "Ludo Gold": 6,
-    "Ludo Diamonds": 6,
-    "MLBB": 9,
-    "Fortnite": 12
-  };
-
-  // ---- localStorage helpers ----
-  const STORE_KEY = 'EBX_GAME_PRICES_FINAL_V1';
-  function loadPrices() {
-    const raw = localStorage.getItem(STORE_KEY);
-    if(!raw) return JSON.parse(JSON.stringify(DEFAULT_PRICES));
-    try { return JSON.parse(raw); }
-    catch(e) { return JSON.parse(JSON.stringify(DEFAULT_PRICES)); }
-  }
-  function savePrices(data) {
-    localStorage.setItem(STORE_KEY, JSON.stringify(data));
-    toast('تم حفظ الأسعار محليًا ✅');
-  }
-  function resetPrices() {
-    if(!confirm('هل أنت متأكد من إعادة الأسعار الافتراضية؟')) return;
-    localStorage.removeItem(STORE_KEY);
-    prices = loadPrices();
-    renderHome();
-    showHome();
-    toast('تمت إعادة الأسعار الافتراضية ↺');
-  }
-
-  // ---- state & elements ----
-  let prices = loadPrices(); // may be saved by user previously
-  let currentGame = null;
-  let selectedPkg = null;
-  let audioOn = false;
-
-  const gameGrid = $('#gameGrid');
-  const homeScreen = $('#homeScreen');
-  const detailScreen = $('#detailScreen');
-  const gameNameEl = $('#gameName');
-  const gameNoteEl = $('#gameNote');
-  const pkgGrid = $('#pkgGrid');
-  const playerIdEl = $('#playerId');
-  const serverEl = $('#server');
-  const whatsEl = $('#whats');
-  const statusEl = $('#status');
-  const checkBtn = $('#checkBtn');
-  const confirmBtn = $('#confirmBtn');
-  const manageBtn = $('#manageBtn');
-  const resetBtn = $('#resetPrices');
-  const backBtn = $('#backBtn');
-  const openMenuBtn = $('#openMenu');
-  const sbBackdrop = $('#sbBackdrop');
-  const sbPanel = $('#sbPanel');
-  const sidebarEl = $('#sidebar');
-  const fabBtn = $('#fab');
-  const supportBox = $('#supportBox');
-  const toggleAudioBtn = $('#toggleAudio');
-  const audioEl = $('#bgMusic');
-
-  const confirmModal = $('#confirmModal');
-  const orderSummaryEl = $('#orderSummary');
-  const sendWa1Btn = $('#sendWa1');
-  const sendWa2Btn = $('#sendWa2');
-  const closeModalBtn = $('#closeModal');
-
-  // ---- Game keys order ----
-  const GAME_KEYS = Object.keys(prices);
-
-  // ---- Render home grid ----
-  function renderHome() {
-    gameGrid.innerHTML = '';
-    GAME_KEYS.forEach((key, idx) => {
-      const card = document.createElement('div');
-      card.className = 'game-card';
-      card.setAttribute('role','button');
-      card.setAttribute('tabindex','0');
-
-      const logo = document.createElement('div');
-      logo.className = 'game-logo';
-      // initials or emoji as logo
-      logo.textContent = key.split(' ').map(s=>s[0]).slice(0,2).join('').toUpperCase();
-
-      const name = document.createElement('div');
-      name.className = 'game-name';
-      name.textContent = key;
-
-      const desc = document.createElement('div');
-      desc.className = 'game-desc';
-      desc.textContent = 'اضغط لعرض الباقات';
-
-      card.appendChild(logo);
-      card.appendChild(name);
-      card.appendChild(desc);
-
-      card.addEventListener('click', () => openGame(key));
-      card.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') openGame(key); });
-
-      gameGrid.appendChild(card);
-    });
-  }
-
-  // ---- Open game detail ----
-  function openGame(key) {
-    currentGame = key;
-    selectedPkg = null;
-    homeScreen.style.display = 'none';
-    detailScreen.style.display = 'block';
-    detailScreen.setAttribute('aria-hidden','false');
-    // title & hint
-    gameNameEl.textContent = key;
-    const len = ID_LENGTHS[key] || 6;
-    playerIdEl.value = '';
-    playerIdEl.maxLength = len;
-    playerIdEl.placeholder = `أدخل ID ${key} — ${len} أرقام`;
-    gameNoteEl.textContent = `مطلوب ${len} رقمًا للعبة ${key}.`;
-    renderPackages();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  // ---- Show home ----
-  function showHome() {
-    detailScreen.style.display = 'none';
-    detailScreen.setAttribute('aria-hidden','true');
-    homeScreen.style.display = '';
-    currentGame = null;
-    selectedPkg = null;
-    statusEl.textContent = '';
-  }
-
-  // ---- Render packages ----
-  function renderPackages() {
-    pkgGrid.innerHTML = '';
-    const list = prices[currentGame] || [];
-    if(list.length === 0) {
-      const empty = document.createElement('div');
-      empty.className = 'small';
-      empty.textContent = 'لا توجد باقات — اضغط "إضافة/تعديل الباقات" لإضافة.';
-      pkgGrid.appendChild(empty);
-      return;
+    function savePricesToStorage(obj){
+      localStorage.setItem(STORE_KEY, JSON.stringify(obj));
+      showToast('تم حفظ الأسعار محليًا ✅');
     }
-    list.forEach((pkg, idx) => {
-      const b = document.createElement('button');
-      b.className = 'pkg';
-      b.setAttribute('role','button');
-      b.setAttribute('aria-pressed','false');
+    function resetPricesToDefault(){
+      if(!confirm('هل تريد استرجاع الأسعار الافتراضية؟')) return;
+      localStorage.removeItem(STORE_KEY);
+      prices = loadPricesFromStorage();
+      renderHome();
+      showHome();
+      showToast('تمت إعادة الأسعار الافتراضية ↺');
+    }
 
-      const h3 = document.createElement('h3'); h3.textContent = pkg.label;
-      const amt = document.createElement('div'); amt.className = 'amount'; amt.textContent = pkg.amount ? pkg.amount : '';
-      const pr = document.createElement('div'); pr.className = 'price'; pr.textContent = (typeof pkg.price === 'number') ? formatEGP(pkg.price) : `${pkg.price}`;
-      const meta = document.createElement('div'); meta.className = 'meta'; meta.textContent = 'سريع — توصيل فوري';
+    /* ---------- حالة التطبيق ---------- */
+    let prices = loadPricesFromStorage();
+    const GAME_KEYS = Object.keys(prices);
+    let currentGame = null;
+    let selectedPackage = null;
+    let audioOn = false;
 
-      b.appendChild(h3);
-      b.appendChild(amt);
-      b.appendChild(pr);
-      b.appendChild(meta);
+    /* ---------- توست بسيط ---------- */
+    function showToast(message, ms=2200){
+      toastEl.textContent = message;
+      toastEl.classList.add('show');
+      setTimeout(()=> toastEl.classList.remove('show'), ms);
+    }
 
-      b.addEventListener('click', () => {
-        $$('.pkg').forEach(x => x.classList.remove('selected'));
-        b.classList.add('selected');
-        selectedPkg = pkg;
+    /* ---------- تنسيق السعر ---------- */
+    function formatEGP(v){
+      return (typeof v === 'number') ? `${Number(v).toLocaleString('ar-EG')} EGP` : `${v} EGP`;
+    }
+
+    /* ---------- بناء واظهار كروت الألعاب في الصفحة الرئيسية ---------- */
+    function renderHome(){
+      gameGridEl.innerHTML = '';
+      GAME_KEYS.forEach((key, i) => {
+        const card = document.createElement('div');
+        card.className = 'game-card';
+        card.tabIndex = 0;
+        // لوجو مختصر
+        const logo = document.createElement('div'); logo.className = 'game-logo'; logo.textContent = key.split(' ').map(x=>x[0]).slice(0,2).join('').toUpperCase();
+        const title = document.createElement('div'); title.className = 'game-title'; title.textContent = key;
+        const sub = document.createElement('div'); sub.className = 'game-sub'; sub.textContent = 'اضغط لعرض الباقات';
+
+        card.appendChild(logo); card.appendChild(title); card.appendChild(sub);
+
+        // تعامُل النقر / انتر
+        card.addEventListener('click', ()=> openGame(key));
+        card.addEventListener('keydown', (e)=> { if(e.key === 'Enter' || e.key === ' ') openGame(key); });
+
+        gameGridEl.appendChild(card);
       });
-
-      if(idx === 0) {
-        b.classList.add('selected');
-        selectedPkg = pkg;
-      }
-
-      pkgGrid.appendChild(b);
-    });
-  }
-
-  // ---- Validate ID ----
-  function validateId() {
-    if(!currentGame) return {ok:false, msg:'اختر لعبة أولاً.'};
-    const len = ID_LENGTHS[currentGame] || 6;
-    const val = playerIdEl.value.trim();
-    if(!val) return {ok:false, msg:'الرجاء إدخال الـ ID.'};
-    const numeric = /^[0-9]+$/.test(val);
-    if(!numeric) return {ok:false, msg:'الـ ID يجب أن يكون أرقام فقط.'};
-    if(val.length !== len) return {ok:false, msg:`الـ ID للعبة ${currentGame} يجب أن يكون ${len} رقمًا.`};
-    return {ok:true, msg:'✔️ الـ ID يبدو صحيحًا.'};
-  }
-
-  checkBtn.addEventListener('click', () => {
-    if(!currentGame) { toast('اختر لعبة أولاً'); return; }
-    statusEl.textContent = '⏳ جارِ التحقق...';
-    const res = validateId();
-    setTimeout(()=> { statusEl.textContent = res.msg; toast(res.msg, 1200); }, 300);
-  });
-
-  // ---- Confirm order -> modal ----
-  confirmBtn.addEventListener('click', () => {
-    if(!selectedPkg) { statusEl.textContent = 'يرجى اختيار باقة أولًا.'; toast('يرجى اختيار باقة أولًا.'); return; }
-    const v = validateId();
-    if(!v.ok) { statusEl.textContent = v.msg; toast(v.msg); return; }
-
-    const summary = [
-      `طلب جديد من EBX GAME STORE`,
-      `———————————————`,
-      `اللعبة: ${currentGame}`,
-      `الباقة: ${selectedPkg.label}`,
-      `السعر: ${(typeof selectedPkg.price === 'number') ? formatEGP(selectedPkg.price) : selectedPkg.price}`,
-      `ID: ${playerIdEl.value.trim()}`,
-      `السيرفر/المنطقة: ${serverEl.value || '—'}`,
-      `واتساب للمتابعة: ${whatsEl.value || '—'}`,
-      `تاريخ: ${new Date().toLocaleString('ar-EG')}`
-    ].join('\n');
-
-    orderSummaryEl.textContent = summary;
-    confirmModal.classList.add('show');
-
-    sendWa1Btn.onclick = () => openWhats(OPEN_WHATS_NUMBER_1, summary);
-    sendWa2Btn.onclick = () => openWhats(OPEN_WHATS_NUMBER_2, summary);
-  });
-
-  closeModalBtn.addEventListener('click', () => confirmModal.classList.remove('show'));
-
-  function openWhats(number, summary) {
-    const url = `https://wa.me/${number.replace(/\+/g,'')}?text=${encodeURIComponent(summary)}`;
-    window.open(url, '_blank');
-  }
-
-  // ---- Manage prices via prompt ----
-  manageBtn.addEventListener('click', () => {
-    if(!currentGame) { toast('اختر لعبة أولا لتعديل باقاتها'); return; }
-    const list = prices[currentGame] || [];
-    const lines = list.map(p => `${p.label} | ${p.amount} | ${p.price}`).join('\n');
-    const guide = `تحرير باقات ${currentGame}:\nكل سطر = label | amount | price\nمثال:\n60 UC | 60 | 47\n\nالباقات الحالية:\n${lines || '(لا توجد باقات)'}\n\nاحذف كل الأسطر لحذف الباقات.`;
-    const input = prompt(guide, lines);
-    if(input === null) return;
-    const next = [];
-    input.split(/\r?\n/).map(s => s.trim()).filter(Boolean).forEach(row => {
-      const parts = row.split('|').map(x => x.trim());
-      if(parts.length < 2) return;
-      const label = parts[0] || '';
-      const amount = Number(parts[1].replace(/,/g,'')) || 0;
-      const price = Number((parts[2]||parts[1]).toString().replace(/,/g,'')) || 0;
-      if(!label) return;
-      next.push({ label, amount, price });
-    });
-    prices[currentGame] = next;
-    savePrices(prices);
-    renderPackages();
-  });
-
-  resetBtn.addEventListener('click', () => resetPrices());
-
-  // ---- Sidebar open/close ----
-  function openSidebar() {
-    sidebarEl.style.pointerEvents = 'auto';
-    sbBackdrop.style.opacity = '1';
-    sbPanel.style.right = '0';
-    sidebarEl.classList.add('open');
-  }
-  function closeSidebar() {
-    sidebarEl.style.pointerEvents = 'none';
-    sbBackdrop.style.opacity = '0';
-    sbPanel.style.right = '-320px';
-    sidebarEl.classList.remove('open');
-  }
-  openMenuBtn.addEventListener('click', openSidebar);
-  sbBackdrop.addEventListener('click', closeSidebar);
-  $$('#sbPanel [data-close-sidebar]').forEach(a => a.addEventListener('click', closeSidebar));
-  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeSidebar(); });
-
-  // ---- Back button ----
-  backBtn.addEventListener('click', showHome);
-
-  // ---- Support FAB ----
-  fabBtn.addEventListener('click', () => supportBox.classList.toggle('show'));
-  $$('#supportBox .contact[data-wa]').forEach(el => {
-    el.addEventListener('click', () => openWhats(el.dataset.wa, 'مرحبًا، أحتاج دعم EBX.'));
-  });
-  $$('#contactCard .contact[data-wa]').forEach(el => {
-    el.addEventListener('click', () => openWhats(el.dataset.wa, 'مرحبًا، أريد استعلامًا عن الشحن.'));
-  });
-
-  // ---- Audio toggle ----
-  toggleAudioBtn.addEventListener('click', async () => {
-    try {
-      if(!audioOn) { await audioEl.play(); toggleAudioBtn.textContent = '🔇 كتم'; }
-      else { audioEl.pause(); toggleAudioBtn.textContent = '🔊 تشغيل'; }
-      audioOn = !audioOn;
-    } catch(err) {
-      toast('تعذّر تشغيل الصوت: مطلوب تفاعل المستخدم أو ملف غير موجود.');
     }
-  });
 
-  // ---- Init ----
-  function init() {
-    renderHome();
-    showHome();
-    // small delay show fab
-    setTimeout(()=> $('#fab').classList.add('visible'), 500);
-  }
+    /* ---------- فتح صفحة تفاصيل اللعبة ---------- */
+    function openGame(key){
+      currentGame = key;
+      selectedPackage = null;
+      // إخفاء الشاشة الرئيسية وإظهار التفاصيل
+      homeScreenEl.style.display = 'none';
+      detailScreenEl.style.display = 'block';
+      detailScreenEl.setAttribute('aria-hidden','false');
 
-  init();
+      // عنوان وتلميح للـ ID
+      gameNameEl.textContent = key;
+      const len = ID_LENGTHS[key] || 6;
+      playerIdInput.value = '';
+      playerIdInput.maxLength = len;
+      playerIdInput.placeholder = `أدخل ID ${key} — ${len} أرقام`;
+      gameNoteEl.textContent = `مطلوب ${len} رقمًا للعبة ${key}.`;
 
+      // عرض الباقات
+      renderPackages();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ---------- إظهار الشاشة الرئيسية ---------- */
+    function showHome(){
+      detailScreenEl.style.display = 'none';
+      detailScreenEl.setAttribute('aria-hidden','true');
+      homeScreenEl.style.display = '';
+      currentGame = null;
+      selectedPackage = null;
+      statusEl.textContent = '';
+    }
+
+    /* ---------- توليد الباقات في صفحة التفاصيل ---------- */
+    function renderPackages(){
+      pkgGridEl.innerHTML = '';
+      const list = prices[currentGame] || [];
+      if(list.length === 0){
+        const empty = document.createElement('div');
+        empty.className = 'small';
+        empty.textContent = 'لا توجد باقات بعد — اضغط "إضافة/تعديل الباقات" لإضافة.';
+        pkgGridEl.appendChild(empty);
+        return;
+      }
+      list.forEach((pkg, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'pkg';
+        btn.type = 'button';
+        btn.setAttribute('role','button');
+
+        const h3 = document.createElement('h3'); h3.textContent = pkg.label;
+        const amt = document.createElement('div'); amt.className = 'amount'; amt.textContent = pkg.amount ? pkg.amount.toLocaleString ? pkg.amount.toLocaleString('ar-EG') : pkg.amount : '';
+        const pr = document.createElement('div'); pr.className = 'price'; pr.textContent = (typeof pkg.price === 'number') ? formatEGP(pkg.price) : String(pkg.price);
+        const meta = document.createElement('div'); meta.className = 'meta'; meta.textContent = 'سريع — توصيل فوري';
+
+        btn.appendChild(h3);
+        btn.appendChild(amt);
+        btn.appendChild(pr);
+        btn.appendChild(meta);
+
+        btn.addEventListener('click', () => {
+          qsa('.pkg').forEach(x => x.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedPackage = pkg;
+        });
+
+        // اختيار أول باقة افتراضيًا
+        if(idx === 0){
+          btn.classList.add('selected');
+          selectedPackage = pkg;
+        }
+
+        pkgGridEl.appendChild(btn);
+      });
+    }
+
+    /* ---------- تحقق من صحة الـ ID ---------- */
+    function validateId(){
+      if(!currentGame) return {ok:false, msg:'اختر لعبة أولًا.'};
+      const len = ID_LENGTHS[currentGame] || 6;
+      const val = (playerIdInput.value || '').trim();
+      if(!val) return {ok:false, msg:'الرجاء إدخال الـ ID.'};
+      const numeric = /^[0-9]+$/.test(val);
+      if(!numeric) return {ok:false, msg:'الـ ID يجب أن يكون أرقام فقط.'};
+      if(val.length !== len) return {ok:false, msg:`الـ ID للعبة ${currentGame} يجب أن يكون ${len} رقمًا.`};
+      return {ok:true, msg:'✔️ الـ ID يبدو صحيحًا.'};
+    }
+
+    checkBtn.addEventListener('click', ()=> {
+      if(!currentGame){ showToast('اختر لعبة أولاً'); return; }
+      statusEl.textContent = '⏳ جارِ التحقق...';
+      const res = validateId();
+      setTimeout(()=> { statusEl.textContent = res.msg; showToast(res.msg,1200); }, 300);
+    });
+
+    /* ---------- تأكيد الطلب: ملخص + مودال + واتساب ---------- */
+    confirmBtn.addEventListener('click', ()=> {
+      if(!selectedPackage){ statusEl.textContent = 'يرجى اختيار باقة أولًا.'; showToast('يرجى اختيار باقة أولًا.'); return; }
+      const check = validateId();
+      if(!check.ok){ statusEl.textContent = check.msg; showToast(check.msg); return; }
+
+      const summaryLines = [
+        `طلب جديد من EBX GAME STORE`,
+        `———————————————`,
+        `اللعبة: ${currentGame}`,
+        `الباقة: ${selectedPackage.label}`,
+        `السعر: ${(typeof selectedPackage.price === 'number') ? formatEGP(selectedPackage.price) : String(selectedPackage.price)}`,
+        `ID: ${playerIdInput.value.trim()}`,
+        `السيرفر/المنطقة: ${serverInput.value || '—'}`,
+        `واتساب للمتابعة: ${whatsInput.value || '—'}`,
+        `تاريخ: ${new Date().toLocaleString('ar-EG')}`
+      ];
+      const summary = summaryLines.join('\n');
+      orderSummaryEl.textContent = summary;
+      confirmModal.classList.add('show');
+
+      sendWa1Btn.onclick = ()=> openWhats(WA_NUMBER_1, summary);
+      sendWa2Btn.onclick = ()=> openWhats(WA_NUMBER_2, summary);
+    });
+
+    closeModalBtn.addEventListener('click', ()=> confirmModal.classList.remove('show'));
+
+    function openWhats(number, summary){
+      const url = `https://wa.me/${number.replace(/\+/g,'')}?text=${encodeURIComponent(summary)}`;
+      window.open(url, '_blank');
+    }
+
+    /* ---------- تعديل/حفظ الباقات عبر نافذة إدخال بسيطة ---------- */
+    manageBtn.addEventListener('click', ()=>{
+      if(!currentGame){ showToast('اختر لعبة لتعديل باقاتها'); return; }
+      const existing = prices[currentGame] || [];
+      const lines = existing.map(p => `${p.label} | ${p.amount} | ${p.price}`).join('\n');
+      const promptText = `تحرير باقات ${currentGame}:\nكل سطر = label | amount | price\nمثال:\n60 UC | 60 | 47\n\nالباقات الحالية:\n${lines || '(لا توجد باقات)'}`;
+      const input = prompt(promptText, lines);
+      if(input === null) return;
+      const next = [];
+      input.split(/\r?\n/).map(s=>s.trim()).filter(Boolean).forEach(row=>{
+        const parts = row.split('|').map(x=>x.trim());
+        if(parts.length < 2) return;
+        const label = parts[0] || '';
+        const amount = Number((parts[1]||'0').toString().replace(/,/g,'')) || 0;
+        const price = Number((parts[2]||parts[1]||'0').toString().replace(/,/g,'')) || 0;
+        if(!label) return;
+        next.push({ label, amount, price });
+      });
+      prices[currentGame] = next;
+      savePricesToStorage(prices);
+      renderPackages();
+    });
+
+    resetBtn.addEventListener('click', ()=> resetPricesToDefault());
+
+    /* ---------- شريط جانبي: فتح/إغلاق ---------- */
+    function openSidebar(){ sidebarContainer.style.pointerEvents = 'auto'; sbBackdrop.style.opacity = '1'; sbPanel.style.right = '0'; sidebarContainer.classList.add('open'); }
+    function closeSidebar(){ sidebarContainer.style.pointerEvents = 'none'; sbBackdrop.style.opacity = '0'; sbPanel.style.right = '-320px'; sidebarContainer.classList.remove('open'); }
+    openMenuBtn.addEventListener('click', openSidebar);
+    sbBackdrop.addEventListener('click', closeSidebar);
+    qsa('#sbPanel [data-close-sidebar]').forEach(a => a.addEventListener('click', closeSidebar));
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeSidebar(); });
+
+    /* ---------- زر العودة ---------- */
+    backBtn.addEventListener('click', ()=> showHome());
+
+    /* ---------- FAB الدعم ---------- */
+    fabBtn.addEventListener('click', ()=> supportBox.classList.toggle('show'));
+    qsa('#supportBox .contact[data-wa]').forEach(el => el.addEventListener('click', ()=> openWhats(el.dataset.wa, 'مرحبًا، أحتاج دعم EBX.')) );
+    qsa('#contactCard .contact[data-wa]').forEach(el => el.addEventListener('click', ()=> openWhats(el.dataset.wa, 'مرحبًا، أريد استعلامًا عن الشحن.')) );
+
+    /* ---------- صوت الخلفية (يتطلب تفاعل المستخدم) ---------- */
+    toggleAudioBtn.addEventListener('click', async ()=>{
+      try{
+        if(!audioOn){ await audioEl.play(); toggleAudioBtn.textContent = '🔇 كتم'; }
+        else{ audioEl.pause(); toggleAudioBtn.textContent = '🔊 تشغيل'; }
+        audioOn = !audioOn;
+      }catch(err){ showToast('تعذر تشغيل الصوت: تفاعل المستخدم مطلوب أو الملف غير موجود.'); }
+    });
+
+    /* ---------- تهيئة التطبيق عند التحميل ---------- */
+    function init(){
+      renderHome();
+      showHome();
+      // تأكيد مكان الFab مرئي بعد التحميل
+      setTimeout(()=> { fabBtn.classList.add('visible'); }, 500);
+    }
+
+    // تشغيل التهيئة
+    init();
+
+    /* ---------- نهاية السكربت ---------- */
   </script>
 </body>
 </html>
