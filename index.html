@@ -559,6 +559,35 @@ audioToggle.addEventListener('click', async ()=>{
   }catch(err){
     showToast('تعذّر تشغيل الصوت: تأكد من وجود الملف أو السماح بالتشغيل.');
   }
+});/* 🟢 قراءة اسم المحل من الرابط */
+const urlParams = new URLSearchParams(window.location.search);
+const shopName = urlParams.get('shop') || null;
+
+/* تعديل ملخص الطلب ليشمل اسم المحل */
+orderBtn.addEventListener('click', ()=>{
+  if(!selectedPackage){ statusEl.textContent='يرجى اختيار باقة أولًا.'; showToast('يرجى اختيار باقة أولًا.'); return; }
+  const check = validateId();
+  if(!check.ok){ statusEl.textContent = check.msg; showToast(check.msg); return; }
+
+  const summaryLines = [
+    `طلب جديد من EBX GAME STORE`,
+    shopName ? `المحل: ${shopName}` : null,
+    `———————————————`,
+    `اللعبة: ${currentGame}`,
+    `الباقة: ${selectedPackage.label}`,
+    `السعر: ${formatEGP(selectedPackage.price)}`,
+    `ID: ${playerIdInput.value.trim()}`,
+    `السيرفر/المنطقة: ${serverInput.value || '—'}`,
+    `واتساب للمتابعة: ${whatsInput.value || '—'}`,
+    `تاريخ: ${new Date().toLocaleString('ar-EG')}`
+  ].filter(Boolean);
+  orderSummaryEl.textContent = summaryLines.join('\n');
+
+  sendWa1Btn.style.display = '';
+  sendWa2Btn.style.display = '';
+  closeModalBtn.style.display = '';
+  sendSuccessMsg.style.display = 'none';
+  orderModal.classList.add('show');
 });
 </script> 
  </body>
