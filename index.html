@@ -491,17 +491,20 @@ orderBtn.addEventListener('click', ()=>{
   const check = validateId();
   if(!check.ok){ statusEl.textContent = check.msg; showToast(check.msg); return; }
 
-  const summaryLines = [
-    `طلب جديد من EBX GAME STORE`,
-    `———————————————`,
-    `اللعبة: ${currentGame}`,
-    `الباقة: ${selectedPackage.label}`,
-    `السعر: ${formatEGP(selectedPackage.price)}`,
-    `ID: ${playerIdInput.value.trim()}`,
-    `السيرفر/المنطقة: ${serverInput.value || '—'}`,
-    `واتساب للمتابعة: ${whatsInput.value || '—'}`,
-    `تاريخ: ${new Date().toLocaleString('ar-EG')}`
-  ];
+const summaryLines = [
+  `📢 طلب جديد من EBX GAME STORE`,
+  shopName ? `🏪 المحل: ${shopName}` : null,
+  `━━━━━━━━━━━━━━━━━━`,
+  `🎮 اللعبة: ${currentGame}`,
+  `📦 الباقة: ${selectedPackage.label}`,
+  `💰 السعر: ${formatEGP(selectedPackage.price)}`,
+  `🆔 ID: ${playerIdInput.value.trim()}`,
+  `🌍 السيرفر/المنطقة: ${serverInput.value || '—'}`,
+  `📱 رقم واتساب للمتابعة: ${whatsInput.value || '—'}`,
+  `🕒 التاريخ: ${new Date().toLocaleString('ar-EG')}`,
+  `━━━━━━━━━━━━━━━━━━`,
+  `✅ الرجاء تأكيد الطلب في أسرع وقت`
+].filter(Boolean);
   orderSummaryEl.textContent = summaryLines.join('\n');
   // إعادة إظهار الأزرار في كل مرة يُفتح فيها المودال
   sendWa1Btn.style.display = '';
