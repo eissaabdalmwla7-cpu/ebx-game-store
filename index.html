@@ -1,547 +1,1261 @@
-<!doctype html>
+<<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>EBX GAME STORE — المتجر المتكامل</title>
-  <meta name="description" content="متجر شحن ألعاب سريع وآمن: PUBG, Free Fire, CODM, Arena Breakout, Ludo, MLBB, Fortnite. أسعار محدثة وخدمة واتساب فورية.">
-  <meta name="theme-color" content="#00e5ff">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#07121c;
-      --card:#0b1b29;
-      --neon:#00e5ff;
-      --text:#eaf9ff;
-      --muted:#cfefff;
-      --shadow:0 12px 40px rgba(0,229,255,.08);
-      --glow:0 0 16px rgba(0,229,255,.30), 0 0 36px rgba(0,229,255,.16);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      line-height:1.5;
-      font-family:'Cairo',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-      color:var(--text);
-      background:#000;
-      background-image:url("Picsart_25-08-24_11-20-42-650.jpg");
-      background-repeat:no-repeat;
-      background-size:cover;
-      background-position:center;
-      background-attachment:fixed;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
-    /* طبقة تعتيم للقراءة الواضحة */
-    body::before{
-      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
-      background:linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.78));
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EBX GAME STORE</title>
+<meta name="theme-color" content="#0A0A0A" />
 
-    header, main, footer {position:relative;z-index:1}
-    .wrap{max-width:1200px;margin:22px auto 120px;padding:0 18px}
-    :focus{outline:3px solid rgba(0,229,255,.25); outline-offset:4px; border-radius:12px}
+<! -- =======================
+  Global Styles (Neon Dark)
+======================== -- !>
+  
+<style>
+  :root{
+    --bg:#0A0A0A;
+    --card:#111317;
+    --muted:#151821;
+    --line:#1f2230;
+    --text:#FFFFFF;
+    --text-dim:#B3B3B3;
+    --primary:#00E5FF;      /* Electric Blue */
+    --secondary:#9D00FF;    /* Purple Glow  */
+    --cta:#00FF85;          /* Neon Green    */
+    --danger:#ff3b30;
+    --ok:#30d158;
+    --warn:#ffd60a;
+    --shadow: 0 10px 30px rgba(0,0,0,.45), 0 0 30px rgba(0,229,255,.08);
+    --glow-primary: 0 0 20px rgba(0,229,255,.35);
+    --glow-cta: 0 0 20px rgba(0,255,133,.35);
+    --radius:18px;
+    --font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Kufi Arabic", Arial, sans-serif;
+  }
 
-    /* عناوين */
-    h1{margin:0 0 6px; font-size:28px; font-weight:900; color:var(--neon); text-align:center; text-shadow:0 0 10px rgba(0,229,255,.18)}
-    .lead{margin:0 0 16px; text-align:center; color:var(--muted)}
+  *{box-sizing:border-box}
+  html,body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-family);
+    margin:0;
+    direction:rtl;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
 
-    /* بطاقات الألعاب */
-    .games-grid{
-      display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    }
-    .game-card{
-      background:rgba(10,24,36,.78); border:1px solid rgba(255,255,255,.06);
-      border-radius:16px; padding:22px 16px; min-height:140px;
-      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
-      cursor:pointer; transition:transform .2s, box-shadow .2s, border-color .2s; box-shadow:var(--shadow)
-    }
-    .game-card:hover{ transform:translateY(-6px); box-shadow:var(--glow); border-color:rgba(0,229,255,.28) }
-    .game-logo{ width:54px;height:54px;border-radius:12px;display:grid;place-items:center;color:var(--neon);font-weight:900;background:linear-gradient(135deg,#ffffff14,#00e5ff2b) }
-    .game-title{ font-weight:900; font-size:18px }
-    .game-sub{ font-size:13px; color:var(--muted) }
+  a{color:var(--primary);text-decoration:none;transition:0.3s}
+  a:hover{color:var(--cta)}
 
-    /* شاشة التفاصيل */
-    .detail-screen{ display:none }
-    .detail-card{
-      background:rgba(7,16,24,.9); border:1px solid rgba(255,255,255,.06);
-      border-radius:16px; padding:16px; box-shadow:var(--shadow); backdrop-filter:blur(6px) saturate(120%);
-    }
-    .detail-header{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:12px }
-    .detail-title{ font-size:20px; font-weight:900; color:var(--neon) }
-    .detail-sub{ font-size:13px; color:var(--muted) }
+  img{max-width:100%;display:block;border-radius:var(--radius)}
+  .container{max-width:1200px;margin:0 auto;padding:16px}
 
-    .pkg-grid{ display:grid; gap:12px; grid-template-columns:repeat(4,1fr); margin-top:8px }
-    @media (max-width:1100px){ .pkg-grid{ grid-template-columns:repeat(3,1fr)} }
-    @media (max-width:820px){ .pkg-grid{ grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:520px){ .pkg-grid{ grid-template-columns:1fr } }
+  /* Typography */
+  h1,h2,h3,h4,h5,h6{
+    font-weight:700;
+    line-height:1.3;
+    color:var(--text);
+    margin:0 0 12px;
+  }
+  p{
+    font-size:clamp(14px, 2vw, 18px);
+    line-height:1.6;
+    color:var(--text-dim);
+    margin:0 0 16px;
+  }
 
-    .pkg{
-      padding:14px; border-radius:12px; background:#0a1b2a; border:1px solid rgba(255,255,255,.06);
-      cursor:pointer; transition:transform .18s, box-shadow .18s, border-color .18s;
-      display:flex; flex-direction:column; gap:6px; text-align:center;
-    }
-    .pkg:hover{ transform:translateY(-5px); box-shadow:var(--glow); border-color:rgba(0,229,255,.28) }
-    .pkg h3{ margin:0; font-size:15px; color:#fff }
-    .pkg .amount{ font-weight:900; font-size:16px; color:#fff }
-    .pkg .price{ font-weight:900; color:var(--neon); font-size:14px }
-    .pkg .meta{ font-size:12px; color:var(--muted) }
-    .pkg.selected{ outline:2px solid rgba(0,229,255,.5); background:linear-gradient(180deg, rgba(0,229,255,.06), rgba(255,255,255,.02)) }
+  /* Buttons */
+  .btn{
+    display:inline-block;
+    padding:12px 20px;
+    border-radius:var(--radius);
+    font-weight:600;
+    cursor:pointer;
+    text-align:center;
+    transition:0.3s ease;
+    border:2px solid transparent;
+  }
+  .btn-primary{
+    background:var(--primary);
+    color:#000;
+    box-shadow:var(--glow-primary);
+  }
+  .btn-primary:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 25px rgba(0,229,255,.6);
+  }
+  .btn-cta{
+    background:var(--cta);
+    color:#000;
+    box-shadow:var(--glow-cta);
+  }
+  .btn-cta:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 25px rgba(0,255,133,.6);
+  }
+  .btn-outline{
+    background:transparent;
+    border:2px solid var(--primary);
+    color:var(--primary);
+  }
+  .btn-outline:hover{
+    background:var(--primary);
+    color:#000;
+  }
 
-    .form{ margin-top:12px; display:grid; gap:10px }
-    .input{
-      width:100%; padding:12px; border-radius:12px; background:#06151a;
-      color:var(--text); border:1px solid rgba(255,255,255,.08); font-size:15px; outline:none;
-    }
-    .hint{ color:var(--muted); font-size:12px }
-    .actions{ display:flex; gap:8px; align-items:center; margin-top:6px; flex-wrap:wrap }
-    .btn{
-      border:0; cursor:pointer; font-weight:900; border-radius:12px; padding:10px 14px;
-      background:var(--neon); color:#05222b; box-shadow:var(--shadow);
-      transition:.16s transform, .24s box-shadow, .24s opacity;
-    }
-    .btn.secondary{ background:#0e2232; color:var(--text); border:1px solid rgba(255,255,255,.08) }
-    .btn:active{ transform:translateY(1px) }
-    .btn[disabled]{ opacity:.6; cursor:not-allowed }
+  /* Cards */
+  .card{
+    background:var(--card);
+    border-radius:var(--radius);
+    padding:20px;
+    box-shadow:var(--shadow);
+    transition:0.3s ease;
+  }
+  .card:hover{
+    transform:translateY(-5px) scale(1.02);
+    box-shadow:0 15px 35px rgba(0,0,0,.6), 0 0 25px rgba(0,229,255,.15);
+  }
 
-    /* مودال */
-    .modal{ position:fixed; inset:0; display:none; place-items:center; z-index:40; background:rgba(0,0,0,.56) }
-    .modal.show{ display:grid }
-    .modal-card{ width:min(720px,95vw); background:var(--card); padding:16px; border-radius:14px; border:1px solid rgba(255,255,255,.06); box-shadow:var(--glow) }
-    .modal-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:8px }
-    .summary{ background:#071926; padding:12px; border-radius:10px; margin-top:10px; white-space:pre-wrap; color:var(--text) }
+  /* Neon Scrollbar */
+  ::-webkit-scrollbar{width:10px}
+  ::-webkit-scrollbar-track{background:var(--muted)}
+  ::-webkit-scrollbar-thumb{
+    background:var(--primary);
+    border-radius:10px;
+    box-shadow:inset 0 0 6px rgba(0,0,0,.5);
+  }
+  ::-webkit-scrollbar-thumb:hover{background:var(--cta)}
+  
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:linear-gradient(180deg, rgba(10,10,10,.95), rgba(10,10,10,.85));
+    backdrop-filter: blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-wrap{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;gap:12px}
+  .brand{
+    display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.5px;cursor:pointer;
+  }
+  .brand-logo{
+    width:42px;height:42px;border-radius:12px;background: radial-gradient(ellipse at 30% 30%, var(--secondary), transparent 60%), radial-gradient(ellipse at 70% 70%, var(--primary), transparent 60%), #0e0e0e;border:1px solid var(--line);box-shadow:var(--glow-primary)
+  }
+  .brand-name{font-size:18px}
+  .hamburger{
+    width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(180deg,#0f1116,#0b0d12);display:grid;place-items:center;cursor:pointer;box-shadow:var(--shadow)
+  }
+  .hamburger span,.hamburger span::before,.hamburger span::after{
+    content:"";display:block;width:20px;height:2px;background:var(--text);border-radius:2px;position:relative;transition:.2s
+  }
+  .hamburger span::before{position:absolute;top:-6px}
+  .hamburger span::after{position:absolute;top:6px}
 
-    /* FAB & دعم */
-    .fab{ position:fixed; bottom:20px; left:20px; z-index:50; width:56px; height:56px; border-radius:50%; display:grid; place-items:center; background:var(--neon); color:#01222e; font-size:22px; box-shadow:0 16px 40px rgba(0,229,255,.18); cursor:pointer }
-    .support{ position:fixed; bottom:86px; left:20px; width:320px; background:rgba(10,24,36,.96); border-radius:12px; padding:12px; box-shadow:var(--glow); display:none; z-index:49; border:1px solid rgba(255,255,255,.06) }
-    .support.show{ display:block }
-    .contact-row{ display:flex; gap:8px; margin-top:10px }
-    .contact{ flex:1; padding:10px; border-radius:10px; background:#06151a; border:1px solid rgba(255,255,255,.06); text-align:center; cursor:pointer; color:var(--text) }
-    .contact:hover{ border-color: rgba(0,229,255,.35) }
+  /* Drawer */
+  .drawer{position:fixed;inset:0;z-index:60;display:none}
+  .drawer.active{display:block}
+  .drawer-back{position:absolute;inset:0;background:rgba(0,0,0,.55)}
+  .drawer-panel{
+    position:absolute;top:0;right:0;height:100%;width:86%;max-width:360px;background:linear-gradient(180deg,#0c0e13,#0a0a0a);
+    border-left:1px solid var(--line);box-shadow:var(--shadow);padding:18px;overflow:auto
+  }
+  .nav-list{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+  .nav-item{
+    padding:14px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,#0f1116,#0b0d12);
+    display:flex;justify-content:space-between;align-items:center;font-weight:600
+  }
+  .nav-item:hover{border-color:var(--primary);box-shadow:var(--glow-primary)}
+  .pill{padding:6px 10px;border-radius:999px;background:#0c1220;border:1px solid var(--line);font-size:12px;color:var(--text-dim)}
+  .whatsapp-fab{
+    position:fixed;bottom:18px;left:18px;z-index:55;background:linear-gradient(180deg,#0e1f17,#09150f);
+    border:1px solid #124d36;color:#d7ffe8;padding:12px 16px;border-radius:999px;box-shadow:var(--glow-cta);display:flex;align-items:center;gap:10px;font-weight:700
+  }
 
-    /* Toast */
-    .toast{ position:fixed; bottom:20px; right:20px; z-index:60; padding:12px 14px; border-radius:12px; min-width:220px; background:rgba(1,32,44,.95); color:var(--text); display:none; border:1px solid rgba(255,255,255,.08); box-shadow:var(--glow) }
-    .toast.show{ display:block; animation:toastIn .18s ease }
-    @keyframes toastIn{ from{opacity:.3; transform:translateY(8px)} to{opacity:1; transform:none} }
+  /* Banner */
+  .ticker{border-bottom:1px solid var(--line);background:#0c0c0c}
+  .ticker .inner{overflow:hidden;white-space:nowrap;color:var(--text-dim);font-size:14px}
+  .ticker span{display:inline-block;padding:8px 20px}
+  .hero{
+    display:grid;gap:16px;padding:16px 16px 24px
+  }
+  .hero-banner{
+    border:1px solid var(--line);border-radius:var(--radius);
+    background:
+      radial-gradient(60% 100% at 80% 0%, rgba(157,0,255,.12), transparent 70%),
+      radial-gradient(80% 120% at 0% 100%, rgba(0,229,255,.12), transparent 70%),
+      linear-gradient(180deg,#0f1116,#0a0a0a);
+    box-shadow:var(--shadow);padding:20px;display:grid;gap:10px
+  }
+  .hero-title{font-size:22px;font-weight:900}
+  .hero-sub{color:var(--text-dim)}
 
-    footer{ opacity:.95; text-align:center; padding:28px 12px; color:var(--muted); font-size:13px }
+  /* Cards Grid */
+  .grid{display:grid;gap:14px}
+  @media(min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:960px){.grid{grid-template-columns:repeat(3,1fr)}}
+  .card{
+    border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#0f1116,#0b0d12);
+    box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column
+  }
+  .card img{height:140px;object-fit:cover}
+  .card .body{padding:14px;display:grid;gap:10px}
+  .tag{font-size:12px;color:var(--text-dim)}
+  .btn{
+    appearance:none;border:none;cursor:pointer;
+    background:linear-gradient(180deg,#032125,#00191d);color:#e9fdff;
+    border:1px solid #073a41;padding:12px 14px;border-radius:12px;font-weight:800;box-shadow:var(--glow-primary);transition:.2s
+  }
+  .btn:hover{transform:translateY(-1px)}
+  .btn-cta{
+    background:linear-gradient(180deg,#073c2b,#031f16);border:1px solid #0a6c4c;color:#eafff6;box-shadow:var(--glow-cta)
+  }
+  .btn-danger{background:linear-gradient(180deg,#2a0b0b,#170505);border:1px solid #5a1f1f;color:#ffd7d7}
+  .btn-ghost{background:#0c0f14;border:1px dashed var(--line);color:var(--text-dim)}
 
-    /* زر الصوت */
-    #audioToggle{
-      position:fixed; bottom:20px; right:20px; z-index:50;
-      width:56px; height:56px; border-radius:50%;
-      display:grid; place-items:center;
-      border:1px solid rgba(255,255,255,.08);
-      background:var(--neon); color:#05222b; font-size:20px; cursor:pointer;
-      box-shadow:0 16px 40px rgba(0,229,255,.18);
-    }
-    #audioToggle:hover{ box-shadow:var(--glow) }
-  </style>
+  /* Sections */
+  .section{padding:10px 16px 24px}
+  .section h2{margin:0 0 10px;font-size:20px}
+  .muted{color:var(--text-dim)}
+
+  /* Game Page */
+  .game-page{display:none}
+  .game-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .game-title{font-size:22px;font-weight:900}
+  .accordion{display:grid;gap:10px}
+  .pack{
+    border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#0f1116,#0b0d12);padding:12px;display:grid;gap:10px
+  }
+  .pack-row{display:flex;justify-content:space-between;gap:10px;align-items:center}
+  .input{
+    width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#0c0f14;color:var(--text)
+  }
+  .hint{font-size:12px;color:var(--text-dim)}
+  .loader{display:none;gap:10px;align-items:center}
+  .dot{width:10px;height:10px;border-radius:999px;background:var(--primary);box-shadow:var(--glow-primary);animation:b 1.2s infinite}
+  .dot:nth-child(2){animation-delay:.15s}
+  .dot:nth-child(3){animation-delay:.3s}
+  @keyframes b{0%,100%{transform:scale(.6);opacity:.5}50%{transform:scale(1);opacity:1}}
+
+  /* Payments */
+  .payments-grid{display:grid;gap:12px}
+  @media(min-width:640px){.payments-grid{grid-template-columns:repeat(2,1fr)}}
+  .pay-item{border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,#0f1116,#0b0d12);padding:14px}
+
+  /* Promotions */
+  .promo{border:1px solid var(--line);border-radius:16px;background:#0f1116;padding:16px;display:grid;gap:10px}
+  .countdown{font-variant-numeric:tabular-nums}
+
+  /* Footer */
+  footer{border-top:1px solid var(--line);padding:20px;color:var(--text-dim);background:#0b0b0c}
+
+  /* Toast */
+  .toast{
+    position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:70;padding:12px 16px;border-radius:12px;
+    background:#0f1116;border:1px solid var(--line);color:var(--text);display:none;box-shadow:var(--shadow)
+  }
+  .badge{font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:#0c0f14;color:var(--text-dim)}
+
+  /* Admin */
+  .admin-modal,.login-modal{position:fixed;inset:0;z-index:80;display:none}
+  .admin-modal.active,.login-modal.active{display:grid;place-items:center;background:rgba(0,0,0,.6)}
+  .admin-card{
+    width:min(980px,96%);max-height:92vh;overflow:auto;border:1px solid var(--line);border-radius:18px;
+    background:linear-gradient(180deg,#0f1116,#0b0d12);box-shadow:var(--shadow);padding:16px;display:grid;gap:12px
+  }
+  .tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .tab{padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#0c0f14;cursor:pointer}
+  .tab.active{border-color:var(--primary);box-shadow:var(--glow-primary)}
+  .table{width:100%;border-collapse:collapse}
+  .table th,.table td{border-bottom:1px solid var(--line);padding:10px;text-align:right}
+  .table th{color:var(--text-dim);font-weight:600}
+  .row-actions{display:flex;gap:6px;flex-wrap:wrap}
+  .secret{user-select:none}
+
+  /* small tweaks */
+  label{display:block;font-weight:700;margin-bottom:6px}
+  input[type="color"], select.input{appearance:none;padding:10px;border-radius:10px}
+  code{background:#071018;padding:6px;border-radius:8px;color:var(--text-dim)}
+  .img-thumb{width:80px;height:48px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+</style>
 </head>
 <body>
-  <main class="wrap">
-    <!-- الشاشة الرئيسية -->
-    <section class="home-screen" aria-label="الشاشة الرئيسية">
-      <h1>EBX GAME STORE</h1>
-      <p class="lead">اختر لعبتك واضغط لعرض الباقات والأسعار والبدء فورًا</p>
 
-      <div class="games-grid" id="gamesGrid">
-        <div class="game-card" data-game="PUBG">
-          <div class="game-logo">PU</div>
-          <div class="game-title">PUBG MOBILE</div>
-          <div class="game-sub">شحن UC بسرعة وأمان</div>
-        </div>
+<!-- Toast -->
+<div id="toast" class="toast"></div>
 
-        <div class="game-card" data-game="Free Fire">
-          <div class="game-logo">FF</div>
-          <div class="game-title">Free Fire</div>
-          <div class="game-sub">شحن جواهر مباشر</div>
-        </div>
+<!-- Header -->
+<header>
+  <div class="header-wrap container">
+    <div class="brand secret" id="brand" title="اضغط 5 مرات للدخول للأدمن">
+      <div class="brand-logo" id="brandLogo"></div>
+      <div class="brand-name" id="brandName">EBX GAME STORE</div>
+    </div>
+    <button class="hamburger" id="openDrawer" aria-label="افتح القائمة"><span></span></button>
+  </div>
+  <!-- Ticker -->
+  <div class="ticker">
+    <div class="container inner">
+      <span id="ticker1">خصم %10 على أول عملية شحن</span>
+      <span id="ticker2">خدمة عملاء 24/7</span>
+      <span id="ticker3">طرق دفع آمنة 100%</span>
+    </div>
+  </div>
+</header>
 
-        <div class="game-card" data-game="COD">
-          <div class="game-logo">CO</div>
-          <div class="game-title">Call of Duty Mobile</div>
-          <div class="game-sub">CP مباشر</div>
-        </div>
+<!-- Drawer -->
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-back" id="closeDrawer"></div>
+  <div class="drawer-panel" role="menu" aria-label="القائمة الجانبية">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+      <div class="brand">
+        <div class="brand-logo" id="brandLogoSmall"></div>
+        <div class="brand-name">EBX MENU</div>
+      </div>
+      <button class="btn btn-danger" id="closeDrawerBtn">إغلاق</button>
+    </div>
+    <nav class="nav-list" style="margin-top:14px">
+      <a class="nav-item" href="#home"><span>الرئيسية</span><span class="pill">صفحة البداية</span></a>
+      <a class="nav-item" href="#games"><span>الألعاب</span><span class="pill">اختيار اللعبة</span></a>
+      <a class="nav-item" href="#promos"><span>العروض</span><span class="pill">كوبونات وبنرات</span></a>
+      <a class="nav-item" href="#payments"><span>طرق الدفع</span><span class="pill">آمنة 100%</span></a>
+      <a class="nav-item" id="supportLink" href="#"><span>خدمة العملاء</span><span class="pill">واتساب مباشر</span></a>
+    </nav>
+  </div>
+</aside>
 
-        <div class="game-card" data-game="Arena Breakout">
-          <div class="game-logo">AB</div>
-          <div class="game-title">Arena Breakout</div>
-          <div class="game-sub">شحن Bonds</div>
-        </div>
+<!-- WhatsApp FAB -->
+<a class="whatsapp-fab" id="waFab" href="#" target="_blank">
+  واتساب الدعم
+</a>
 
-        <div class="game-card" data-game="Ludo Gold">
-          <div class="game-logo">LG</div>
-          <div class="game-title">Ludo Gold</div>
-          <div class="game-sub">شحن الذهب</div>
-        </div>
+<main id="app">
 
-        <div class="game-card" data-game="Ludo Diamonds">
-          <div class="game-logo">LD</div>
-          <div class="game-title">Ludo Diamonds</div>
-          <div class="game-sub">شحن الماس</div>
-        </div>
-
-        <div class="game-card" data-game="MLBB">
-          <div class="game-logo">ML</div>
-          <div class="game-title">Mobile Legends</div>
-          <div class="game-sub">شحن Diamonds</div>
-        </div>
-
-        <div class="game-card" data-game="Fortnite">
-          <div class="game-logo">FN</div>
-          <div class="game-title">Fortnite</div>
-          <div class="game-sub">V-Bucks مباشر</div>
+  <!-- HERO / HOME -->
+  <section id="home" class="section container">
+    <div class="hero">
+      <div class="hero-banner">
+        <div class="hero-title">أسرع متجر لشحن الألعاب الرقمية</div>
+        <div class="hero-sub">باقات أصلية، خصومات حقيقية، دعم فوري عبر واتساب.</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
+          <a class="btn btn-cta" href="#games">ابدأ الشحن الآن</a>
+          <a class="btn" href="#promos">شاهد العروض</a>
         </div>
       </div>
-    </section>
-
-    <!-- تفاصيل اللعبة -->
-    <section class="detail-screen" id="detailScreen" aria-hidden="true" style="margin-top:18px;">
-      <div class="detail-card">
-        <div class="detail-header">
-          <div>
-            <div class="detail-title" id="detailTitle">اسم اللعبة</div>
-            <div class="detail-sub" id="detailSub">اختر الباقة ثم أدخل الـ ID</div>
-          </div>
-          <button class="btn secondary" id="backHome">◀ رجوع</button>
+      <div class="promo">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+          <h3 style="margin:0">عرض اليوم</h3>
+          <span class="badge countdown" id="countdown">00:12:00</span>
         </div>
+        <div class="muted">خصومات موسمية + هدايا على باقات مختارة.</div>
+      </div>
+    </div>
+  </section>
 
-        <div class="pkg-grid" id="pkgGrid"></div>
+  <!-- GAMES GRID -->
+  <section id="games" class="section container">
+    <h2>الألعاب</h2>
+    <div id="gamesGrid" class="grid"></div>
+  </section>
 
-        <div class="form">
-          <input type="text" class="input" id="playerID" placeholder="أدخل الـ ID">
-          <div class="hint" id="idHint">إرشاد: أرقام فقط.</div>
-          <input type="text" class="input" id="serverID" placeholder="السيرفر / المنطقة (اختياري)">
-          <input type="tel" class="input" id="whats" placeholder="رقم واتساب للمتابعة (اختياري)">
-          <div class="actions">
-            <button class="btn secondary" id="checkBtn">🔎 تحقق من الـ ID</button>
-            <button class="btn" id="orderBtn">✅ تأكيد الطلب</button>
-            <div id="status" class="hint"></div>
-          </div>
+  <!-- PROMOTIONS -->
+  <section id="promos" class="section container">
+    <h2>العروض</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="body">
+          <div class="tag">بنر موسمي</div>
+          <div style="font-weight:800">خصم الصيف 🔥</div>
+          <div class="muted">خصم حتى 15% على باقات مختارة.</div>
+          <a class="btn" href="#games">اشحن الآن</a>
         </div>
       </div>
-    </section>
+      <div class="card">
+        <div class="body">
+          <div class="tag">هدايا</div>
+          <div style="font-weight:800">هدايا على أول عملية شراء 🎁</div>
+          <div class="muted">هدية فورية + نقاط مكافآت.</div>
+          <a class="btn" href="#games">ابدأ</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- مودال التأكيد -->
-    <div class="modal" id="orderModal" role="dialog" aria-modal="true" aria-label="تأكيد الطلب">
-      <div class="modal-card">
-        <div class="modal-head">
-          <h2 style="margin:0;color:var(--neon)">تأكيد الطلب</h2>
-          <button class="btn secondary" id="closeModal">إغلاق</button>
-        </div>
-        <div class="summary" id="orderSummary">—</div>
-        <div class="actions" style="justify-content:flex-end; gap:8px;">
-          <button class="btn" id="sendWa1">📲 إرسال لواتساب 1</button>
-          <button class="btn secondary" id="sendWa2">📲 إرسال لواتساب 2</button>
-        </div>
-        <!-- رسالة نجاح بعد الإرسال -->
-        <p id="sendSuccess" class="hint" style="display:none;margin-top:10px;color:#7cffc2;font-weight:700;">✅ تم إرسال الطلب. شكرًا لتعاملك معنا!</p>
+  <!-- PAYMENTS -->
+  <section id="payments" class="section container">
+    <h2>طرق الدفع</h2>
+    <div class="payments-grid">
+      <div class="pay-item"><strong>Visa</strong><div class="muted">بطاقات فيزا الائتمانية/المدى.</div></div>
+      <div class="pay-item"><strong>Vodafone Cash</strong><div class="muted">تحويل فوري عبر محفظة فودافون.</div></div>
+      <div class="pay-item"><strong>Orange Money</strong><div class="muted">مدعوم لجميع الشبكات أورنج.</div></div>
+      <div class="pay-item"><strong>Etisalat Cash</strong><div class="muted">تحويل سريع وآمن.</div></div>
+    </div>
+    <div style="margin-top:12px" class="muted">نضمن لك طرق دفع آمنة 100% 🔒</div>
+  </section>
+
+  <!-- GAME PAGE (dynamic) -->
+  <section id="gamePage" class="section container game-page" aria-live="polite"></section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container" style="display:grid;gap:8px">
+    <div>© <span id="year"></span> EBX GAME STORE — جميع الحقوق محفوظة.</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a href="#about">عن المتجر</a> •
+      <a href="#privacy">سياسة الخصوصية</a> •
+      <a href="#terms">الشروط والأحكام</a> •
+      <a href="#faq">الأسئلة الشائعة</a> •
+      <a href="#" id="supportLink2">تواصل معنا (واتساب)</a>
+    </div>
+  </div>
+</footer>
+
+<!-- LOGIN MODAL (Admin Gate) -->
+<div class="login-modal" id="loginModal">
+  <div class="admin-card" style="max-width:520px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3 style="margin:0">دخول الأدمن</h3>
+      <button class="btn btn-danger" id="closeLogin">إغلاق</button>
+    </div>
+    <div class="muted">أدخل كلمة السر للوصول للوحة التحكم.</div>
+    <input id="adminPass" class="input" type="password" placeholder="•••••••••" />
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button id="loginBtn" class="btn btn-cta">دخول</button>
+      <button id="loginCancel" class="btn btn-ghost">إلغاء</button>
+    </div>
+    <div class="muted" style="margin-top:10px">ملاحظة: اضغط شعار الموقع 5 مرات لفتح نافذة الدخول.</div>
+  </div>
+</div>
+
+<!-- ADMIN MODAL -->
+<div class="admin-modal" id="adminModal">
+  <div class="admin-card">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+      <h3 style="margin:0">لوحة التحكم (Admin)</h3>
+      <div class="row-actions">
+        <button class="btn btn-ghost" id="adminExport">نسخ نسخة احتياطية</button>
+        <button class="btn btn-danger" id="adminLogout">تسجيل خروج</button>
       </div>
     </div>
 
-    <!-- FAB دعم -->
-    <div class="fab" id="fab" aria-label="دعم سريع">💬</div>
-    <div class="support" id="supportBox" role="dialog" aria-label="دعم سريع">
-      <strong style="color:var(--neon)">💬 دعم سريع</strong>
-      <div class="contact-row" style="margin-top:8px;">
-        <div class="contact" data-wa="+201004167961">واتساب 1</div>
-        <div class="contact" data-wa="+201029909720">واتساب 2</div>
+    <div class="tabs" id="adminTabs">
+      <button class="tab active" data-tab="gamesTab">الألعاب والباقات</button>
+      <button class="tab" data-tab="couponsTab">الكوبونات</button>
+      <button class="tab" data-tab="ordersTab">الطلبات</button>
+      <button class="tab" data-tab="settingsTab">الإعدادات</button>
+    </div>
+
+    <!-- Games Tab -->
+    <div id="gamesTab" class="tab-panel">
+      <table class="table" id="gamesTable">
+        <thead><tr><th>اللعبة</th><th>صورة</th><th>عدد الباقات</th><th>إجراءات</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="row-actions" style="margin-top:10px">
+        <button class="btn" id="addGameBtn">إضافة لعبة جديدة</button>
+        <button class="btn" id="saveGamesBtn">حفظ التغييرات</button>
       </div>
     </div>
 
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <!-- Coupons Tab -->
+    <div id="couponsTab" class="tab-panel" style="display:none">
+      <table class="table" id="couponsTable">
+        <thead><tr><th>الكود (سري)</th><th>الخصم %</th><th>حالة التفعيل</th><th>إجراءات</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="row-actions" style="margin-top:10px">
+        <button class="btn" id="addCouponBtn">إضافة كوبون</button>
+        <button class="btn" id="saveCouponsBtn">حفظ التغييرات</button>
+      </div>
+      <div class="hint">⚠️ هذه الكوبونات مرئية هنا فقط. لا تظهر للعملاء.</div>
+    </div>
 
-    <!-- صوت الخلفية -->
-    <audio id="bgMusic" preload="none" loop>
-      <source src="PS5 Startup.mp3" type="audio/mpeg">
-    </audio>
-    <button id="audioToggle" title="تشغيل/إيقاف الموسيقى">🎵</button>
+    <!-- Orders Tab -->
+    <div id="ordersTab" class="tab-panel" style="display:none">
+      <table class="table" id="ordersTable">
+        <thead><tr><th>#</th><th>اللعبة</th><th>الباقة</th><th>السعر</th><th>Player ID</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
 
-    <footer>جميع الحقوق محفوظة © EBX GAME STORE 2025</footer>
-  </main>
+    <!-- Settings Tab -->
+    <div id="settingsTab" class="tab-panel" style="display:none">
+      <div style="display:grid;gap:10px">
+        <label>رقم واتساب الدعم
+          <input id="settingsWhats" class="input" type="text" placeholder="+201004167961" />
+        </label>
 
-  <script>
-  "use strict";
+        <label>مدة اللودر (بالثواني)
+          <input id="settingsLoader" class="input" type="number" min="1" value="3" />
+        </label>
 
-  /* عناصر DOM */
-  const homeEl = document.querySelector('.home-screen');
-  const detailEl = document.getElementById('detailScreen');
-  const pkgGrid = document.getElementById('pkgGrid');
-  const detailTitle = document.getElementById('detailTitle');
-  const detailSub = document.getElementById('detailSub');
-  const backHomeBtn = document.getElementById('backHome');
+        <label>الخط الأساسي
+          <select id="settingsFont" class="input">
+            <option value="system-ui">System Default</option>
+            <option value="Arial">Arial</option>
+            <option value="Roboto">Roboto</option>
+            <option value="Tahoma">Tahoma</option>
+          </select>
+        </label>
 
-  const playerIdInput = document.getElementById('playerID');
-  const serverInput = document.getElementById('serverID');
-  const whatsInput  = document.getElementById('whats');
-  const idHintEl    = document.getElementById('idHint');
+        <label>رفع شعار المتجر
+          <input id="settingsLogo" class="input" type="file" accept="image/*" />
+        </label>
 
-  const checkBtn  = document.getElementById('checkBtn');
-  const orderBtn  = document.getElementById('orderBtn');
-  const statusEl  = document.getElementById('status');
+        <label>لون الخلفية
+          <input id="settingsBg" class="input" type="color" value="#0A0A0A" />
+        </label>
 
-  const orderModal = document.getElementById('orderModal');
-  const orderSummaryEl = document.getElementById('orderSummary');
-  const closeModalBtn = document.getElementById('closeModal');
-  const sendWa1Btn = document.getElementById('sendWa1');
-  const sendWa2Btn = document.getElementById('sendWa2');
-  const sendSuccessMsg = document.getElementById('sendSuccess');
+        <label>لون النصوص
+          <input id="settingsText" class="input" type="color" value="#FFFFFF" />
+        </label>
 
-  const fabBtn = document.getElementById('fab');
-  const supportBox = document.getElementById('supportBox');
+        <label>لون أساسي (Primary)
+          <input id="settingsPrimary" class="input" type="color" value="#00E5FF" />
+        </label>
 
-  const toastEl = document.getElementById('toast');
+        <label>لون CTA (الأزرار المهمة)
+          <input id="settingsCta" class="input" type="color" value="#00FF85" />
+        </label>
 
-  const audioEl = document.getElementById('bgMusic');
-  const audioToggle = document.getElementById('audioToggle');
+        <label>تغيير كلمة مرور الأدمن
+          <input id="settingsAdminPass" class="input" type="password" placeholder="اكتب كلمة المرور الجديدة هنا" />
+        </label>
 
-  /* أرقام واتساب المتجر */
-  const WA1 = '+201004167961';
-  const WA2 = '+201029909720';
+        <button id="saveSettingsBtn" class="btn btn-cta">💾 حفظ الإعدادات</button>
+      </div>
+    </div>
 
-  /* الأسعار */
-  const PRICES = {
-    "PUBG": [
-      { label:"60 UC",   amount:60,   price:47 },
-      { label:"334 UC",  amount:334,  price:220 },
-      { label:"678 UC",  amount:678,  price:650 },
-      { label:"1845 UC", amount:1845, price:1250 },
-      { label:"3940 UC", amount:3940, price:2820 },
-      { label:"8280 UC", amount:8280, price:4800 },
-      { label:"16560 UC", amount:16560, price:8800 },
-      { label:"24540 UC", amount:24540, price:12900 },
-      { label:"33120 UC", amount:33120, price:17150 }
-    ],
-    "Free Fire": [
-      { label:"100 Diamonds",  amount:100,  price:52.92 },
-      { label:"210 Diamonds",  amount:210,  price:105.84 },
-      { label:"530 Diamonds",  amount:530,  price:264.60 },
-      { label:"1080 Diamonds", amount:1080, price:529.20 },
-      { label:"2200 Diamonds", amount:2200, price:1058.40 }
-    ],
-    "COD": [
-      { label:"30 CP",   amount:30,   price:20 },
-      { label:"80 CP",   amount:80,   price:50 },
-      { label:"420 CP",  amount:420,  price:250 },
-      { label:"880 CP",  amount:880,  price:500 },
-      { label:"2400 CP", amount:2400, price:1250 },
-      { label:"5000 CP", amount:5000, price:2500 }
-    ],
-    "Arena Breakout": [
-      { label:"100 Bonds",   amount:100,   price:49.19 },
-      { label:"500 Bonds",   amount:500,   price:247.95 },
-      { label:"1000 Bonds",  amount:1000,  price:496.40 },
-      { label:"2500 Bonds",  amount:2500,  price:1241.74 },
-      { label:"5000 Bonds",  amount:5000,  price:2483.98 },
-      { label:"10000 Bonds", amount:10000, price:4968.45 }
-    ],
-    "Ludo Gold": [
-      { label:"68,500 Gold",    amount:68500,   price:113.47 },
-      { label:"223,700 Gold",   amount:223700,  price:284.94 },
-      { label:"1,463,320 Gold", amount:1463320, price:569.75 },
-      { label:"3,666,470 Gold", amount:3666470, price:1424.97 },
-      { label:"9,973,990 Gold", amount:9973990, price:2849.95 }
-    ],
-    "Ludo Diamonds": [
-      { label:"83 Diamonds",    amount:83,    price:113.47 },
-      { label:"2,320 Diamonds", amount:2320,  price:284.94 },
-      { label:"5,150 Diamonds", amount:5150,  price:569.78 },
-      { label:"13,580 Diamonds",amount:13580, price:1424.97 },
-      { label:"27,640 Diamonds",amount:27640, price:2849.95 }
-    ],
-    "MLBB": [
-      { label:"86 Diamonds",  amount:86,  price:65 },
-      { label:"172 Diamonds", amount:172, price:120 },
-      { label:"257 Diamonds", amount:257, price:175 }
-    ],
-    "Fortnite": [
-      { label:"1000 V-Bucks", amount:1000, price:350 },
-      { label:"2800 V-Bucks", amount:2800, price:900 },
-      { label:"5000 V-Bucks", amount:5000, price:1500 }
+  </div>
+</div>
+
+<!-- Modal for editing a single game (dynamic) -->
+<div class="admin-modal" id="editGameModal">
+  <div class="admin-card" style="max-width:760px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3 id="editGameTitle">تعديل اللعبة</h3>
+      <button class="btn btn-danger" id="closeEditGame">إغلاق</button>
+    </div>
+    <div style="display:grid;gap:10px">
+      <label>اسم اللعبة
+        <input id="editGameName" class="input" type="text" />
+      </label>
+      <label>وضع صورة (رابط أو رفع)
+        <input id="editGameCoverUrl" class="input" type="text" placeholder="https://..." />
+        <div style="display:flex;gap:8px;align-items:center">
+          <input id="editGameCoverFile" type="file" accept="image/*" />
+          <img id="editGameCoverPreview" class="img-thumb" src="" alt="preview" />
+        </div>
+      </label>
+      <label>قائمة الباقات (JSON)
+        <textarea id="editGamePacks" class="input" rows="8" placeholder='Example: [{"label":"60 UC","price":51.99}]'></textarea>
+      </label>
+      <div style="display:flex;gap:8px">
+        <button id="saveGameChanges" class="btn btn-cta">حفظ اللعبة</button>
+        <button id="deleteThisGame" class="btn btn-danger">حذف اللعبة</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =======================
+  DATA + LOGIC (Vanilla JS)
+======================== -->
+<script>
+/** ========= Utilities ========= **/
+const $ = (sel, root=document) => root.querySelector(sel);
+const $$= (sel, root=document) => Array.from(root.querySelectorAll(sel));
+const toast = (msg, tms=2200)=>{ const el=$("#toast"); el.textContent=msg; el.style.display="block"; setTimeout(()=>el.style.display="none", tms); };
+const fmt = (n)=> new Intl.NumberFormat('ar-EG').format(n);
+const storage = {
+  get(key, fallback){ try{const v=localStorage.getItem(key); return v?JSON.parse(v):fallback}catch{ return fallback }},
+  set(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
+};
+
+// WhatsApp helper
+const waHref = (phone, text) => {
+  const clean = (phone||"").replace(/\D/g,"");
+  const msg = encodeURIComponent(text||"");
+  return `https://wa.me/${clean}?text=${msg}`;
+};
+
+// Global settings (editable from Admin)
+const defaultSettings = {
+  whatsapp:"+201004167961",
+  loaderSeconds:3,
+  primary:"#00E5FF",
+  cta:"#00FF85",
+  text:"#FFFFFF",
+  bg:"#0A0A0A",
+  font:"system-ui",
+  logoData:null,
+  adminPass:"01004167961" // default admin pass (can be changed by admin)
+};
+let SETTINGS = storage.get("ebx_settings", defaultSettings);
+
+/** ========= Seed Data ========= **/
+const seedGames = {
+  "PUBG MOBILE": {
+    cover: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop",
+    packs: [
+      {label:"60 UC", price:51.99},{label:"30 UC", price:30},
+      {label:"325 UC", price:225},{label:"660 UC", price:445},
+      {label:"1800 UC", price:1125},{label:"3850 UC", price:2240},
+      {label:"8100 UC", price:4480},{label:"16200 UC", price:8950},
+      {label:"24300 UC", price:13450},{label:"32400 UC", price:17900},
+      {label:"40500 UC", price:22400},{label:"48600 UC", price:26800},
+      {label:"81000 UC", price:44900},
     ]
+  },
+  "Empire Coins (Age of Empires Mobile)": {
+    cover: "https://images.unsplash.com/photo-1520975922284-7b683c1302ae?q=80&w=1200&auto=format&fit=crop",
+    packs: [
+      {label:"400 Coins", price:56.99},{label:"2100 Coins", price:269.99},
+      {label:"4400 Coins", price:559.99},{label:"9200 Coins", price:1149.99},
+      {label:"24000 Coins", price:2849.99},{label:"50000 Coins", price:5599.99},
+    ]
+  },
+  "Undawn": {
+    cover: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+    packs: [
+      {label:"50+5 Coins", price:49},{label:"150+20 Coins", price:149},
+      {label:"250+35 Coins", price:249},{label:"500+75 Coins", price:499},
+      {label:"1000+160 Coins", price:999},{label:"1500+250 Coins", price:1499},
+      {label:"2000+375 Coins", price:1959},{label:"2250+450 Coins", price:2249},
+      {label:"5000+1200 Coins", price:4999},{label:"7600+1850 Coins", price:7349},
+    ]
+  },
+  "Free Fire": {
+    cover: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop",
+    packs: [
+      {label:"100 Diamonds", price:52.92},{label:"210 Diamonds", price:105.84},
+      {label:"530 Diamonds", price:264.60},{label:"1080 Diamonds", price:529.20},
+      {label:"2200 Diamonds", price:1058.40},
+    ]
+  },
+  "Call of Duty Mobile (CODM)": {
+    cover: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop",
+    packs:[
+      {label:"30 CP", price:20},{label:"80 CP", price:50},{label:"420 CP", price:250},
+      {label:"880 CP", price:500},{label:"2400 CP", price:1250},{label:"5000 CP", price:2500},
+    ]
+  },
+  "Arena Breakout": {
+    cover: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop",
+    packs:[
+      {label:"100 Bonds", price:49.19},{label:"500 Bonds", price:247.95},
+      {label:"1000 Bonds", price:496.40},{label:"2500 Bonds", price:1241.74},
+      {label:"5000 Bonds", price:2483.98},{label:"10000 Bonds", price:4968.45},
+    ]
+  },
+  "Ludo Gold": {
+    cover: "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?q=80&w=1200&auto=format&fit=crop",
+    packs:[
+      {label:"68,500 Gold", price:113.47},{label:"223,700 Gold", price:284.94},
+      {label:"1,463,320 Gold", price:569.75},{label:"3,666,470 Gold", price:1424.97},
+      {label:"9,973,990 Gold", price:2849.95},
+    ]
+  },
+  "Ludo Diamonds": {
+    cover: "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?q=80&w=1200&auto=format&fit=crop",
+    packs:[
+      {label:"83 Diamonds", price:113.47},{label:"2,320 Diamonds", price:284.94},
+      {label:"5,150 Diamonds", price:569.78},{label:"13,580 Diamonds", price:1424.97},
+      {label:"27,640 Diamonds", price:2849.95},
+    ]
+  },
+  "Mobile Legends (MLBB)": {
+    cover: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop",
+    packs:[
+      {label:"86 Diamonds", price:65},{label:"172 Diamonds", price:120},{label:"257 Diamonds", price:175},
+    ]
+  },
+  "Clash of Clans (COC)": {
+    cover: "https://images.unsplash.com/photo-1520975922284-7b683c1302ae?q=80&w=1200&auto=format&fit=crop",
+    packs:[
+      {label:"80 Gems", price:19},{label:"500 Gems", price:74},{label:"1200 Gems", price:144},
+      {label:"2500 Gems", price:289},{label:"6500 Gems", price:719},{label:"14000 Gems", price:1449},
+    ]
+  },
+  "Clash Royale (CR)": {
+    cover: "https://images.unsplash.com/photo-1520975922284-7b683c1302ae?q=80&w=1200&auto=format&fit=crop",
+    packs:[
+      {label:"80 Gems", price:19},{label:"500 Gems", price:74},{label:"1200 Gems", price:144},
+      {label:"2500 Gems", price:289},{label:"6500 Gems", price:719},{label:"14000 Gems", price:1449},
+    ]
+  },
+  "League of Legends: Wild Rift": {
+    cover: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop",
+    packs:[
+      {label:"300 Wild Cores", price:74},{label:"625 Wild Cores", price:144},
+      {label:"1250 Wild Cores", price:289},{label:"2500 Wild Cores", price:574},
+      {label:"5000 Wild Cores", price:1149},{label:"10000 Wild Cores", price:2299},
+    ]
+  },
+  "FC Mobile (FIFA Mobile)": {
+    cover:"https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1200&auto=format&fit=crop",
+    packs:[
+      {label:"60 FC Points", price:19},{label:"300 FC Points", price:74},
+      {label:"1000 FC Points", price:244},{label:"2200 FC Points", price:494},
+      {label:"5750 FC Points", price:1236},{label:"12000 FC Points", price:2478},
+    ]
+  },
+  "Honor of Kings": {
+    cover:"https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop",
+    packs:[
+      {label:"100 Vouchers", price:47.9},{label:"300 Vouchers", price:144},
+      {label:"600 Vouchers", price:289},{label:"1280 Vouchers", price:619},
+      {label:"2560 Vouchers", price:1239},{label:"6480 Vouchers", price:3099},
+    ]
+  },
+  "SuperStar SMTOWN": {
+    cover:"https://images.unsplash.com/photo-1533139502658-0198f920d8ae?q=80&w=1200&auto=format&fit=crop",
+    packs:[
+      {label:"100 Diamonds", price:47.9},{label:"500 Diamonds", price:239},
+      {label:"1000 Diamonds", price:479},{label:"2000 Diamonds", price:959},
+      {label:"5000 Diamonds", price:2399},
+    ]
+  },
+  "Dragon Raja": {
+    cover:"https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop",
+    packs:[
+      {label:"100 Coupons", price:47.9},{label:"500 Coupons", price:239},
+      {label:"1000 Coupons", price:479},{label:"2000 Coupons", price:959},
+      {label:"5000 Coupons", price:2399},
+    ]
+  },
+  "NBA Infinite": {
+    cover:"https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=1200&auto=format&fit=crop",
+    packs:[
+      {label:"100 Diamonds", price:47.9},{label:"500 Diamonds", price:239},
+      {label:"1000 Diamonds", price:479},{label:"2000 Diamonds", price:959},
+      {label:"5000 Diamonds", price:2399},
+    ]
+  }
+};
+
+// Seed coupons (PRIVATE – Admin only)
+const seedCoupons = [
+  {code:"EBX-A7Q1-25", off:5,  active:true},
+  {code:"EBX-Z9K2-88", off:6,  active:true},
+  {code:"EBX-P1L3-14", off:7,  active:true},
+  {code:"EBX-M8D4-33", off:8,  active:true},
+  {code:"EBX-R2T5-07", off:9,  active:true},
+  {code:"EBX-V6J6-61", off:10, active:true},
+  {code:"EBX-Q3N7-52", off:11, active:true},
+  {code:"EBX-Y1H8-73", off:12, active:true},
+  {code:"EBX-U5B9-39", off:13, active:true},
+  {code:"EBX-W4C0-48", off:14, active:true},
+  {code:"EBX-K7X1-66", off:15, active:true},
+  {code:"EBX-D9F2-27", off:16, active:true},
+  {code:"EBX-H2S3-95", off:17, active:true},
+  {code:"EBX-T4G4-11", off:18, active:true},
+  {code:"EBX-L6M5-29", off:19, active:true},
+  {code:"EBX-C8V6-83", off:20, active:true},
+  {code:"EBX-N1P7-45", off:21, active:true},
+  {code:"EBX-B3R8-64", off:22, active:true},
+  {code:"EBX-J5K9-72", off:23, active:true},
+  {code:"EBX-S7D0-30", off:24, active:true},
+  {code:"EBX-G9A1-56", off:25, active:true},
+  {code:"EBX-F2E2-62", off:26, active:true},
+  {code:"EBX-A4Q3-77", off:27, active:true},
+  {code:"EBX-Z6K4-85", off:28, active:true},
+  {code:"EBX-P8L5-93", off:29, active:true},
+  {code:"EBX-M0D6-04", off:30, active:true},
+  {code:"EBX-R2T7-17", off:12, active:true},
+  {code:"EBX-V4J8-28", off:18, active:true},
+  {code:"EBX-Q6N9-39", off:22, active:true},
+  {code:"EBX-Y8H0-40", off:15, active:true},
+];
+
+let GAMES = storage.get("ebx_games", seedGames);
+let COUPONS = storage.get("ebx_coupons", seedCoupons);
+let ORDERS = storage.get("ebx_orders", []);
+
+/** ========= Helpers to apply settings (live) ========= **/
+function applySettingsToUI(){
+  document.documentElement.style.setProperty('--primary', SETTINGS.primary || defaultSettings.primary);
+  document.documentElement.style.setProperty('--cta', SETTINGS.cta || defaultSettings.cta);
+  document.documentElement.style.setProperty('--text', SETTINGS.text || defaultSettings.text);
+  document.documentElement.style.setProperty('--bg', SETTINGS.bg || defaultSettings.bg);
+  document.documentElement.style.setProperty('--glow-primary', `0 0 20px ${hexToRgba(SETTINGS.primary||defaultSettings.primary, .35)}`);
+  document.documentElement.style.setProperty('--glow-cta', `0 0 20px ${hexToRgba(SETTINGS.cta||defaultSettings.cta, .35)}`);
+  document.documentElement.style.setProperty('--font-family', SETTINGS.font || defaultSettings.font);
+  // brand logo
+  const logoEls = [$("#brandLogo"), $("#brandLogoSmall")];
+  if(SETTINGS.logoData){
+    logoEls.forEach(el=>el.style.backgroundImage = `url(${SETTINGS.logoData})`);
+    logoEls.forEach(el=>el.style.backgroundSize="cover");
+  } else {
+    logoEls.forEach(el=>el.style.backgroundImage = '');
+  }
+  setSupportLinks();
+}
+function hexToRgba(hex, a=1){
+  if(!hex) return `rgba(0,229,255,${a})`;
+  const h = hex.replace('#','');
+  const bigint = parseInt(h,16);
+  const r = (bigint>>16)&255, g=(bigint>>8)&255, b=bigint&255;
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+/** ========= Router (hash) ========= **/
+window.addEventListener("hashchange", ()=>{
+  const hash = location.hash;
+  if(hash.startsWith("#game=")){
+    const g = decodeURIComponent(hash.split("=")[1]);
+    openGame(g);
+  } else {
+    // hide game page when not on a game
+    if(!hash.startsWith("#game=")) $("#gamePage").style.display="none";
+  }
+});
+
+/** ========= Header / Drawer / Support ========= **/
+$("#year").textContent = new Date().getFullYear();
+const drawer = $("#drawer");
+$("#openDrawer").onclick = ()=> drawer.classList.add("active");
+$("#closeDrawer").onclick = ()=> drawer.classList.remove("active");
+$("#closeDrawerBtn").onclick = ()=> drawer.classList.remove("active");
+
+const supportNumber = () => (SETTINGS.whatsapp || defaultSettings.whatsapp);
+const openSupport = (e)=>{ e?.preventDefault?.(); window.open(waHref(supportNumber(), "مرحبا فريق EBX GAME STORE 👋 أحتاج مساعدة"), "_blank"); };
+$("#supportLink").onclick = openSupport;
+$("#supportLink2").onclick = openSupport;
+$("#waFab").setAttribute("target","_blank");
+
+function setSupportLinks(){
+  $("#supportLink").setAttribute("href", waHref(SETTINGS.whatsapp,"مرحبا فريق EBX GAME STORE 👋"));
+  $("#supportLink2").setAttribute("href", waHref(SETTINGS.whatsapp,"مرحبا فريق EBX GAME STORE 👋"));
+  $("#waFab").setAttribute("href", waHref(SETTINGS.whatsapp,"مرحبا فريق EBX GAME STORE 👋"));
+}
+
+/** ========= Countdown (Demo) ========= **/
+let secondsLeft = 12*60; // 12 minutes
+setInterval(()=>{
+  if(secondsLeft<=0) return;
+  secondsLeft--;
+  const m = String(Math.floor(secondsLeft/60)).padStart(2,"0");
+  const s = String(secondsLeft%60).padStart(2,"0");
+  $("#countdown").textContent = `00:${m}:${s}`;
+},1000);
+
+/** ========= Render Games Grid ========= **/
+function renderGames(){
+  const grid = $("#gamesGrid");
+  grid.innerHTML = "";
+  Object.keys(GAMES).forEach(name=>{
+    const game = GAMES[name];
+    const cover = game.cover || "";
+    const el = document.createElement("div");
+    el.className="card";
+    el.innerHTML = `
+      ${cover?`<img src="${cover}" alt="${name}">`:`<div style="height:140px;background:linear-gradient(90deg,var(--primary),var(--secondary));"></div>`}
+      <div class="body">
+        <div class="tag">لعبة</div>
+        <div style="font-weight:800">${name}</div>
+        <div class="muted">باقات جاهزة للشحن الفوري.</div>
+        <div style="display:flex;gap:8px">
+          <a class="btn btn-cta" href="#game=${encodeURIComponent(name)}">ادخل</a>
+        </div>
+      </div>
+    `;
+    grid.appendChild(el);
+  });
+}
+renderGames();
+
+/** ========= Game Page Renderer ========= **/
+function openGame(gameName){
+  const game = GAMES[gameName];
+  if(!game){ toast("اللعبة غير متاحة"); return; }
+  const packs = game.packs || [];
+  const page = $("#gamePage");
+  page.style.display="block";
+  page.innerHTML = `
+    <div class="game-header">
+      <button class="btn" onclick="document.getElementById('gamePage').style.display='none'; location.hash='#games'">رجوع</button>
+      <div class="game-title">${gameName}</div>
+    </div>
+    <div style="margin-bottom:12px">
+      ${game.cover ? `<img src="${game.cover}" alt="${gameName}" style="width:100%;border-radius:12px;max-height:220px;object-fit:cover">` : ""}
+    </div>
+    <div class="accordion">
+      ${packs.map((p,idx)=>`
+        <div class="pack" data-pack="${idx}">
+          <div class="pack-row">
+            <div>
+              <div style="font-weight:800">${p.label}</div>
+              <div class="muted">${fmt(p.price)} EGP</div>
+            </div>
+            <button class="btn btn-cta" onclick="selectPack('${encodeURIComponent(gameName)}', ${idx})">اشترِ الآن</button>
+          </div>
+          <div class="pack-body" id="pb-${idx}" style="display:none">
+            <label>Player ID
+              <input class="input" id="pid-${idx}" type="text" placeholder="اكتب الـ ID الصحيح" />
+            </label>
+            <div class="hint">تأكد من صحة المعرّف قبل المتابعة.</div>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button class="btn" onclick="confirmPack('${encodeURIComponent(gameName)}', ${idx})">تأكيد</button>
+              <button class="btn btn-ghost" onclick="cancelPack(${idx})">إلغاء</button>
+            </div>
+            <div class="loader" id="loader-${idx}" style="margin-top:8px">
+              <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+              <span class="muted">جاري المعالجة ...</span>
+            </div>
+            <div id="done-${idx}" style="display:none;margin-top:10px">
+              <div style="margin-bottom:8px">تم الطلب، تواصل مع عيسى</div>
+              <a id="wa-${idx}" class="btn btn-cta" target="_blank">تواصل عبر واتساب</a>
+            </div>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+  page.scrollIntoView({behavior:"smooth",block:"start"});
+}
+window.selectPack = (g, idx)=>{
+  const id = `pb-${idx}`;
+  $$("#gamePage .pack-body").forEach(x=>x.style.display="none");
+  $("#"+id).style.display="block";
+};
+window.cancelPack = (idx)=>{
+  $("#pb-"+idx).style.display="none";
+};
+
+window.confirmPack = (gEnc, idx)=>{
+  const gameName = decodeURIComponent(gEnc);
+  const packs = GAMES[gameName].packs || [];
+  const pack = packs[idx];
+  const idInput = $("#pid-"+idx);
+  const playerId = (idInput.value||"").trim();
+  if(!playerId){ toast("من فضلك اكتب الـ ID"); return; }
+
+  // Create order
+  const order = {
+    id: "EBX-"+Date.now(),
+    game: gameName,
+    pack: pack.label,
+    price: pack.price,
+    playerId,
+    status: "pending", // pending -> completed
+    createdAt: new Date().toISOString()
   };
+  ORDERS.push(order); storage.set("ebx_orders", ORDERS);
 
-  /* أطوال ID */
-  const ID_LENGTHS = {
-    "PUBG": 10, "Free Fire": 10, "COD": 8, "Arena Breakout": 17,
-    "Ludo Gold": 6, "Ludo Diamonds": 6, "MLBB": 9, "Fortnite": 12
+  // Loader
+  const loader = $("#loader-"+idx);
+  const done = $("#done-"+idx);
+  loader.style.display="flex";
+  done.style.display="none";
+
+  const seconds = Number(SETTINGS.loaderSeconds||3)*1000;
+  setTimeout(()=>{
+    loader.style.display="none";
+    done.style.display="block";
+    const msg = `مرحبًا، أود إكمال طلب الشحن:
+اللعبة: ${gameName}
+الباقة: ${pack.label}
+السعر: ${fmt(pack.price)} EGP
+Player ID: ${playerId}
+رقم الطلب: ${order.id}
+شكراً لكم.`;
+    const link = waHref(SETTINGS.whatsapp, msg);
+    const a = $("#wa-"+idx);
+    a.setAttribute("href", link);
+    a.setAttribute("target","_blank");
+  }, seconds);
+};
+
+/** ========= Drawer WhatsApp Links ========= **/
+setSupportLinks();
+
+/** ========= Admin Gate (hidden) ========= **
+ * Access: click the logo 5 times quickly to open login modal
+ */
+let clicks=0, timer=null;
+$("#brand").addEventListener("click", ()=>{
+  clicks++;
+  clearTimeout(timer);
+  timer=setTimeout(()=>{clicks=0}, 800);
+  if(clicks>=5){
+    clicks=0;
+    $("#loginModal").classList.add("active");
+    $("#adminPass").focus();
+  }
+});
+$("#closeLogin").onclick = ()=> $("#loginModal").classList.remove("active");
+$("#loginCancel").onclick = ()=> $("#loginModal").classList.remove("active");
+
+$("#loginBtn").onclick = ()=>{
+  const pass = $("#adminPass").value;
+  const real = (SETTINGS.adminPass || defaultSettings.adminPass);
+  if(pass === real){
+    $("#loginModal").classList.remove("active");
+    openAdmin();
+    $("#adminPass").value = "";
+  } else {
+    toast("كلمة السر غير صحيحة");
+  }
+};
+
+/** ========= Admin Modal functionality ========= **/
+function openAdmin(){
+  $("#adminModal").classList.add("active");
+  renderAdminGames();
+  renderAdminCoupons();
+  renderAdminOrders();
+  // populate settings fields
+  $("#settingsWhats").value = SETTINGS.whatsapp || defaultSettings.whatsapp;
+  $("#settingsLoader").value = SETTINGS.loaderSeconds || defaultSettings.loaderSeconds;
+  $("#settingsFont").value = SETTINGS.font || defaultSettings.font;
+  $("#settingsPrimary").value = SETTINGS.primary || defaultSettings.primary;
+  $("#settingsCta").value = SETTINGS.cta || defaultSettings.cta;
+  $("#settingsText").value = SETTINGS.text || defaultSettings.text;
+  $("#settingsBg").value = SETTINGS.bg || defaultSettings.bg;
+  $("#settingsAdminPass").value = ""; // blank, only used to change
+  // preview logo if exists
+  if(SETTINGS.logoData){
+    // no direct preview field here; brand logos update automatically
+  }
+  applySettingsToUI();
+}
+$("#adminLogout").onclick = ()=> $("#adminModal").classList.remove("active");
+$("#adminExport").onclick = ()=>{
+  const dump = {
+    settings: SETTINGS,
+    games: GAMES,
+    coupons: COUPONS,
+    orders: ORDERS
   };
+  navigator.clipboard.writeText(JSON.stringify(dump,null,2)).then(()=>toast("تم نسخ النسخة الاحتياطية"));
+};
 
-  /* حالة */
-  let currentGame = null;
-  let selectedPackage = null;
+/** Save settings (including colors, fonts, logo, admin pass) **/
+$("#settingsLogo").addEventListener("change", (e)=>{
+  const f = e.target.files[0];
+  if(!f) return;
+  const fr = new FileReader();
+  fr.onload = ()=> {
+    SETTINGS.logoData = fr.result;
+    storage.set("ebx_settings", SETTINGS);
+    applySettingsToUI();
+    toast("تم رفع الشعار وحفظه");
+  };
+  fr.readAsDataURL(f);
+});
 
-  /* أدوات */
-  const formatEGP = v => `${Number(v).toLocaleString('ar-EG')} EGP`;
-  function showToast(message, ms=2200){
-    toastEl.textContent = message;
-    toastEl.classList.add('show');
-    setTimeout(()=> toastEl.classList.remove('show'), ms);
+$("#saveSettingsBtn").onclick = ()=>{
+  SETTINGS.whatsapp = $("#settingsWhats").value.trim() || defaultSettings.whatsapp;
+  SETTINGS.loaderSeconds = Math.max(1, Number($("#settingsLoader").value||3));
+  SETTINGS.font = $("#settingsFont").value || defaultSettings.font;
+  SETTINGS.primary = $("#settingsPrimary").value || defaultSettings.primary;
+  SETTINGS.cta = $("#settingsCta").value || defaultSettings.cta;
+  SETTINGS.text = $("#settingsText").value || defaultSettings.text;
+  SETTINGS.bg = $("#settingsBg").value || defaultSettings.bg;
+  const newPass = $("#settingsAdminPass").value.trim();
+  if(newPass){
+    SETTINGS.adminPass = newPass;
+    toast("تم تغيير كلمة مرور الأدمن");
+    $("#settingsAdminPass").value = "";
   }
+  storage.set("ebx_settings", SETTINGS);
+  applySettingsToUI();
+  toast("تم حفظ الإعدادات");
+};
 
-  /* عرض الباقات */
-  function renderPackages(gameKey){
-    pkgGrid.innerHTML = '';
-    const list = PRICES[gameKey] || [];
-    if(!list.length){
-      const empty = document.createElement('div');
-      empty.className='hint';
-      empty.textContent='لا توجد باقات حالياً.';
-      pkgGrid.appendChild(empty);
-      return;
-    }
-    list.forEach((pkg, i)=>{
-      const el = document.createElement('button');
-      el.type='button'; el.className='pkg';
-      el.innerHTML = `
-        <h3>${pkg.label}</h3>
-        <div class="amount">${pkg.amount.toLocaleString('ar-EG')}</div>
-        <div class="price">${formatEGP(pkg.price)}</div>
-        <div class="meta">توصيل فوري</div>`;
-      el.addEventListener('click', ()=>{
-        [...document.querySelectorAll('.pkg')].forEach(x=>x.classList.remove('selected'));
-        el.classList.add('selected'); selectedPackage = pkg;
-      });
-      if(i===0){ el.classList.add('selected'); selectedPackage = pkg; }
-      pkgGrid.appendChild(el);
-    });
+// Admin tabs
+$("#adminTabs").addEventListener("click", (e)=>{
+  if(!e.target.classList.contains("tab")) return;
+  $$(".tab", $("#adminTabs")).forEach(t=>t.classList.remove("active"));
+  e.target.classList.add("active");
+  const tab = e.target.dataset.tab;
+  $$(".tab-panel", $("#adminModal")).forEach(p=> p.style.display="none");
+  $("#"+tab).style.display="block";
+});
+
+/** Games table (admin) with edit modal that allows changing cover and packs **/
+function renderAdminGames(){
+  const tb = $("#gamesTable tbody"); tb.innerHTML="";
+  Object.keys(GAMES).forEach((name,i)=>{
+    const game = GAMES[name];
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td style="font-weight:700">${name}</td>
+      <td>${game.cover? `<img src="${game.cover}" class="img-thumb">` : `<span class="muted">No cover</span>`}</td>
+      <td>${(game.packs||[]).length}</td>
+      <td class="row-actions">
+        <button class="btn" onclick="openEditGame('${encodeURIComponent(name)}')">تعديل</button>
+        <button class="btn btn-danger" onclick="deleteGame('${encodeURIComponent(name)}')">حذف</button>
+      </td>
+    `;
+    tb.appendChild(tr);
+  });
+}
+window.openEditGame = (enc)=>{
+  const name = decodeURIComponent(enc);
+  const game = GAMES[name];
+  if(!game) return;
+  $("#editGameModal").classList.add("active");
+  $("#editGameTitle").textContent = `تعديل: ${name}`;
+  $("#editGameName").value = name;
+  $("#editGameCoverUrl").value = game.cover || "";
+  $("#editGameCoverPreview").src = game.cover || "";
+  $("#editGamePacks").value = JSON.stringify(game.packs||[], null, 2);
+  // store current editing name on modal element
+  $("#editGameModal").dataset.editing = name;
+};
+$("#closeEditGame").onclick = ()=> { $("#editGameModal").classList.remove("active"); delete $("#editGameModal").dataset.editing; };
+$("#editGameCoverFile").addEventListener("change", (e)=>{
+  const f = e.target.files[0];
+  if(!f) return;
+  const fr = new FileReader();
+  fr.onload = ()=> {
+    $("#editGameCoverPreview").src = fr.result;
+    $("#editGameCoverUrl").value = fr.result;
+  };
+  fr.readAsDataURL(f);
+});
+
+$("#saveGameChanges").onclick = ()=>{
+  const oldName = $("#editGameModal").dataset.editing;
+  if(!oldName) return;
+  const newName = $("#editGameName").value.trim();
+  const cover = $("#editGameCoverUrl").value.trim() || null;
+  let packs;
+  try{
+    packs = JSON.parse($("#editGamePacks").value || "[]");
+    packs = packs.map(p=>({label:String(p.label), price: Number(p.price)}));
+  }catch(e){ alert("JSON غير صالح للباقات"); return; }
+  // if name changed, move entry
+  if(newName !== oldName){
+    delete GAMES[oldName];
   }
+  GAMES[newName] = { cover, packs };
+  storage.set("ebx_games", GAMES);
+  renderAdminGames();
+  renderGames();
+  $("#editGameModal").classList.remove("active");
+  toast("تم حفظ بيانات اللعبة");
+};
 
-  /* فتح تفاصيل لعبة */
-  document.querySelectorAll('.game-card').forEach(card=>{
-    card.addEventListener('click', ()=>{
-      currentGame = card.dataset.game;
-      selectedPackage = null;
-      detailTitle.textContent = card.querySelector('.game-title').textContent;
-      detailSub.textContent = 'اختر الباقة ثم أدخل الـ ID للتأكيد';
-      const len = ID_LENGTHS[currentGame] || 6;
-      playerIdInput.value = '';
-      playerIdInput.maxLength = len;
-      playerIdInput.placeholder = `أدخل ID — ${len} رقمًا`;
-      idHintEl.textContent = `إرشاد: ${len} رقمًا (${currentGame}).`;
-      renderPackages(currentGame);
-      homeEl.style.display='none';
-      detailEl.style.display='block';
-      detailEl.setAttribute('aria-hidden','false');
-      window.scrollTo({top:0,behavior:'smooth'});
-    });
+window.deleteGame = (enc)=>{
+  const name = decodeURIComponent(enc);
+  if(!confirm("هل تريد حذف اللعبة نهائيًا؟")) return;
+  delete GAMES[name];
+  storage.set("ebx_games", GAMES);
+  renderAdminGames(); renderGames(); toast("تم الحذف");
+};
+
+$("#addGameBtn").onclick = ()=>{
+  const name = prompt("اسم اللعبة الجديدة:");
+  if(!name) return;
+  if(GAMES[name]){ alert("اللعبة موجودة بالفعل"); return; }
+  GAMES[name] = { cover: null, packs: [] };
+  storage.set("ebx_games", GAMES);
+  renderAdminGames(); renderGames();
+};
+$("#saveGamesBtn").onclick = ()=>{ storage.set("ebx_games", GAMES); toast("تم حفظ الألعاب والباقات"); };
+
+/** Coupons table (PRIVATE) **/
+function renderAdminCoupons(){
+  const tb = $("#couponsTable tbody"); tb.innerHTML="";
+  COUPONS.forEach((c,i)=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><code>${c.code}</code></td>
+      <td><input type="number" min="1" max="90" value="${c.off}" style="width:80px" data-idx="${i}" class="coupon-off"></td>
+      <td><label style="display:flex;gap:6px;align-items:center"><input type="checkbox" ${c.active?"checked":""} data-idx="${i}" class="coupon-active"> فعال</label></td>
+      <td class="row-actions">
+        <button class="btn btn-danger" onclick="removeCoupon(${i})">حذف</button>
+      </td>
+    `;
+    tb.appendChild(tr);
   });
+  // listeners
+  $$(".coupon-off").forEach(inp=> inp.addEventListener("input", (e)=>{
+    const idx = Number(e.target.dataset.idx); COUPONS[idx].off = Number(e.target.value||0);
+  }));
+  $$(".coupon-active").forEach(inp=> inp.addEventListener("change", (e)=>{
+    const idx = Number(e.target.dataset.idx); COUPONS[idx].active = e.target.checked;
+  }));
+}
+window.removeCoupon = (i)=>{ COUPONS.splice(i,1); renderAdminCoupons(); };
+$("#addCouponBtn").onclick = ()=>{
+  const code = prompt("أدخل كود الكوبون (سري):"); if(!code) return;
+  const off = Number(prompt("نسبة الخصم %:", "10")||"10");
+  COUPONS.push({code, off, active:true}); renderAdminCoupons();
+};
+$("#saveCouponsBtn").onclick = ()=>{ storage.set("ebx_coupons", COUPONS); toast("تم حفظ الكوبونات"); };
 
-  /* رجوع */
-  backHomeBtn.addEventListener('click', ()=>{
-    detailEl.style.display='none'; detailEl.setAttribute('aria-hidden','true');
-    homeEl.style.display='block';
-    currentGame=null; selectedPackage=null; statusEl.textContent='';
+/** Orders table **/
+function renderAdminOrders(){
+  const tb = $("#ordersTable tbody"); tb.innerHTML="";
+  ORDERS.forEach((o,i)=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${i+1}</td>
+      <td>${o.game}</td>
+      <td>${o.pack}</td>
+      <td>${fmt(o.price)} EGP</td>
+      <td>${o.playerId}</td>
+      <td><span class="badge">${o.status==="completed"?"تم الشحن":"قيد التنفيذ"}</span></td>
+      <td class="row-actions">
+        ${o.status!=="completed" ? `<button class="btn btn-cta" onclick="completeOrder(${i})">تأكيد الشحن</button>` : ""}
+        <button class="btn btn-danger" onclick="deleteOrder(${i})">حذف</button>
+      </td>
+    `;
+    tb.appendChild(tr);
   });
+}
+window.completeOrder = (i)=>{
+  ORDERS[i].status="completed";
+  storage.set("ebx_orders", ORDERS);
+  renderAdminOrders();
+  toast("تم وضع علامة تم الشحن");
+  // simulate notification to client (in real backend you would push SMS/email/whatsapp)
+};
+window.deleteOrder = (i)=>{
+  if(!confirm("حذف الطلب؟")) return;
+  ORDERS.splice(i,1);
+  storage.set("ebx_orders", ORDERS);
+  renderAdminOrders();
+};
 
-  /* تحقق من ID */
-  function validateId(){
-    if(!currentGame){ return {ok:false,msg:'اختر لعبة أولًا.'}; }
-    const len = ID_LENGTHS[currentGame] || 6;
-    const val = (playerIdInput.value||'').trim();
-    if(!val) return {ok:false,msg:'الرجاء إدخال الـ ID.'};
-    if(!/^[0-9]+$/.test(val)) return {ok:false,msg:'الـ ID يجب أن يكون أرقام فقط.'};
-    if(val.length !== len) return {ok:false,msg:`الـ ID يجب أن يكون ${len} رقمًا للعبة ${currentGame}.`};
-    return {ok:true,msg:'✔️ الـ ID يبدو صحيحًا.'};
+/** ========= Navigation helpers ========= **/
+document.addEventListener("click",(e)=>{
+  const a = e.target.closest("a[href^='#game=']");
+  if(a){
+    e.preventDefault();
+    const game = decodeURIComponent(a.getAttribute("href").split("=")[1]);
+    openGame(game);
   }
-  checkBtn.addEventListener('click', ()=>{
-    const res = validateId();
-    statusEl.textContent = res.msg; showToast(res.msg,1600);
-  });
+});
 
-  /* فتح واتساب */
-  function openWhats(number, summary){
-    const url = `https://wa.me/${number.replace(/\+/g,'')}?text=${encodeURIComponent(summary)}`;
-    window.open(url, '_blank');
+/** ========= Init ========= **/
+(() => {
+  // Ensure seeds exist once
+  if(!storage.get("ebx_initialized", false)){
+    storage.set("ebx_games", GAMES);
+    storage.set("ebx_coupons", COUPONS);
+    storage.set("ebx_orders", ORDERS);
+    // ensure settings have defaults merged
+    const merged = Object.assign({}, defaultSettings, SETTINGS);
+    SETTINGS = merged;
+    storage.set("ebx_settings", SETTINGS);
+    storage.set("ebx_initialized", true);
+  } else {
+    // load persisted data (if any)
+    GAMES = storage.get("ebx_games", GAMES);
+    COUPONS = storage.get("ebx_coupons", COUPONS);
+    ORDERS = storage.get("ebx_orders", ORDERS||[]);
+    SETTINGS = storage.get("ebx_settings", SETTINGS);
   }
-
-  /* 🟢 قراءة اسم المحل من الرابط */
-  const urlParams = new URLSearchParams(window.location.search);
-  const shopName = urlParams.get('shop') || null;
-
-  /* تأكيد الطلب -> يُظهر المودال (مع تضمين اسم المحل إن وُجد) */
-  orderBtn.addEventListener('click', ()=>{
-    if(!selectedPackage){
-      statusEl.textContent='يرجى اختيار باقة أولًا.'; showToast('يرجى اختيار باقة أولًا.');
-      return;
-    }
-    const check = validateId();
-    if(!check.ok){
-      statusEl.textContent = check.msg; showToast(check.msg);
-      return;
-    }
-
-    const summaryLines = [
-      `طلب جديد من EBX GAME STORE`,
-      shopName ? `المحل: ${shopName}` : null,
-      `———————————————`,
-      `اللعبة: ${currentGame}`,
-      `الباقة: ${selectedPackage.label}`,
-      `السعر: ${formatEGP(selectedPackage.price)}`,
-      `ID: ${playerIdInput.value.trim()}`,
-      `السيرفر/المنطقة: ${serverInput.value || '—'}`,
-      `واتساب للمتابعة: ${whatsInput.value || '—'}`,
-      `تاريخ: ${new Date().toLocaleString('ar-EG')}`
-    ].filter(Boolean);
-
-    orderSummaryEl.textContent = summaryLines.join('\n');
-
-    // إعادة إظهار الأزرار في كل مرة يُفتح فيها المودال
-    sendWa1Btn.style.display = '';
-    sendWa2Btn.style.display = '';
-    closeModalBtn.style.display = '';
-    sendSuccessMsg.style.display = 'none';
-    orderModal.classList.add('show');
-  });
-
-  /* بعد الإرسال: إخفاء الأزرار وإظهار رسالة نجاح + تعطيل إعادة الإرسال */
-  function afterSendHideActions(){
-    sendWa1Btn.style.display = 'none';
-    sendWa2Btn.style.display = 'none';
-    closeModalBtn.style.display = 'none';
-    orderBtn.disabled = true;
-    orderBtn.textContent = 'تم الإرسال ✅';
-    sendSuccessMsg.style.display = 'block';
-  }
-
-  /* ربط زرّي واتساب */
-  sendWa1Btn.addEventListener('click', ()=>{
-    openWhats(WA1, orderSummaryEl.textContent);
-    afterSendHideActions();
-  });
-  sendWa2Btn.addEventListener('click', ()=>{
-    openWhats(WA2, orderSummaryEl.textContent);
-    afterSendHideActions();
-  });
-
-  /* غلق المودال */
-  closeModalBtn.addEventListener('click', ()=> orderModal.classList.remove('show'));
-
-  /* FAB الدعم */
-  fabBtn.addEventListener('click', ()=> supportBox.classList.toggle('show'));
-  supportBox.querySelectorAll('.contact[data-wa]').forEach(el=>{
-    el.addEventListener('click', ()=> openWhats(el.dataset.wa, 'مرحبًا، أحتاج دعم EBX.'));
-  });
-
-  /* زر الصوت */
-  let audioOn = false;
-  audioToggle.addEventListener('click', async ()=>{
-    try{
-      if(!audioOn){
-        await audioEl.play();
-        audioOn = true;
-        audioToggle.textContent = '🔇';
-      }else{
-        audioEl.pause();
-        audioOn = false;
-        audioToggle.textContent = '🎵';
-      }
-    }catch(err){
-      showToast('تعذّر تشغيل الصوت: تأكد من وجود الملف أو السماح بالتشغيل.');
-    }
-  });
-  </script>
+  applySettingsToUI();
+  renderGames();
+  renderAdminCoupons();
+  renderAdminOrders();
+  renderAdminGames();
+  setSupportLinks();
+})();
+</script>
 </body>
-</html>
+    </html>
