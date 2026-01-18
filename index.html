@@ -593,143 +593,191 @@ let SETTINGS = storage.get("ebx_settings", defaultSettings);
 
 /** ========= Seed Data ========= **/
 const seedGames = {
+
   "PUBG MOBILE": {
-    cover: "https://wallpapers.com/images/featured-full/pubg-4k-m7d01u319yw5wo0m.jpg",
+    cover: "assets/images/pubg.jpg",
     packs: [
-      {label:"60 UC", price:51.99},{label:"30 UC", price:30},
-      {label:"325 UC", price:225},{label:"660 UC", price:445},
-      {label:"1800 UC", price:1125},{label:"3850 UC", price:2240},
-      {label:"8100 UC", price:4480},{label:"16200 UC", price:8950},
-      {label:"24300 UC", price:13450},{label:"32400 UC", price:17900},
-      {label:"40500 UC", price:22400},{label:"48600 UC", price:26800},
-      {label:"81000 UC", price:44900},
+      {label:"30 UC", price:30},
+      {label:"60 UC", price:51.99},
+      {label:"325 UC", price:225},
+      {label:"660 UC", price:445},
+      {label:"1800 UC", price:1125},
+      {label:"3850 UC", price:2240},
+      {label:"8100 UC", price:4480},
+      {label:"16200 UC", price:8950},
+      {label:"24300 UC", price:13450},
+      {label:"32400 UC", price:17900},
+      {label:"40500 UC", price:22400},
+      {label:"48600 UC", price:26800},
+      {label:"81000 UC", price:44900}
     ]
   },
-  "Empire Coins (Age of Empires Mobile)": {
-    cover: "https://images.unsplash.com/photo-1520975922284-7b683c1302ae?q=80&w=1200&auto=format&fit=crop",
-    packs: [
-      {label:"400 Coins", price:56.99},{label:"2100 Coins", price:269.99},
-      {label:"4400 Coins", price:559.99},{label:"9200 Coins", price:1149.99},
-      {label:"24000 Coins", price:2849.99},{label:"50000 Coins", price:5599.99},
-    ]
-  },
-  "Undawn": {
-    cover: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
-    packs: [
-      {label:"50+5 Coins", price:49},{label:"150+20 Coins", price:149},
-      {label:"250+35 Coins", price:249},{label:"500+75 Coins", price:499},
-      {label:"1000+160 Coins", price:999},{label:"1500+250 Coins", price:1499},
-      {label:"2000+375 Coins", price:1959},{label:"2250+450 Coins", price:2249},
-      {label:"5000+1200 Coins", price:4999},{label:"7600+1850 Coins", price:7349},
-    ]
-  },
+
   "Free Fire": {
-    cover: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop",
+    cover: "assets/images/freefire.jpg",
     packs: [
-      {label:"100 Diamonds", price:52.92},{label:"210 Diamonds", price:105.84},
-      {label:"530 Diamonds", price:264.60},{label:"1080 Diamonds", price:529.20},
-      {label:"2200 Diamonds", price:1058.40},
+      {label:"100 Diamonds", price:52.92},
+      {label:"210 Diamonds", price:105.84},
+      {label:"530 Diamonds", price:264.60},
+      {label:"1080 Diamonds", price:529.20},
+      {label:"2200 Diamonds", price:1058.40}
     ]
   },
+
   "Call of Duty Mobile (CODM)": {
-    cover: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop",
-    packs:[
-      {label:"30 CP", price:20},{label:"80 CP", price:50},{label:"420 CP", price:250},
-      {label:"880 CP", price:500},{label:"2400 CP", price:1250},{label:"5000 CP", price:2500},
+    cover: "assets/images/codm.jpg",
+    packs: [
+      {label:"30 CP", price:20},
+      {label:"80 CP", price:50},
+      {label:"420 CP", price:250},
+      {label:"880 CP", price:500},
+      {label:"2400 CP", price:1250},
+      {label:"5000 CP", price:2500}
     ]
   },
+
   "Arena Breakout": {
-    cover: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop",
-    packs:[
-      {label:"100 Bonds", price:49.19},{label:"500 Bonds", price:247.95},
-      {label:"1000 Bonds", price:496.40},{label:"2500 Bonds", price:1241.74},
-      {label:"5000 Bonds", price:2483.98},{label:"10000 Bonds", price:4968.45},
+    cover: "assets/images/arena-breakout.jpg",
+    packs: [
+      {label:"100 Bonds", price:49.19},
+      {label:"500 Bonds", price:247.95},
+      {label:"1000 Bonds", price:496.40},
+      {label:"2500 Bonds", price:1241.74},
+      {label:"5000 Bonds", price:2483.98},
+      {label:"10000 Bonds", price:4968.45}
     ]
   },
-  "Ludo Gold": {
-    cover: "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?q=80&w=1200&auto=format&fit=crop",
-    packs:[
-      {label:"68,500 Gold", price:113.47},{label:"223,700 Gold", price:284.94},
-      {label:"1,463,320 Gold", price:569.75},{label:"3,666,470 Gold", price:1424.97},
-      {label:"9,973,990 Gold", price:2849.95},
-    ]
-  },
-  "Ludo Diamonds": {
-    cover: "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?q=80&w=1200&auto=format&fit=crop",
-    packs:[
-      {label:"83 Diamonds", price:113.47},{label:"2,320 Diamonds", price:284.94},
-      {label:"5,150 Diamonds", price:569.78},{label:"13,580 Diamonds", price:1424.97},
-      {label:"27,640 Diamonds", price:2849.95},
-    ]
-  },
+
   "Mobile Legends (MLBB)": {
-    cover: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop",
-    packs:[
-      {label:"86 Diamonds", price:65},{label:"172 Diamonds", price:120},{label:"257 Diamonds", price:175},
+    cover: "assets/images/mlbb.jpg",
+    packs: [
+      {label:"86 Diamonds", price:65},
+      {label:"172 Diamonds", price:120},
+      {label:"257 Diamonds", price:175}
     ]
   },
+
   "Clash of Clans (COC)": {
-    cover: "https://images.unsplash.com/photo-1520975922284-7b683c1302ae?q=80&w=1200&auto=format&fit=crop",
-    packs:[
-      {label:"80 Gems", price:19},{label:"500 Gems", price:74},{label:"1200 Gems", price:144},
-      {label:"2500 Gems", price:289},{label:"6500 Gems", price:719},{label:"14000 Gems", price:1449},
+    cover: "assets/images/coc.jpg",
+    packs: [
+      {label:"80 Gems", price:19},
+      {label:"500 Gems", price:74},
+      {label:"1200 Gems", price:144},
+      {label:"2500 Gems", price:289},
+      {label:"6500 Gems", price:719},
+      {label:"14000 Gems", price:1449}
     ]
   },
+
   "Clash Royale (CR)": {
-    cover: "https://images.unsplash.com/photo-1520975922284-7b683c1302ae?q=80&w=1200&auto=format&fit=crop",
-    packs:[
-      {label:"80 Gems", price:19},{label:"500 Gems", price:74},{label:"1200 Gems", price:144},
-      {label:"2500 Gems", price:289},{label:"6500 Gems", price:719},{label:"14000 Gems", price:1449},
+    cover: "assets/images/cr.jpg",
+    packs: [
+      {label:"80 Gems", price:19},
+      {label:"500 Gems", price:74},
+      {label:"1200 Gems", price:144},
+      {label:"2500 Gems", price:289},
+      {label:"6500 Gems", price:719},
+      {label:"14000 Gems", price:1449}
     ]
   },
+
   "League of Legends: Wild Rift": {
-    cover: "https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop",
-    packs:[
-      {label:"300 Wild Cores", price:74},{label:"625 Wild Cores", price:144},
-      {label:"1250 Wild Cores", price:289},{label:"2500 Wild Cores", price:574},
-      {label:"5000 Wild Cores", price:1149},{label:"10000 Wild Cores", price:2299},
+    cover: "assets/images/wildrift.jpg",
+    packs: [
+      {label:"300 Wild Cores", price:74},
+      {label:"625 Wild Cores", price:144},
+      {label:"1250 Wild Cores", price:289},
+      {label:"2500 Wild Cores", price:574},
+      {label:"5000 Wild Cores", price:1149},
+      {label:"10000 Wild Cores", price:2299}
     ]
   },
+
   "FC Mobile (FIFA Mobile)": {
-    cover:"https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1200&auto=format&fit=crop",
-    packs:[
-      {label:"60 FC Points", price:19},{label:"300 FC Points", price:74},
-      {label:"1000 FC Points", price:244},{label:"2200 FC Points", price:494},
-      {label:"5750 FC Points", price:1236},{label:"12000 FC Points", price:2478},
+    cover: "assets/images/fcmobile.jpg",
+    packs: [
+      {label:"60 FC Points", price:19},
+      {label:"300 FC Points", price:74},
+      {label:"1000 FC Points", price:244},
+      {label:"2200 FC Points", price:494},
+      {label:"5750 FC Points", price:1236},
+      {label:"12000 FC Points", price:2478}
     ]
   },
+
+  "Empire Coins (Age of Empires Mobile)": {
+    cover: "assets/images/empire.jpg",
+    packs: [
+      {label:"400 Coins", price:56.99},
+      {label:"2100 Coins", price:269.99},
+      {label:"4400 Coins", price:559.99},
+      {label:"9200 Coins", price:1149.99},
+      {label:"24000 Coins", price:2849.99},
+      {label:"50000 Coins", price:5599.99}
+    ]
+  },
+
+  "Undawn": {
+    cover: "assets/images/undawn.jpg",
+    packs: [
+      {label:"50+5 Coins", price:49},
+      {label:"150+20 Coins", price:149},
+      {label:"250+35 Coins", price:249},
+      {label:"500+75 Coins", price:499},
+      {label:"1000+160 Coins", price:999},
+      {label:"1500+250 Coins", price:1499},
+      {label:"2000+375 Coins", price:1959},
+      {label:"2250+450 Coins", price:2249},
+      {label:"5000+1200 Coins", price:4999},
+      {label:"7600+1850 Coins", price:7349}
+    ]
+  },
+
   "Honor of Kings": {
-    cover:"https://share.google/Jp7FwZ2ug27PEOXyX",
-    packs:[
-      {label:"100 Vouchers", price:47.9},{label:"300 Vouchers", price:144},
-      {label:"600 Vouchers", price:289},{label:"1280 Vouchers", price:619},
-      {label:"2560 Vouchers", price:1239},{label:"6480 Vouchers", price:3099},
+    cover: "assets/images/honorofkings.jpg",
+    packs: [
+      {label:"100 Vouchers", price:47.9},
+      {label:"300 Vouchers", price:144},
+      {label:"600 Vouchers", price:289},
+      {label:"1280 Vouchers", price:619},
+      {label:"2560 Vouchers", price:1239},
+      {label:"6480 Vouchers", price:3099}
     ]
   },
+
   "SuperStar SMTOWN": {
-    cover:"https://images.unsplash.com/photo-1533139502658-0198f920d8ae?q=80&w=1200&auto=format&fit=crop",
-    packs:[
-      {label:"100 Diamonds", price:47.9},{label:"500 Diamonds", price:239},
-      {label:"1000 Diamonds", price:479},{label:"2000 Diamonds", price:959},
-      {label:"5000 Diamonds", price:2399},
+    cover: "assets/images/superstar-smtown.jpg",
+    packs: [
+      {label:"100 Diamonds", price:47.9},
+      {label:"500 Diamonds", price:239},
+      {label:"1000 Diamonds", price:479},
+      {label:"2000 Diamonds", price:959},
+      {label:"5000 Diamonds", price:2399}
     ]
   },
+
   "Dragon Raja": {
-    cover:"https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop",
-    packs:[
-      {label:"100 Coupons", price:47.9},{label:"500 Coupons", price:239},
-      {label:"1000 Coupons", price:479},{label:"2000 Coupons", price:959},
-      {label:"5000 Coupons", price:2399},
+    cover: "assets/images/dragonraja.jpg",
+    packs: [
+      {label:"100 Coupons", price:47.9},
+      {label:"500 Coupons", price:239},
+      {label:"1000 Coupons", price:479},
+      {label:"2000 Coupons", price:959},
+      {label:"5000 Coupons", price:2399}
     ]
   },
+
   "NBA Infinite": {
-    cover:"https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=1200&auto=format&fit=crop",
-    packs:[
-      {label:"100 Diamonds", price:47.9},{label:"500 Diamonds", price:239},
-      {label:"1000 Diamonds", price:479},{label:"2000 Diamonds", price:959},
-      {label:"5000 Diamonds", price:2399},
+    cover: "assets/images/nba-infinite.jpg",
+    packs: [
+      {label:"100 Diamonds", price:47.9},
+      {label:"500 Diamonds", price:239},
+      {label:"1000 Diamonds", price:479},
+      {label:"2000 Diamonds", price:959},
+      {label:"5000 Diamonds", price:2399}
     ]
   }
+
 };
 
 // Seed coupons (PRIVATE – Admin only)
