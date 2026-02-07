@@ -555,6 +555,160 @@ let SETTINGS = storage.get("ebx_settings", defaultSettings);
 /** ========= Seed Data ========= **/
 const seedGames = {
 
+  /* ===== NEW GAMES (FAKE PRICES - FIRST) ===== */
+
+  "Valorant": {
+    cover: "assets/images/valorant.jpg",
+    packs: [
+      {label:"475 VP", price:99},
+      {label:"1000 VP", price:199},
+      {label:"2050 VP", price:399},
+      {label:"3650 VP", price:699}
+    ]
+  },
+
+  "League of Legends": {
+    cover: "assets/images/leagueoflegends.jpg",
+    packs: [
+      {label:"575 RP", price:99},
+      {label:"1380 RP", price:249},
+      {label:"2800 RP", price:499},
+      {label:"6500 RP", price:999}
+    ]
+  },
+
+  "Teamfight Tactics (TFT)": {
+    cover: "assets/images/tft.jpg",
+    packs: [
+      {label:"600 Tokens", price:120},
+      {label:"1200 Tokens", price:220},
+      {label:"2500 Tokens", price:420}
+    ]
+  },
+
+  "Roblox": {
+    cover: "assets/images/roblox.jpg",
+    packs: [
+      {label:"400 Robux", price:99},
+      {label:"800 Robux", price:189},
+      {label:"1700 Robux", price:349},
+      {label:"4500 Robux", price:899}
+    ]
+  },
+
+  "Genshin Impact": {
+    cover: "assets/images/genshin.jpg",
+    packs: [
+      {label:"60 Crystals", price:120},
+      {label:"300 Crystals", price:550},
+      {label:"980 Crystals", price:1750},
+      {label:"1980 Crystals", price:3399}
+    ]
+  },
+
+  "Honkai: Star Rail": {
+    cover: "assets/images/honkaistarrail.jpg",
+    packs: [
+      {label:"60 Oneiric Shards", price:120},
+      {label:"300 Oneiric Shards", price:550},
+      {label:"980 Oneiric Shards", price:1750}
+    ]
+  },
+
+  "Fortnite": {
+    cover: "assets/images/fortnite.jpg",
+    packs: [
+      {label:"1000 V-Bucks", price:199},
+      {label:"2800 V-Bucks", price:499},
+      {label:"5000 V-Bucks", price:849},
+      {label:"13500 V-Bucks", price:1999}
+    ]
+  },
+
+  "Arena of Valor": {
+    cover: "assets/images/aov.jpg",
+    packs: [
+      {label:"40 Vouchers", price:45},
+      {label:"90 Vouchers", price:90},
+      {label:"230 Vouchers", price:220},
+      {label:"470 Vouchers", price:420}
+    ]
+  },
+
+  "Summoners War": {
+    cover: "assets/images/summonerswar.jpg",
+    packs: [
+      {label:"100 Crystals", price:120},
+      {label:"300 Crystals", price:330},
+      {label:"750 Crystals", price:720}
+    ]
+  },
+
+  "State of Survival": {
+    cover: "assets/images/stateofsurvival.jpg",
+    packs: [
+      {label:"200 Biocaps", price:110},
+      {label:"1000 Biocaps", price:499},
+      {label:"2500 Biocaps", price:1099}
+    ]
+  },
+
+  "Rise of Kingdoms": {
+    cover: "assets/images/riseofkingdoms.jpg",
+    packs: [
+      {label:"300 Gems", price:120},
+      {label:"1000 Gems", price:349},
+      {label:"2500 Gems", price:799}
+    ]
+  },
+
+  "Lords Mobile": {
+    cover: "assets/images/lordsmobile.jpg",
+    packs: [
+      {label:"250 Gems", price:99},
+      {label:"1000 Gems", price:349},
+      {label:"3000 Gems", price:899}
+    ]
+  },
+
+  "Marvel Future Revolution": {
+    cover: "assets/images/marvelfuture.jpg",
+    packs: [
+      {label:"100 Crystals", price:120},
+      {label:"500 Crystals", price:499},
+      {label:"1200 Crystals", price:999}
+    ]
+  },
+
+  "eFootball 2024": {
+    cover: "assets/images/efootball.jpg",
+    packs: [
+      {label:"100 Coins", price:75},
+      {label:"300 Coins", price:199},
+      {label:"550 Coins", price:349}
+    ]
+  },
+
+  "Brawl Stars": {
+    cover: "assets/images/brawlstars.jpg",
+    packs: [
+      {label:"80 Gems", price:99},
+      {label:"170 Gems", price:199},
+      {label:"360 Gems", price:399}
+    ]
+  },
+
+  "Stumble Guys": {
+    cover: "assets/images/stumbleguys.jpg",
+    packs: [
+      {label:"250 Gems", price:99},
+      {label:"800 Gems", price:299},
+      {label:"1600 Gems", price:549}
+    ]
+  },
+
+  /* ===== YOUR ORIGINAL GAMES (WITH REAL PRICES) ===== */
+
   "PUBG MOBILE": {
     cover: "assets/images/pubg.webp",
     packs: [
@@ -593,130 +747,10 @@ const seedGames = {
       {label:"2400 CP", price:1250},
       {label:"5000 CP", price:2500}
     ]
-  },
-
-  "Mobile Legends (MLBB)": {
-    cover: "assets/images/mobilelegendsbangbang.jpg",
-    packs: [
-      {label:"86 Diamonds", price:65},
-      {label:"172 Diamonds", price:120},
-      {label:"257 Diamonds", price:175}
-    ]
-  },
-
-  "Clash of Clans (COC)": {
-    cover: "assets/images/clashofclans.jpg",
-    packs: [
-      {label:"80 Gems", price:19},
-      {label:"500 Gems", price:74},
-      {label:"1200 Gems", price:144},
-      {label:"2500 Gems", price:289},
-      {label:"6500 Gems", price:719},
-      {label:"14000 Gems", price:1449}
-    ]
-  },
-
-  "Clash Royale (CR)": {
-    cover: "assets/images/clashroyale.jpg",
-    packs: [
-      {label:"80 Gems", price:19},
-      {label:"500 Gems", price:74},
-      {label:"1200 Gems", price:144},
-      {label:"2500 Gems", price:289},
-      {label:"6500 Gems", price:719},
-      {label:"14000 Gems", price:1449}
-    ]
-  },
-
-  "League of Legends: Wild Rift": {
-    cover: "assets/images/wildriftziggsJinx.jpg",
-    packs: [
-      {label:"300 Wild Cores", price:74},
-      {label:"625 Wild Cores", price:144},
-      {label:"1250 Wild Cores", price:289},
-      {label:"2500 Wild Cores", price:574},
-      {label:"5000 Wild Cores", price:1149},
-      {label:"10000 Wild Cores", price:2299}
-    ]
-  },
-
-  "FC Mobile (FIFA Mobile)": {
-    cover: "assets/images/fcmobile.jpg",
-    packs: [
-      {label:"60 FC Points", price:19},
-      {label:"300 FC Points", price:74},
-      {label:"1000 FC Points", price:244},
-      {label:"2200 FC Points", price:494},
-      {label:"5750 FC Points", price:1236},
-      {label:"12000 FC Points", price:2478}
-    ]
-  },
-
-  "Age of Empires Mobile": {
-    cover: "assets/images/ageofempire.jpg",
-    packs: [
-      {label:"99 Apex Coins", price:65},
-      {label:"499 Apex Coins", price:280},
-      {label:"999 Apex Coins", price:580},
-      {label:"1.999 Apex Coins", price:1200},
-      {label:"4.999 Apex Coins", price:3040},
-      {label:"9.999 Apex Coins", price:5970}
-    ]
-  },
-
-  "Honor of Kings": {
-    cover: "assets/images/honorofkings.jpg",
-    packs: [
-      {label:"16 Tokens", price:10},
-      {label:"32 Tokens", price:15},
-      {label:"46 Tokens", price:20},
-      {label:"160 Tokens", price:60},
-      {label:"288 Tokens", price:155},
-      {label:"480 Tokens", price:250},
-      {label:"672 Tokens", price:345},
-      {label:"960 Tokens", price:480},
-      {label:"1440 Tokens", price:710},
-      {label:"2880 Tokens", price:1450},
-      {label:"4800 Tokens", price:2450},
-      {label:"9600 Tokens", price:4700}
-    ]
-  },
-
-  "SuperStar SMTOWN": {
-    cover: "assets/images/superstar.jpg",
-    packs: [
-      {label:"100 Diamonds", price:47.9},
-      {label:"500 Diamonds", price:239},
-      {label:"1000 Diamonds", price:479},
-      {label:"2000 Diamonds", price:959},
-      {label:"5000 Diamonds", price:2399}
-    ]
-  },
-
-  "Dragon Raja": {
-    cover: "assets/images/dragon.jpg",
-    packs: [
-      {label:"100 Coupons", price:47.9},
-      {label:"500 Coupons", price:239},
-      {label:"1000 Coupons", price:479},
-      {label:"2000 Coupons", price:959},
-      {label:"5000 Coupons", price:2399}
-    ]
-  },
-
-  "Pool City - 8 Ball": {
-    cover: "assets/images/.jpg",
-    packs: [
-      {label:"100 CASH", price:65},
-      {label:"550 CASH", price:270},
-      {label:"1200 CASH", price:550},
-      {label:"2500 CASH", price:1050},
-      {label:"6500 CASH", price:2800},
-      {label:"13500 CASH", price:5400}
-    ]
   }
 
 };
+
 // Seed coupons (PRIVATE – Admin only)
 const seedCoupons = [
   {code:"EBX-A7Q1-25", off:5,  active:true},
