@@ -213,6 +213,32 @@
   .section{padding:10px 16px 24px}
   .section h2{margin:0 0 10px;font-size:20px}
   .muted{color:var(--text-dim)}
+ /* Store Tabs */
+.store-tabs{
+  display:flex;
+  gap:12px;
+  margin-top:10px;
+}
+
+.store-tab{
+  flex:1;
+  padding:14px;
+  border-radius:16px;
+  background:#0c0f14;
+  border:1px solid var(--line);
+  color:var(--text-dim);
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.store-tab.active{
+  background:linear-gradient(180deg,#0b2f27,#041814);
+  border-color:var(--cta);
+  color:#eafff6;
+  box-shadow:0 0 20px rgba(0,255,133,.35);
+}
 
   /* Game Page */
   .game-page{display:none}
@@ -339,11 +365,26 @@
       </div>
   </section>
 
-  <!-- GAMES GRID -->
-  <section id="games" class="section container">
-    <h2>الألعاب</h2>
-    <div id="gamesGrid" class="grid"></div>
-  </section>
+  <!-- STORE TABS -->
+<div class="section container">
+  <h2>المتجر</h2>
+
+  <div class="store-tabs">
+    <button class="store-tab active" id="tabGames" onclick="showGames()">
+      🎮 الألعاب
+    </button>
+    <button class="store-tab" id="tabApps" onclick="showApps()">
+      📱 التطبيقات
+    </button>
+  </div>
+</div>
+
+  <section id="gamesSection" class="section container">
+   <div id="gamesGrid" class="grid"></div>
+ </section>
+  <section id="appsSection" class="section container" style="display:none">
+  <div id="appsGrid" class="grid"></div>
+</section>
 
   <!-- PAYMENTS -->
   <section id="payments" class="section container">
@@ -552,6 +593,22 @@ const defaultSettings = {
   adminPass:"01004167961" // default admin pass (can be changed by admin)
 };
 let SETTINGS = storage.get("ebx_settings", defaultSettings);
+
+ function showGames(){
+  document.getElementById("gamesSection").style.display = "block";
+  document.getElementById("appsSection").style.display = "none";
+
+  document.getElementById("tabGames").classList.add("active");
+  document.getElementById("tabApps").classList.remove("active");
+}
+
+function showApps(){
+  document.getElementById("gamesSection").style.display = "none";
+  document.getElementById("appsSection").style.display = "block";
+
+  document.getElementById("tabApps").classList.add("active");
+  document.getElementById("tabGames").classList.remove("active");
+}
 
 /** ========= Seed Data ========= **/
 const seedGames = {
@@ -1358,20 +1415,4 @@ document.addEventListener("click",(e)=>{
     SETTINGS = merged;
     storage.set("ebx_settings", SETTINGS);
     storage.set("ebx_initialized", true);
-  } else {
-    // load persisted data (if any)
-    GAMES = storage.get("ebx_games", GAMES);
-    COUPONS = storage.get("ebx_coupons", COUPONS);
-    ORDERS = storage.get("ebx_orders", ORDERS||[]);
-    SETTINGS = storage.get("ebx_settings", SETTINGS);
   }
-  applySettingsToUI();
-  renderGames();
-  renderAdminCoupons();
-  renderAdminOrders();
-  renderAdminGames();
-  setSupportLinks();
-})();
-</script>
-</body>
-  </html>
