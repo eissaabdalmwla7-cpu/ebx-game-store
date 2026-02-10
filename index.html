@@ -1415,4 +1415,20 @@ document.addEventListener("click",(e)=>{
     SETTINGS = merged;
     storage.set("ebx_settings", SETTINGS);
     storage.set("ebx_initialized", true);
+  } else {
+    // load persisted data (if any)
+    GAMES = storage.get("ebx_games", GAMES);
+    COUPONS = storage.get("ebx_coupons", COUPONS);
+    ORDERS = storage.get("ebx_orders", ORDERS||[]);
+    SETTINGS = storage.get("ebx_settings", SETTINGS);
   }
+  applySettingsToUI();
+  renderGames();
+  renderAdminCoupons();
+  renderAdminOrders();
+  renderAdminGames();
+  setSupportLinks();
+})();
+</script>
+</body>
+  </html>
