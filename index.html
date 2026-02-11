@@ -650,10 +650,36 @@ function showApps(){
 }
 
 /** ========= Seed Data ========= **/
-const seedGames = {
+  const seedApps = {
+  "Spotify Premium": {
+    cover: "assets/images/spotify.jpg",
+    packs: [
+      { label: "شهر", price: 50 },
+      { label: "3 شهور", price: 140 },
+      { label: "سنة", price: 450 }
+    ]
+  },
+
+  "Netflix": {
+    cover: "assets/images/netflix.jpg",
+    packs: [
+      { label: "شهر", price: 120 },
+      { label: "3 شهور", price: 330 }
+    ]
+  },
+
+  "Anghami Plus": {
+    cover: "assets/images/anghami.jpg",
+    packs: [
+      { label: "شهر", price: 40 },
+      { label: "سنة", price: 350 }
+    ]
+  }
+};
+
 
   /* ===== NEW GAMES (FAKE PRICES) ===== */
-  
+  const seedGames = {  
   "PUBG MOBILE": {
     cover: "assets/images/pubg.webp",
     packs: [
@@ -977,6 +1003,7 @@ const seedCoupons = [
 ];
 
 let GAMES = storage.get("ebx_games", seedGames);
+let APPS = storage.get("ebx_apps", seedApps);
 let COUPONS = storage.get("ebx_coupons", seedCoupons);
 let ORDERS = storage.get("ebx_orders", []);
 
@@ -1072,6 +1099,31 @@ function renderGames(){
   });
 }
 renderGames();
+
+  function renderApps(){
+  const grid = document.getElementById("appsGrid");
+  grid.innerHTML = "";
+
+  Object.keys(APPS).forEach(name=>{
+    const app = APPS[name];
+    const el = document.createElement("div");
+    el.className = "card";
+
+    el.innerHTML = `
+      <img src="${app.cover}" alt="${name}">
+      <div class="body">
+        <div class="tag">تطبيق</div>
+        <div style="font-weight:800">${name}</div>
+        <div class="muted">اشتراكات أصلية</div>
+        <a class="btn btn-cta" href="#game=${encodeURIComponent(name)}">ادخل</a>
+      </div>
+    `;
+
+    grid.appendChild(el);
+  });
+}
+
+renderApps();
 
 /** ========= Game Page Renderer ========= **/
 function openGame(gameName){
