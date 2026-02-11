@@ -299,6 +299,35 @@
   input[type="color"], select.input{appearance:none;padding:10px;border-radius:10px}
   code{background:#071018;padding:6px;border-radius:8px;color:var(--text-dim)}
   .img-thumb{width:80px;height:48px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
+  /* ===== Modern Search ===== */
+.search-box{
+  margin-top:16px;
+  position:relative;
+}
+
+.search-box input{
+  width:100%;
+  padding:16px 18px;
+  border-radius:20px;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,#0f1116,#0b0d12);
+  color:var(--text);
+  font-size:16px;
+  font-weight:600;
+  outline:none;
+  box-shadow:var(--shadow);
+  transition:.25s;
+}
+
+.search-box input::placeholder{
+  color:var(--text-dim);
+}
+
+.search-box input:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 25px rgba(0,229,255,.35);
+  transform:scale(1.01);
+}
 </style>
 </head>
 <body>
@@ -368,6 +397,16 @@
   <!-- STORE TABS -->
 <div class="section container">
   <h2>المتجر</h2>
+
+<!-- Modern Search -->
+<div class="search-box">
+  <input 
+    type="text"
+    id="searchInput"
+    placeholder="🔍 ابحث عن لعبة أو تطبيق..."
+    autocomplete="off"
+  />
+</div>
 
   <div class="store-tabs">
     <button class="store-tab active" id="tabGames" onclick="showGames()">
@@ -1402,6 +1441,27 @@ document.addEventListener("click",(e)=>{
     openGame(game);
   }
 });
+
+/* ========= Live Search ========= */
+const searchInput = document.getElementById("searchInput");
+
+if(searchInput){
+  searchInput.addEventListener("input", () => {
+    const q = searchInput.value.toLowerCase();
+
+    // Games
+    document.querySelectorAll("#gamesGrid .card").forEach(card=>{
+      const title = card.querySelector(".body div:nth-child(2)")?.textContent.toLowerCase() || "";
+      card.style.display = title.includes(q) ? "flex" : "none";
+    });
+
+    // Apps
+    document.querySelectorAll("#appsGrid .card").forEach(card=>{
+      const title = card.querySelector(".body div:nth-child(2)")?.textContent.toLowerCase() || "";
+      card.style.display = title.includes(q) ? "flex" : "none";
+    });
+  });
+}
 
 /** ========= Init ========= **/
 (() => {
