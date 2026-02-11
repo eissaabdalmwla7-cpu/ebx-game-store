@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>EBX GAME STORE</title>
-<meta name="theme-color" content="#0A0A0A" />
-
-<!-- =======================
+<!doctype html>
+<html lang="ar" dir="rtl"> 
+ <head> 
+  <meta charset="utf-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <title>EBX GAME STORE</title> 
+  <meta name="theme-color" content="#0A0A0A"> <!-- =======================
   Global Styles (Neon Dark)
-======================== -->
-  
-<style>
+======================== --> 
+  <style>
   :root{
     --bg:#0A0A0A;
     --card:#111317;
@@ -187,14 +184,17 @@
   .hero-sub{color:var(--text-dim)}
 
   /* Cards Grid */
-  .grid{display:grid;gap:14px}
-  @media(min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
+  .grid{
+  display:grid;
+  gap:14px;
+  grid-template-columns:repeat(2,1fr);
+}
   @media(min-width:960px){.grid{grid-template-columns:repeat(3,1fr)}}
   .card{
     border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,#0f1116,#0b0d12);
     box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column
   }
-  .card img{height:140px;object-fit:cover}
+  .card img{height:120px;object-fit:cover}
   .card .body{padding:14px;display:grid;gap:10px}
   .tag{font-size:12px;color:var(--text-dim)}
   .btn{
@@ -328,280 +328,242 @@
   box-shadow:0 0 25px rgba(0,229,255,.35);
   transform:scale(1.01);
 }
-</style>
-</head>
-<body>
 
-<!-- Toast -->
-<div id="toast" class="toast"></div>
+/* Live Purchase Notification */
+.live-notification{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:linear-gradient(180deg,#0f1116,#0b0d12);
+  border:1px solid var(--primary);
+  padding:14px 18px;
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  font-weight:600;
+  font-size:14px;
+  display:none;
+  animation:slideUp .4s ease;
+  z-index:999;
+}
 
-<!-- Header -->
-<header>
-  <div class="header-wrap container">
-    <div class="brand secret" id="brand" title="اضغط 5 مرات للدخول للأدمن">
-      <div class="brand-logo" id="brandLogo"></div>
-      <div class="brand-name" id="brandName">EBX GAME STORE</div>
-    </div>
-    <button class="hamburger" id="openDrawer" aria-label="افتح القائمة"><span></span></button>
-  </div>
-  <!-- Ticker -->
-  <div class="ticker">
-    <div class="container inner">
-      <span id="ticker1">تحت اشراف عيسى عبد المولى</span>
-      <span id="ticker2">خدمة عملاء 24/7</span>
-      <span id="ticker3">طرق دفع آمنة 100%</span>
-    </div>
-  </div>
-</header>
-
-
-<!-- Drawer -->
-<aside class="drawer" id="drawer" aria-hidden="true">
-  <div class="drawer-back" id="closeDrawer"></div>
-  <div class="drawer-panel" role="menu" aria-label="القائمة الجانبية">
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
-      <div class="brand">
-        <div class="brand-logo" id="brandLogoSmall"></div>
-        <div class="brand-name">EBX MENU</div>
-      </div>
-      <button class="btn btn-danger" id="closeDrawerBtn">إغلاق</button>
-    </div>
-    <nav class="nav-list" style="margin-top:14px">
-      <a class="nav-item" href="#home"><span>الرئيسية</span><span class="pill">صفحة البداية</span></a>
-      <a class="nav-item" href="#games"><span>الألعاب</span><span class="pill">اختيار اللعبة</span></a>
-      <a class="nav-item" href="#payments"><span>طرق الدفع</span><span class="pill">آمنة 100%</span></a>
-      <a class="nav-item" id="supportLink" href="#"><span>خدمة العملاء</span><span class="pill">واتساب مباشر</span></a>
-    </nav>
-  </div>
-</aside>
-
-<!-- WhatsApp FAB -->
-<a class="whatsapp-fab" id="waFab" href="#" target="_blank">
-  واتساب الدعم
-</a>
-
-<main id="app">
-
-  <!-- HERO / HOME -->
-  <section id="home" class="section container">
-    <div class="hero">
-      <div class="hero-banner">
-        <div class="hero-title">أسرع متجر لشحن الألعاب الرقمية</div>
-        <div class="hero-sub">باقات أصلية، دعم فوري عبر واتساب.</div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
-          <a class="btn btn-cta" href="#games">ابدأ الشحن الآن</a>
-        </div>
-      </div>
-  </section>
-
-  <!-- STORE TABS -->
-<div class="section container">
-  <h2>المتجر</h2>
-
-<!-- Modern Search -->
-<div class="search-box">
-  <input 
-    type="text"
-    id="searchInput"
-    placeholder="🔍 ابحث عن لعبة أو تطبيق..."
-    autocomplete="off"
-  />
-</div>
-
-  <div class="store-tabs">
-    <button class="store-tab active" id="tabGames" onclick="showGames()">
-      🎮 الألعاب
-    </button>
-    <button class="store-tab" id="tabApps" onclick="showApps()">
-      📱 التطبيقات
-    </button>
-  </div>
-</div>
-
-  <section id="gamesSection" class="section container">
-   <div id="gamesGrid" class="grid"></div>
- </section>
-  <section id="appsSection" class="section container" style="display:none">
-  <div id="appsGrid" class="grid"></div>
+@keyframes slideUp{
+  from{transform:translateY(20px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+ 
+ .trust-bar{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  padding:12px;
+  background:#0f1116;
+  border-bottom:1px solid #1f222a;
+  font-weight:600;
+  font-size:14px;
+}
+.trust-bar div{
+  opacity:.9;
+}
+</style> 
+ </head> 
+ <body> <!-- Toast --> 
+  <div id="toast" class="toast"></div> <!-- Header --> 
+  <header> 
+   <section class="trust-bar">
+  <div>✔ <span id="totalOrders">0</span> عملية شحن</div>
+  <div>✔ <span id="totalCustomers">0</span> عميل سعيد</div>
+  <div>✔ دعم فني 24/7</div>
 </section>
-
-  <!-- PAYMENTS -->
-  <section id="payments" class="section container">
-    <h2>طرق الدفع</h2>
-    <div class="payments-grid">
-      <div class="pay-item"><strong>Vodafone Cash</strong><div class="muted">تحويل عبر جميع المحافظ الاليكترونية.</div></div>
-      <div class="pay-item"><strong>Etisalat Cash</strong><div class="muted">تحويل سريع وآمن.</div></div>
+   <div class="header-wrap container"> 
+    <div class="brand secret" id="brand" title="اضغط 5 مرات للدخول للأدمن"> 
+     <div class="brand-logo" id="brandLogo"></div> 
+     <div class="brand-name" id="brandName">
+      EBX GAME STORE
+     </div> 
+    </div> <button class="hamburger" id="openDrawer" aria-label="افتح القائمة"><span></span></button> 
+   </div> <!-- Ticker --> 
+   <div class="ticker"> 
+    <div class="container inner"> <span id="ticker1">تحت اشراف عيسى عبد المولى</span> <span id="ticker2">خدمة عملاء 24/7</span> <span id="ticker3">طرق دفع آمنة 100%</span> 
+    </div> 
+   </div> 
+  </header> <!-- Drawer --> 
+  <aside class="drawer" id="drawer" aria-hidden="true"> 
+   <div class="drawer-back" id="closeDrawer"></div> 
+   <div class="drawer-panel" role="menu" aria-label="القائمة الجانبية"> 
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px"> 
+     <div class="brand"> 
+      <div class="brand-logo" id="brandLogoSmall"></div> 
+      <div class="brand-name">
+       EBX MENU
+      </div> 
+     </div> <button class="btn btn-danger" id="closeDrawerBtn">إغلاق</button> 
+    </div> 
+    <nav class="nav-list" style="margin-top:14px"> <a class="nav-item" href="#home"><span>الرئيسية</span><span class="pill">صفحة البداية</span></a> <a class="nav-item" href="#games"><span>الألعاب</span><span class="pill">اختيار اللعبة</span></a> <a class="nav-item" href="#payments"><span>طرق الدفع</span><span class="pill">آمنة 100%</span></a> <a class="nav-item" id="supportLink" href="#"><span>خدمة العملاء</span><span class="pill">واتساب مباشر</span></a> 
+    </nav> 
+   </div> 
+  </aside> <!-- WhatsApp FAB --> <a class="whatsapp-fab" id="waFab" href="#" target="_blank"> واتساب الدعم </a> 
+  <main id="app"> <!-- HERO / HOME --> 
+   <section id="home" class="section container"> 
+    <div class="hero"> 
+     <div class="hero-banner"> 
+      <div class="hero-title">
+       أسرع متجر لشحن الألعاب الرقمية
+      </div> 
+      <div class="hero-sub">
+       باقات أصلية، دعم فوري عبر واتساب.
+      </div> 
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px"> <a class="btn btn-cta" href="#games">ابدأ الشحن الآن</a> 
+      </div> 
+     </div> 
     </div>
-    <div style="margin-top:12px" class="muted">نضمن لك طرق دفع آمنة 100% 🔒</div>
-  </section>
-
-  <!-- GAME PAGE (dynamic) -->
-  <section id="gamePage" class="section container game-page" aria-live="polite"></section>
-
-</main>
-
-<!-- FOOTER -->
-<footer>
-  <div class="container" style="display:grid;gap:8px">
-    <div>© <span id="year"></span> EBX GAME STORE — جميع الحقوق محفوظة.</div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <a href="#" id="supportLink2">تواصل معنا (واتساب)</a>
-    </div>
-  </div>
-</footer>
-
-<!-- LOGIN MODAL (Admin Gate) -->
-<div class="login-modal" id="loginModal">
-  <div class="admin-card" style="max-width:520px">
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <h3 style="margin:0">دخول الأدمن</h3>
-      <button class="btn btn-danger" id="closeLogin">إغلاق</button>
-    </div>
-    <div class="muted">أدخل كلمة السر للوصول للوحة التحكم.</div>
-    <input id="adminPass" class="input" type="password" placeholder="•••••••••" />
-    <div style="display:flex;gap:8px;margin-top:8px">
-      <button id="loginBtn" class="btn btn-cta">دخول</button>
-      <button id="loginCancel" class="btn btn-ghost">إلغاء</button>
-    </div>
-    <div class="muted" style="margin-top:10px">ملاحظة: اضغط شعار الموقع 5 مرات لفتح نافذة الدخول.</div>
-  </div>
-</div>
-
-<!-- ADMIN MODAL -->
-<div class="admin-modal" id="adminModal">
-  <div class="admin-card">
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
-      <h3 style="margin:0">لوحة التحكم (Admin)</h3>
-      <div class="row-actions">
-        <button class="btn btn-ghost" id="adminExport">نسخ نسخة احتياطية</button>
-        <button class="btn btn-danger" id="adminLogout">تسجيل خروج</button>
+   </section> <!-- STORE TABS --> 
+   <div class="section container"> 
+    <h2>المتجر</h2> <!-- Modern Search --> 
+    <div class="search-box"> 
+     <input type="text" id="searchInput" placeholder="🔍 ابحث عن لعبة أو تطبيق..." autocomplete="off"> 
+    </div> 
+    <div class="store-tabs"> <button class="store-tab active" id="tabGames" onclick="showGames()"> 🎮 الألعاب </button> <button class="store-tab" id="tabApps" onclick="showApps()"> 📱 التطبيقات </button> 
+    </div> 
+   </div> 
+   <section class="section container" id="featuredSection"> 
+    <h2>🔥 الأكثر مبيعًا</h2> 
+    <div id="featuredGrid" class="grid"></div> 
+   </section> 
+   <section id="gamesSection" class="section container"> 
+    <div id="gamesGrid" class="grid"></div> 
+   </section> 
+   <section id="appsSection" class="section container" style="display:none"> 
+    <div id="appsGrid" class="grid"></div> 
+   </section> <!-- PAYMENTS --> 
+   <section id="payments" class="section container"> 
+    <h2>طرق الدفع</h2> 
+    <div class="payments-grid"> 
+     <div class="pay-item">
+      <strong>Vodafone Cash</strong>
+      <div class="muted">
+       تحويل عبر جميع المحافظ الاليكترونية.
       </div>
-    </div>
-
-    <div class="tabs" id="adminTabs">
-      <button class="tab active" data-tab="gamesTab">الألعاب والباقات</button>
-      <button class="tab" data-tab="couponsTab">الكوبونات</button>
-      <button class="tab" data-tab="ordersTab">الطلبات</button>
-      <button class="tab" data-tab="settingsTab">الإعدادات</button>
-    </div>
-
-    <!-- Games Tab -->
-    <div id="gamesTab" class="tab-panel">
-      <table class="table" id="gamesTable">
-        <thead><tr><th>اللعبة</th><th>صورة</th><th>عدد الباقات</th><th>إجراءات</th></tr></thead>
-        <tbody></tbody>
-      </table>
-      <div class="row-actions" style="margin-top:10px">
-        <button class="btn" id="addGameBtn">إضافة لعبة جديدة</button>
-        <button class="btn" id="saveGamesBtn">حفظ التغييرات</button>
+     </div> 
+     <div class="pay-item">
+      <strong>Etisalat Cash</strong>
+      <div class="muted">
+       تحويل سريع وآمن.
       </div>
-    </div>
-
-    <!-- Coupons Tab -->
-    <div id="couponsTab" class="tab-panel" style="display:none">
-      <table class="table" id="couponsTable">
-        <thead><tr><th>الكود (سري)</th><th>الخصم %</th><th>حالة التفعيل</th><th>إجراءات</th></tr></thead>
-        <tbody></tbody>
-      </table>
-      <div class="row-actions" style="margin-top:10px">
-        <button class="btn" id="addCouponBtn">إضافة كوبون</button>
-        <button class="btn" id="saveCouponsBtn">حفظ التغييرات</button>
-      </div>
-      <div class="hint">⚠️ هذه الكوبونات مرئية هنا فقط. لا تظهر للعملاء.</div>
-    </div>
-
-    <!-- Orders Tab -->
-    <div id="ordersTab" class="tab-panel" style="display:none">
-      <table class="table" id="ordersTable">
-        <thead><tr><th>#</th><th>اللعبة</th><th>الباقة</th><th>السعر</th><th>Player ID</th><th>الحالة</th><th>إجراءات</th></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <!-- Settings Tab -->
-    <div id="settingsTab" class="tab-panel" style="display:none">
-      <div style="display:grid;gap:10px">
-        <label>رقم واتساب الدعم
-          <input id="settingsWhats" class="input" type="text" placeholder="+201004167961" />
-        </label>
-
-        <label>مدة اللودر (بالثواني)
-          <input id="settingsLoader" class="input" type="number" min="1" value="3" />
-        </label>
-
-        <label>الخط الأساسي
-          <select id="settingsFont" class="input">
-            <option value="system-ui">System Default</option>
-            <option value="Arial">Arial</option>
-            <option value="Roboto">Roboto</option>
-            <option value="Tahoma">Tahoma</option>
-          </select>
-        </label>
-
-        <label>رفع شعار المتجر
-          <input id="settingsLogo" class="input" type="file" accept="image/*" />
-        </label>
-
-        <label>لون الخلفية
-          <input id="settingsBg" class="input" type="color" value="#0A0A0A" />
-        </label>
-
-        <label>لون النصوص
-          <input id="settingsText" class="input" type="color" value="#FFFFFF" />
-        </label>
-
-        <label>لون أساسي (Primary)
-          <input id="settingsPrimary" class="input" type="color" value="#00E5FF" />
-        </label>
-
-        <label>لون CTA (الأزرار المهمة)
-          <input id="settingsCta" class="input" type="color" value="#00FF85" />
-        </label>
-
-        <label>تغيير كلمة مرور الأدمن
-          <input id="settingsAdminPass" class="input" type="password" placeholder="اكتب كلمة المرور الجديدة هنا" />
-        </label>
-
-        <button id="saveSettingsBtn" class="btn btn-cta">💾 حفظ الإعدادات</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- Modal for editing a single game (dynamic) -->
-<div class="admin-modal" id="editGameModal">
-  <div class="admin-card" style="max-width:760px">
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <h3 id="editGameTitle">تعديل اللعبة</h3>
-      <button class="btn btn-danger" id="closeEditGame">إغلاق</button>
-    </div>
-    <div style="display:grid;gap:10px">
-      <label>اسم اللعبة
-        <input id="editGameName" class="input" type="text" />
-      </label>
-      <label>وضع صورة (رابط أو رفع)
-        <input id="editGameCoverUrl" class="input" type="text" placeholder="https://..." />
-        <div style="display:flex;gap:8px;align-items:center">
-          <input id="editGameCoverFile" type="file" accept="image/*" />
-          <img id="editGameCoverPreview" class="img-thumb" src="" alt="preview" />
-        </div>
-      </label>
-      <label>قائمة الباقات (JSON)
-        <textarea id="editGamePacks" class="input" rows="8" placeholder='Example: [{"label":"60 UC","price":51.99}]'></textarea>
-      </label>
-      <div style="display:flex;gap:8px">
-        <button id="saveGameChanges" class="btn btn-cta">حفظ اللعبة</button>
-        <button id="deleteThisGame" class="btn btn-danger">حذف اللعبة</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- =======================
+     </div> 
+    </div> 
+    <div style="margin-top:12px" class="muted">
+     نضمن لك طرق دفع آمنة 100% 🔒
+    </div> 
+   </section> <!-- GAME PAGE (dynamic) --> 
+   <section id="gamePage" class="section container game-page" aria-live="polite"></section> 
+  </main> <!-- FOOTER --> 
+  <footer> 
+   <div class="container" style="display:grid;gap:8px"> 
+    <div>
+     © <span id="year"></span> EBX GAME STORE — جميع الحقوق محفوظة.
+    </div> 
+    <div style="display:flex;gap:10px;flex-wrap:wrap"> <a href="#" id="supportLink2">تواصل معنا (واتساب)</a> 
+    </div> 
+   </div> 
+  </footer> <!-- LOGIN MODAL (Admin Gate) --> 
+  <div class="login-modal" id="loginModal"> 
+   <div class="admin-card" style="max-width:520px"> 
+    <div style="display:flex;justify-content:space-between;align-items:center"> 
+     <h3 style="margin:0">دخول الأدمن</h3> <button class="btn btn-danger" id="closeLogin">إغلاق</button> 
+    </div> 
+    <div class="muted">
+     أدخل كلمة السر للوصول للوحة التحكم.
+    </div> 
+    <input id="adminPass" class="input" type="password" placeholder="•••••••••"> 
+    <div style="display:flex;gap:8px;margin-top:8px"> <button id="loginBtn" class="btn btn-cta">دخول</button> <button id="loginCancel" class="btn btn-ghost">إلغاء</button> 
+    </div> 
+    <div class="muted" style="margin-top:10px">
+     ملاحظة: اضغط شعار الموقع 5 مرات لفتح نافذة الدخول.
+    </div> 
+   </div> 
+  </div> <!-- ADMIN MODAL --> 
+  <div class="admin-modal" id="adminModal"> 
+   <div class="admin-card"> 
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px"> 
+     <h3 style="margin:0">لوحة التحكم (Admin)</h3> 
+     <div class="row-actions"> <button class="btn btn-ghost" id="adminExport">نسخ نسخة احتياطية</button> <button class="btn btn-danger" id="adminLogout">تسجيل خروج</button> 
+     </div> 
+    </div> 
+    <div class="tabs" id="adminTabs"> <button class="tab active" data-tab="gamesTab">الألعاب والباقات</button> <button class="tab" data-tab="couponsTab">الكوبونات</button> <button class="tab" data-tab="ordersTab">الطلبات</button> <button class="tab" data-tab="settingsTab">الإعدادات</button> 
+    </div> <!-- Games Tab --> 
+    <div id="gamesTab" class="tab-panel"> 
+     <table class="table" id="gamesTable"> 
+      <thead>
+       <tr>
+        <th>اللعبة</th>
+        <th>صورة</th>
+        <th>عدد الباقات</th>
+        <th>إجراءات</th>
+       </tr>
+      </thead> 
+      <tbody></tbody> 
+     </table> 
+     <div class="row-actions" style="margin-top:10px"> <button class="btn" id="addGameBtn">إضافة لعبة جديدة</button> <button class="btn" id="saveGamesBtn">حفظ التغييرات</button> 
+     </div> 
+    </div> <!-- Coupons Tab --> 
+    <div id="couponsTab" class="tab-panel" style="display:none"> 
+     <table class="table" id="couponsTable"> 
+      <thead>
+       <tr>
+        <th>الكود (سري)</th>
+        <th>الخصم %</th>
+        <th>حالة التفعيل</th>
+        <th>إجراءات</th>
+       </tr>
+      </thead> 
+      <tbody></tbody> 
+     </table> 
+     <div class="row-actions" style="margin-top:10px"> <button class="btn" id="addCouponBtn">إضافة كوبون</button> <button class="btn" id="saveCouponsBtn">حفظ التغييرات</button> 
+     </div> 
+     <div class="hint">
+      ⚠️ هذه الكوبونات مرئية هنا فقط. لا تظهر للعملاء.
+     </div> 
+    </div> <!-- Orders Tab --> 
+    <div id="ordersTab" class="tab-panel" style="display:none"> 
+     <table class="table" id="ordersTable"> 
+      <thead>
+       <tr>
+        <th>#</th>
+        <th>اللعبة</th>
+        <th>الباقة</th>
+        <th>السعر</th>
+        <th>Player ID</th>
+        <th>الحالة</th>
+        <th>إجراءات</th>
+       </tr>
+      </thead> 
+      <tbody></tbody> 
+     </table> 
+    </div> <!-- Settings Tab --> 
+    <div id="settingsTab" class="tab-panel" style="display:none"> 
+     <div style="display:grid;gap:10px"> <label>رقم واتساب الدعم <input id="settingsWhats" class="input" type="text" placeholder="+201004167961"> </label> <label>مدة اللودر (بالثواني) <input id="settingsLoader" class="input" type="number" min="1" value="3"> </label> <label>الخط الأساسي <select id="settingsFont" class="input"> <option value="system-ui">System Default</option> <option value="Arial">Arial</option> <option value="Roboto">Roboto</option> <option value="Tahoma">Tahoma</option> </select> </label> <label>رفع شعار المتجر <input id="settingsLogo" class="input" type="file" accept="image/*"> </label> <label>لون الخلفية <input id="settingsBg" class="input" type="color" value="#0A0A0A"> </label> <label>لون النصوص <input id="settingsText" class="input" type="color" value="#FFFFFF"> </label> <label>لون أساسي (Primary) <input id="settingsPrimary" class="input" type="color" value="#00E5FF"> </label> <label>لون CTA (الأزرار المهمة) <input id="settingsCta" class="input" type="color" value="#00FF85"> </label> <label>تغيير كلمة مرور الأدمن <input id="settingsAdminPass" class="input" type="password" placeholder="اكتب كلمة المرور الجديدة هنا"> </label> <button id="saveSettingsBtn" class="btn btn-cta">💾 حفظ الإعدادات</button> 
+     </div> 
+    </div> 
+   </div> 
+  </div> <!-- Modal for editing a single game (dynamic) --> 
+  <div class="admin-modal" id="editGameModal"> 
+   <div class="admin-card" style="max-width:760px"> 
+    <div style="display:flex;justify-content:space-between;align-items:center"> 
+     <h3 id="editGameTitle">تعديل اللعبة</h3> <button class="btn btn-danger" id="closeEditGame">إغلاق</button> 
+    </div> 
+    <div style="display:grid;gap:10px"> <label>اسم اللعبة <input id="editGameName" class="input" type="text"> </label> <label>وضع صورة (رابط أو رفع) <input id="editGameCoverUrl" class="input" type="text" placeholder="https://..."> 
+      <div style="display:flex;gap:8px;align-items:center"> 
+       <input id="editGameCoverFile" type="file" accept="image/*"> 
+       <img id="editGameCoverPreview" class="img-thumb" src="" alt="preview"> 
+      </div> </label> <label>قائمة الباقات (JSON) <textarea id="editGamePacks" class="input" rows="8" placeholder="Example: [{&quot;label&quot;:&quot;60 UC&quot;,&quot;price&quot;:51.99}]"></textarea> </label> 
+     <div style="display:flex;gap:8px"> <button id="saveGameChanges" class="btn btn-cta">حفظ اللعبة</button> <button id="deleteThisGame" class="btn btn-danger">حذف اللعبة</button> 
+     </div> 
+    </div> 
+   </div> 
+  </div> <!-- =======================
   DATA + LOGIC (Vanilla JS)
-======================== -->
-<script>
+======================== --> 
+  <script>
 /** ========= Utilities ========= **/
 const $ = (sel, root=document) => root.querySelector(sel);
 const $$= (sel, root=document) => Array.from(root.querySelectorAll(sel));
@@ -1169,6 +1131,7 @@ function renderGames(){
   });
 }
 renderGames();
+updateTrustStats();
 
   function renderApps(){
   const grid = document.getElementById("appsGrid");
@@ -1186,6 +1149,68 @@ renderGames();
         <div style="font-weight:800">${name}</div>
         <div class="muted">اشتراكات أصلية</div>
         <a class="btn btn-cta" href="#game=${encodeURIComponent(name)}">ادخل</a>
+      </div>
+    `;
+
+    grid.appendChild(el);
+  });
+}
+ function updateTrustStats(){
+  const totalOrders = ORDERS.length;
+
+  // نحسب عدد العملاء المختلفين حسب رقم الموبايل لو موجود
+  const uniqueCustomers = new Set(
+    ORDERS.map(o => o.phone || o.id)
+  ).size;
+
+  const ordersEl = document.getElementById("totalOrders");
+  const customersEl = document.getElementById("totalCustomers");
+
+  if(ordersEl) ordersEl.textContent = totalOrders;
+  if(customersEl) customersEl.textContent = uniqueCustomers;
+}
+ 
+renderFeatured();
+
+ function renderFeatured(){
+  const grid = document.getElementById("featuredGrid");
+  if(!grid) return;
+
+  grid.innerHTML = "";
+
+  const salesCount = {};
+
+  ORDERS.forEach(order=>{
+    if(!salesCount[order.game]){
+      salesCount[order.game] = 0;
+    }
+    salesCount[order.game]++;
+  });
+
+  const sortedGames = Object.entries(salesCount)
+    .sort((a,b)=> b[1] - a[1])
+    .slice(0,3);
+
+  if(sortedGames.length === 0){
+    grid.innerHTML = `<div class="muted">لا توجد طلبات بعد</div>`;
+    return;
+  }
+
+  sortedGames.forEach(([name,count])=>{
+    const game = GAMES[name] || APPS[name];
+    if(!game) return;
+
+    const el = document.createElement("div");
+    el.className = "card";
+
+    el.innerHTML = `
+      ${game.cover?`<img src="${game.cover}" alt="${name}">`:""}
+      <div class="body">
+        <div class="tag">🔥 ${count} عملية شراء</div>
+        <div style="font-weight:800">${name}</div>
+        <a class="btn btn-cta" href="#game=${encodeURIComponent(name)}">
+          اشحن الآن
+        </a>
       </div>
     `;
 
@@ -1276,7 +1301,10 @@ const packs = source.packs || [];
     status: "pending", // pending -> completed
     createdAt: new Date().toISOString()
   };
-  ORDERS.push(order); storage.set("ebx_orders", ORDERS);
+  ORDERS.push(order);
+storage.set("ebx_orders", ORDERS);
+updateTrustStats();
+renderFeatured();
 
   // Loader
   const loader = $("#loader-"+idx);
@@ -1418,7 +1446,7 @@ function renderAdminGames(){
     tr.innerHTML = `
       <td style="font-weight:700">${name}</td>
       <td>${game.cover? `<img src="${game.cover}" class="img-thumb">` : `<span class="muted">No cover</span>`}</td>
-      <td>${(game.packs||[]).length}</td>
+            <td>${(game.packs||[]).length}</td>
       <td class="row-actions">
         <button class="btn" onclick="openEditGame('${encodeURIComponent(name)}')">تعديل</button>
         <button class="btn btn-danger" onclick="deleteGame('${encodeURIComponent(name)}')">حذف</button>
@@ -1449,7 +1477,7 @@ $("#editGameCoverFile").addEventListener("change", (e)=>{
     $("#editGameCoverPreview").src = fr.result;
     $("#editGameCoverUrl").value = fr.result;
   };
-  fr.readAsDataURL(f);
+ fr.readAsDataURL(f);
 });
 
 $("#saveGameChanges").onclick = ()=>{
@@ -1462,7 +1490,7 @@ $("#saveGameChanges").onclick = ()=>{
     packs = JSON.parse($("#editGamePacks").value || "[]");
     packs = packs.map(p=>({label:String(p.label), price: Number(p.price)}));
   }catch(e){ alert("JSON غير صالح للباقات"); return; }
-    // if name changed, move entry
+  // if name changed, move entry
   if(newName !== oldName){
     delete GAMES[oldName];
   }
@@ -1613,7 +1641,40 @@ if(searchInput){
   renderAdminOrders();
   renderAdminGames();
   setSupportLinks();
+ /* Live Fake Purchases */
+
+const fakeNames = ["أحمد","محمود","يوسف","كريم","عبدالله","مصطفى","محمد","علي","سارة","منة"];
+const fakeCities = ["القاهرة","الجيزة","الإسكندرية","المنصورة","طنطا","أسيوط","الزقازيق"];
+
+function showLiveNotification(){
+  const notif = document.getElementById("liveNotification");
+  if(!notif) return;
+
+  const allItems = [
+    ...Object.keys(GAMES),
+    ...Object.keys(APPS)
+  ];
+
+  const randomGame = allItems[Math.floor(Math.random()*allItems.length)];
+  const randomName = fakeNames[Math.floor(Math.random()*fakeNames.length)];
+  const randomCity = fakeCities[Math.floor(Math.random()*fakeCities.length)];
+
+  notif.innerHTML = `🔔 ${randomName} من ${randomCity} اشترى ${randomGame}`;
+  notif.style.display = "block";
+
+  setTimeout(()=>{
+    notif.style.display = "none";
+  },4000);
+}
+
+// يبدأ بعد 10 ثواني
+setTimeout(()=>{
+  showLiveNotification();
+  setInterval(showLiveNotification, 25000);
+},10000);
+
 })();
-</script>
-</body>
-  </html>
+</script> 
+  <div id="liveNotification" class="live-notification"></div> 
+ </body>
+</html>
