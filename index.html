@@ -85,27 +85,26 @@
     box-shadow:0 0 25px rgba(0,229,255,.6);
   }
   .btn-cta{
-  .pack .btn-cta{
-  width:70%;
-  margin:12px auto 0;
+  width:100%;
+  margin-top:auto;
   display:block;
+  text-align:center;
 
-  padding:8px 0;
-  font-size:13px;
-  font-weight:600;
+  padding:7px 10px;        /* أصغر */
+  font-size:12px;          /* تصغير الخط */
+  font-weight:500;         /* أخف شوية */
 
-  border-radius:14px;
-
-  background:linear-gradient(135deg,#00c97f,#00b86b);
-  color:#fff;
+  border-radius:10px;      /* أنعم */
+  background:linear-gradient(135deg,#00c97f,#00a86b);
   border:none;
+  color:#fff;
 
-  transition:all .25s ease;
+  transition:0.3s ease;
 }
 
-.pack .btn-cta:hover{
-  transform:translateY(-2px);
-  box-shadow:0 6px 18px rgba(0,200,120,.35);
+.btn-cta:hover{
+  transform:scale(0.97);
+  opacity:.9;
 }
   /* Cards */
   .card{
@@ -393,28 +392,12 @@
   opacity:.9;
 }
  .pack .btn-cta{
-  width:75%;
-  margin:14px auto 0;
+  padding:6px 10px !important;
+  font-size:11px !important;
+  font-weight:500 !important;
+  width:65% !important;
+  margin:10px auto 0 !important;
   display:block;
-
-  padding:9px 0;
-  font-size:13px;
-  font-weight:600;
-  letter-spacing:.5px;
-
-  border-radius:16px;
-
-  background:linear-gradient(135deg,#00d084,#00b86b);
-  color:#ffffff;
-  border:none;
-
-  box-shadow:0 4px 12px rgba(0,208,132,.25);
-  transition:all .25s ease;
-}
-
-.pack .btn-cta:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 20px rgba(0,208,132,.35);
 }
 </style> 
  </head> 
@@ -1463,6 +1446,9 @@ $("#saveSettingsBtn").onclick = ()=>{
   SETTINGS.whatsapp = $("#settingsWhats").value.trim() || defaultSettings.whatsapp;
   SETTINGS.loaderSeconds = Math.max(1, Number($("#settingsLoader").value||3));
   SETTINGS.font = $("#settingsFont").value || defaultSettings.font;
+  SETTINGS.primary = $("#settingsPrimary").value || defaultSettings.primary;
+  SETTINGS.cta = $("#settingsCta").value || defaultSettings.cta;
+  SETTINGS.text = $("#settingsText").value || defaultSettings.text;
   SETTINGS.bg = $("#settingsBg").value || defaultSettings.bg;
   const newPass = $("#settingsAdminPass").value.trim();
   if(newPass){
@@ -1725,4 +1711,4 @@ setTimeout(()=>{
 </script> 
   <div id="liveNotification" class="live-notification"></div> 
  </body>
-</html>
+ </html>
