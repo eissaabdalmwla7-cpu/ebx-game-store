@@ -1139,7 +1139,10 @@ setInterval(()=>{
   secondsLeft--;
   const m = String(Math.floor(secondsLeft/60)).padStart(2,"0");
   const s = String(secondsLeft%60).padStart(2,"0");
-  $("#countdown").textContent = `00:${m}:${s}`;
+const cd = $("#countdown");
+if(cd){
+  cd.textContent = `00:${m}:${s}`;
+}
 },1000);
 
 /** ========= Render Games Grid ========= **/
@@ -1194,8 +1197,12 @@ renderApps();
 
 /** ========= Game Page Renderer ========= **/
 function openGame(gameName){
-  const game = GAMES[gameName];
-  if(!game){ toast("اللعبة غير متاحة"); return; }
+  const game = GAMES[gameName] || APPS[gameName];
+
+  if(!game){
+    toast("غير متوفر");
+    return;
+  }
   const packs = game.packs || [];
   const page = $("#gamePage");
   page.style.display="block";
@@ -1252,7 +1259,8 @@ window.cancelPack = (idx)=>{
 
 window.confirmPack = (gEnc, idx)=>{
   const gameName = decodeURIComponent(gEnc);
-  const packs = GAMES[gameName].packs || [];
+  const source = GAMES[gameName] || APPS[appName];
+const packs = source.packs || [];
   const pack = packs[idx];
   const idInput = $("#pid-"+idx);
   const playerId = (idInput.value||"").trim();
@@ -1454,7 +1462,7 @@ $("#saveGameChanges").onclick = ()=>{
     packs = JSON.parse($("#editGamePacks").value || "[]");
     packs = packs.map(p=>({label:String(p.label), price: Number(p.price)}));
   }catch(e){ alert("JSON غير صالح للباقات"); return; }
-  // if name changed, move entry
+    // if name changed, move entry
   if(newName !== oldName){
     delete GAMES[oldName];
   }
