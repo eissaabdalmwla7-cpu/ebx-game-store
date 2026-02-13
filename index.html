@@ -1739,6 +1739,40 @@ window.saveOrder = async function(name, game, price){
     console.error("Error:", e);
   }
 }
+ 
+ function confirmPack(gameName, idx){
+
+  const decodedGame = decodeURIComponent(gameName);
+  const playerId = document.getElementById(`pid-${idx}`).value;
+
+  if(!playerId){
+    alert("اكتب Player ID الأول");
+    return;
+  }
+
+  const game = GAMES[decodedGame] || APPS[decodedGame];
+  const pack = game.packs[idx];
+
+  // تشغيل اللودر
+  document.getElementById(`loader-${idx}`).style.display = "block";
+
+  // حفظ الطلب في Firebase
+  saveOrder({
+    name: playerId,
+    game: decodedGame,
+    price: pack.price,
+    pack: pack.label,
+    date: new Date().toISOString(),
+    status: "pending"
+  });
+
+  // إخفاء اللودر وإظهار تم
+  setTimeout(()=>{
+    document.getElementById(`loader-${idx}`).style.display = "none";
+    document.getElementById(`done-${idx}`).style.display = "block";
+  },1500);
+
+}
 </script>
 
 <div id="liveNotification" class="live-notification"></div>
