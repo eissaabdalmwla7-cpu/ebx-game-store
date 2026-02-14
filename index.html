@@ -460,6 +460,9 @@
     <div class="store-tabs"> <button class="store-tab active" id="tabGames" onclick="showGames()"> 🎮 الألعاب </button> <button class="store-tab" id="tabApps" onclick="showApps()"> 📱 التطبيقات </button> 
     </div> 
    </div> 
+<button onclick="saveOrder({name:'Test', game:'Free Fire', price:50, date:new Date()})">
+Test Save
+</button>
    <section class="section container" id="featuredSection"> 
     <h2>🔥 الأكثر مبيعًا</h2> 
     <div id="featuredGrid" class="grid"></div> 
@@ -1727,13 +1730,12 @@ const db = getFirestore(app);
 
 window.saveOrder = async function(order){
   try {
-    console.log("Function working", order);
     await addDoc(collection(db, "orders"), order);
     console.log("Saved!");
   } catch(e) {
     console.error("Error:", e);
   }
- }
+}
 </script>
 <div id="liveNotification" class="live-notification"></div>
 </body>
