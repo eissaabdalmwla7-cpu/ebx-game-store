@@ -1728,10 +1728,15 @@ const db = getFirestore(app);
 
 window.saveOrder = async function(order){
   try {
+    console.log("Order data:", order);
+
     await addDoc(collection(db, "orders"), order);
-    alert("تم حفظ الطلب بنجاح 🔥");
+
+    console.log("Saved successfully!");
+    alert("تم حفظ الطلب 🔥");
   } catch (e) {
-    console.error("Error:", e);
+    console.error("Firestore Error:", e);
+    alert("فيه Error بص في Console");
   }
 }
  
