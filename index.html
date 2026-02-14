@@ -1727,12 +1727,13 @@ const db = getFirestore(app);
 
 window.saveOrder = async function(order){
   try {
+    console.log("Function working", order);
     await addDoc(collection(db, "orders"), order);
     console.log("Saved!");
   } catch(e) {
     console.error("Error:", e);
   }
-}
+ }
 </script>
 <div id="liveNotification" class="live-notification"></div>
 </body>
