@@ -1709,18 +1709,17 @@ setTimeout(()=>{
 
 })();
  </script>
-
- <script type="module">
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD6DP54eIY_L4ZYO5Uwa2rivBDylq...",
+  apiKey: "YOUR_API_KEY",
   authDomain: "ebx-store.firebaseapp.com",
   projectId: "ebx-store",
   storageBucket: "ebx-store.firebasestorage.app",
   messagingSenderId: "66778288784",
-  appId: "1:66778288784:web:835bcccebcacac69be7e15"
+  appId: "1:66778288784:web:835bcccebcaac69be7e15"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -1728,53 +1727,13 @@ const db = getFirestore(app);
 
 window.saveOrder = async function(order){
   try {
-    console.log("Order data:", order);
-
     await addDoc(collection(db, "orders"), order);
-
-    console.log("Saved successfully!");
-    alert("تم حفظ الطلب 🔥");
-  } catch (e) {
-    console.error("Firestore Error:", e);
-    alert("فيه Error بص في Console");
+    console.log("Saved!");
+  } catch(e) {
+    console.error("Error:", e);
   }
-}
- 
- function confirmPack(gameName, idx){
-
-  const decodedGame = decodeURIComponent(gameName);
-  const playerId = document.getElementById(`pid-${idx}`).value;
-
-  if(!playerId){
-    alert("اكتب Player ID الأول");
-    return;
-  }
-
-  const game = GAMES[decodedGame] || APPS[decodedGame];
-  const pack = game.packs[idx];
-
-  // تشغيل اللودر
-  document.getElementById(`loader-${idx}`).style.display = "block";
-
-  // حفظ الطلب في Firebase
-  saveOrder({
-    name: playerId,
-    game: decodedGame,
-    price: pack.price,
-    pack: pack.label,
-    date: new Date().toISOString(),
-    status: "pending"
-  });
-
-  // إخفاء اللودر وإظهار تم
-  setTimeout(()=>{
-    document.getElementById(`loader-${idx}`).style.display = "none";
-    document.getElementById(`done-${idx}`).style.display = "block";
-  },1500);
-
 }
 </script>
-
 <div id="liveNotification" class="live-notification"></div>
 </body>
 </html>
