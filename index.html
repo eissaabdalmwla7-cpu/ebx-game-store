@@ -1726,14 +1726,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-window.saveOrder = async function(name, game, price){
+window.saveOrder = async function(order){
   try {
-    await addDoc(collection(db, "orders"), {
-      name: name,
-      game: game,
-      price: price,
-      date: new Date()
-    });
+    await addDoc(collection(db, "orders"), order);
     alert("تم حفظ الطلب بنجاح 🔥");
   } catch (e) {
     console.error("Error:", e);
