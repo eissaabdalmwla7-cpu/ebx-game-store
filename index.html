@@ -1313,7 +1313,7 @@ window.cancelPack = (idx)=>{
 
 window.confirmPack = async (gEnc, idx)=>{
   const gameName = decodeURIComponent(gEnc);
-  const source = GAMES[gameName] || APPS[appName];
+  const source = GAMES[gameName] || APPS[gameName];
 const packs = source.packs || [];
   const pack = packs[idx];
   const idInput = $("#pid-"+idx);
