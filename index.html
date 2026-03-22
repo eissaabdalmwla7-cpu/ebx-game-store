@@ -1429,6 +1429,25 @@ Player ID: ${playerId}
 /** ========= Drawer WhatsApp Links ========= **/
 setSupportLinks();
 
+
+function showTournament(){
+
+  const games = document.getElementById("gamesSection");
+  const apps = document.getElementById("appsSection");
+  const tour = document.getElementById("tournamentSection");
+
+  if(games) games.style.display = "none";
+  if(apps) apps.style.display = "none";
+  if(tour) tour.style.display = "block";
+
+  const tabGames = document.getElementById("tabGames");
+  const tabApps = document.getElementById("tabApps");
+  const tabTour = document.getElementById("tabTournament");
+
+  if(tabGames) tabGames.classList.remove("active");
+  if(tabApps) tabApps.classList.remove("active");
+  if(tabTour) tabTour.classList.add("active");
+}
 /** ========= Admin Gate (hidden) ========= **
  * Access: click the logo 5 times quickly to open login modal
  */
@@ -1789,6 +1808,38 @@ window.saveOrder = async function(order){
     console.error("Error:", e);
   }
 }
+ window.confirmTournamentPayment = async function(){
+
+  const name = document.getElementById("playerName")?.value.trim();
+  const phone = document.getElementById("phoneNumber")?.value.trim();
+
+  if(!name || !phone){
+    alert("اكتب الاسم ورقم الهاتف ❌");
+    return;
+  }
+
+  // إظهار اللودينج
+  const loader = document.getElementById("loadingBox");
+  if(loader) loader.style.display = "block";
+
+  try{
+    await addDoc(collection(db, "tournament_payments"), {
+      name: name,
+      phone: phone,
+      createdAt: new Date().toISOString()
+    });
+
+    alert("تم التسجيل بنجاح 👑");
+
+    setTimeout(()=>{
+  window.location.href = "https://challonge.com/ar/tournaments/signup/hnVgvlbwO7";
+}, 1000);
+
+  }catch(e){
+    console.error(e);
+    alert("حصل خطأ ❌");
+  }
+}
 </script>
 <div id="liveNotification" class="live-notification"></div>
   <div id="tournamentModal" class="admin-modal">
@@ -1796,15 +1847,23 @@ window.saveOrder = async function(order){
 
     <h3>دفع رسوم الانضمام</h3>
 
-    <div class="muted">قم برفع صورة التحويل لإتمام التسجيل</div>
+ <div class="muted">
+  للتسجيل اكتب اسمك ورقم الهاتف الذي تم التحويل منه
+</div>
 
-    <input type="file" id="paymentImage" class="input" accept="image/*">
+<input type="text" id="playerName" class="input" placeholder="👤 اكتب اسمك">
 
-    <button id="confirmBtn" class="btn btn-cta" style="display:none;margin-top:10px">
-      تأكيد التسجيل
-    </button>
+<input type="text" id="phoneNumber" class="input" placeholder="📱 رقم الهاتف المحول منه">
 
-  </div>
+<button id="confirmBtn" class="btn btn-cta" onclick="confirmTournamentPayment()">
+  تسجيل تأكيد ✅
+</button>
+
+<div id="loadingBox" style="display:none; text-align:center; margin-top:10px;">
+  ⏳ جاري التأكيد...
+
+ </div>
+
 </div>
 
 </body>
