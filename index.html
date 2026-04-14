@@ -416,6 +416,15 @@
 </style> 
  </head> 
  <body> <!-- Toast --> 
+ <h2>Login / Register</h2>
+
+<input type="email" id="email" placeholder="Enter Email">
+<input type="password" id="password" placeholder="Enter Password">
+
+<br><br>
+
+<button onclick="register()">Create Account</button>
+<button onclick="login()">Login</button>
   <div id="toast" class="toast"></div> <!-- Header --> 
   <header> 
    <div class="header-wrap container"> 
@@ -1791,6 +1800,38 @@ setTimeout(()=>{
 })();
  </script>
 <script type="module">
+
+ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } 
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+// إنشاء حساب
+window.register = function() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      alert("Account created successfully ✅");
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+};
+
+// تسجيل دخول
+window.login = function() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      alert("Logged in successfully 🔥");
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+};
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
